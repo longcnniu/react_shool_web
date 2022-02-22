@@ -59,10 +59,10 @@ const Admin = () => {
     return fetch("https://salty-brook-05753.herokuapp.com/all-user", requestOptions)
       .then(res => res.json())
       .then(data => {
-        if(data === " "){
+        if (data === " ") {
           setViewUser('Not User')
           setLoadingViewUser(true)
-        }else{
+        } else {
           setViewUser(data)
           setLoadingViewUser(true)
         }
@@ -80,15 +80,16 @@ const Admin = () => {
       {Loading ?
         <div>
           <button className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded hover:shadow-xl transition duration-200 h-12 w-32 mt-12 ml-12" onClick={nextPageRegistration}>Add Account</button>
-          {LoadingViewUser ? 
-          <div>
-            <div>{ViewUser.map(data =>(
-              <div key={data.email}>
-                <p>{data.email} {data.role}</p>
-              </div>
-            ))}</div>
-          </div>
-          :<div>Loading user...</div>}
+          {LoadingViewUser ?
+            <div>
+              <div>{ViewUser.map(data => (
+                <div key={data.email}>
+                  <h1>{data.email} </h1>
+                  <p>{data.role}</p>
+                </div>
+              ))}</div>
+            </div>
+            : <div>Loading user...</div>}
         </div> :
         <div>loading...</div>}
     </div>

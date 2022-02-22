@@ -1,3 +1,4 @@
+import '../css/home.css'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from "react-router-dom";
 
@@ -11,9 +12,9 @@ const Home = () => {
       if (document.cookie.split(';').some((item) => item.trim().startsWith('accessToken='))) {
         //đoc cookie
         const cookieValue = document.cookie
-        .split('; ')
-        .find(row => row.startsWith('accessToken='))
-        .split('=')[1];
+          .split('; ')
+          .find(row => row.startsWith('accessToken='))
+          .split('=')[1];
         //Gửi req token lên server xác thực
         var myHeaders = new Headers();
         myHeaders.append("token", cookieValue);
@@ -36,7 +37,7 @@ const Home = () => {
             }
           })
           .catch(error => console.log('error', error))
-      }else{
+      } else {
         navigate("/login")
       };
     }
@@ -45,7 +46,11 @@ const Home = () => {
 
   return (
     <div>
-      {Loading ? <div>Home</div> : <div>loading...</div>}
+      {Loading ?
+        <div>
+          Home
+        </div>
+        : <div className='loading'>loading...</div>}
     </div>
   )
 }

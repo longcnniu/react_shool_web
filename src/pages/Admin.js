@@ -25,7 +25,7 @@ const Admin = () => {
           redirect: 'follow'
         };
 
-        fetch("http://localhost:5000/admin", requestOptions)
+        fetch("https://salty-brook-05753.herokuapp.com/admin", requestOptions)
           .then(res => res.json())
           .then(data => {
             if (data.success) {
@@ -57,5 +57,5 @@ const Admin = () => {
     </div>
   )
 }
-
+//Test
 export default Admin

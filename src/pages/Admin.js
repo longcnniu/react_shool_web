@@ -5,6 +5,8 @@ const Admin = () => {
 
   const navigate = useNavigate()
   const [Loading, setLoading] = useState(false)
+  const [LoadingViewUser, setLoadingViewUser] = useState(false)
+  const [ViewUser, setViewUser] = useState('')
 
   //kiểm tra token and đẵ đăng nhập hay chưa vs cos phải là Admin
   useEffect(() => {
@@ -25,11 +27,12 @@ const Admin = () => {
           redirect: 'follow'
         };
 
-        fetch("https://salty-brook-05753.herokuapp.com/admin", requestOptions)
+        return fetch("https://salty-brook-05753.herokuapp.com/admin", requestOptions)
           .then(res => res.json())
           .then(data => {
             if (data.success) {
               setLoading(true)
+              getView(cookieValue)
             } else {
               navigate('/login')
             }
@@ -42,6 +45,31 @@ const Admin = () => {
     checkAuth()
   }, [navigate])
 
+  //hiện danh sách user
+  const getView = (cookieValue) => {
+    var myHeaders = new Headers();
+    myHeaders.append("token", cookieValue);
+
+    var requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+      redirect: 'follow'
+    };
+
+    return fetch("https://salty-brook-05753.herokuapp.com/all-user", requestOptions)
+      .then(res => res.json())
+      .then(data => {
+        if(data === " "){
+          setViewUser('Not User')
+          setLoadingViewUser(true)
+        }else{
+          setViewUser(data)
+          setLoadingViewUser(true)
+        }
+      })
+      .catch(error => console.log('error', error));
+  }
+
   //Chuyển trang sang đăng kí
   const nextPageRegistration = () => {
     navigate('/registration')
@@ -52,10 +80,19 @@ const Admin = () => {
       {Loading ?
         <div>
           <button className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded hover:shadow-xl transition duration-200 h-12 w-32 mt-12 ml-12" onClick={nextPageRegistration}>Add Account</button>
+          {LoadingViewUser ? 
+          <div>
+            <div>{ViewUser.map(data =>(
+              <div key={data.email}>
+                <p>{data.email} {data.role}</p>
+              </div>
+            ))}</div>
+          </div>
+          :<div>Loading user...</div>}
         </div> :
         <div>loading...</div>}
     </div>
   )
 }
-//Test
+
 export default Admin

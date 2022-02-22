@@ -24,7 +24,7 @@ const Home = () => {
           redirect: 'follow'
         };
 
-        return fetch("http://localhost:5000", requestOptions)
+        return fetch("https://salty-brook-05753.herokuapp.com/", requestOptions)
           .then(res => res.json())
           .then(data => {
             if (!data.success) {

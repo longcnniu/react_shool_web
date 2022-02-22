@@ -25,7 +25,7 @@ const [Loading, setLoading] = useState(false)
           redirect: 'follow'
         };
 
-        fetch("http://localhost:5000/admin", requestOptions)
+        fetch("https://salty-brook-05753.herokuapp.com/admin", requestOptions)
           .then(res => res.json())
           .then(data => {
             if (!data.success) {
@@ -48,5 +48,5 @@ const [Loading, setLoading] = useState(false)
     </div>
   )
 }
-
+//Test
 export default Admin

@@ -30,7 +30,6 @@ const Login = () => {
                 return fetch("http://localhost:5000/login", requestOptions)
                     .then(response => response.json())
                     .then(data => {
-                        console.log(data)
                         if (data.success) {
                             navigate('/')
                         }

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 const Admin = () => {
 
   const navigate = useNavigate()
-const [Loading, setLoading] = useState(false)
+  const [Loading, setLoading] = useState(false)
 
   //kiểm tra token and đẵ đăng nhập hay chưa vs cos phải là Admin
   useEffect(() => {
@@ -12,9 +12,9 @@ const [Loading, setLoading] = useState(false)
       if (document.cookie.split(';').some((item) => item.trim().startsWith('accessToken='))) {
         //đoc cookie
         const cookieValue = document.cookie
-        .split('; ')
-        .find(row => row.startsWith('accessToken='))
-        .split('=')[1];
+          .split('; ')
+          .find(row => row.startsWith('accessToken='))
+          .split('=')[1];
         //Gửi req token lên server xác thực
         var myHeaders = new Headers();
         myHeaders.append("token", cookieValue);
@@ -28,23 +28,32 @@ const [Loading, setLoading] = useState(false)
         fetch("http://localhost:5000/admin", requestOptions)
           .then(res => res.json())
           .then(data => {
-            if (!data.success) {
-              console.log(data.message);
+            if (data.success) {
+              setLoading(true)
             } else {
-              console.log(data.message);
+              navigate('/login')
             }
           })
           .catch(error => console.log('error', error))
-      }else{
+      } else {
         navigate('/login')
       }
     }
     checkAuth()
   }, [navigate])
 
+  //Chuyển trang sang đăng kí
+  const nextPageRegistration = () => {
+    navigate('/registration')
+  }
+
   return (
     <div>
-      {Loading ? <div>Home</div> : <div>loading...</div>}
+      {Loading ?
+        <div>
+          <button className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded hover:shadow-xl transition duration-200 h-12 w-32 mt-12 ml-12" onClick={nextPageRegistration}>Add Account</button>
+        </div> :
+        <div>loading...</div>}
     </div>
   )
 }

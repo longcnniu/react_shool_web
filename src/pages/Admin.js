@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import { useNavigate } from "react-router-dom";
+import React, { useEffect } from 'react'
 
-const Home = () => {
-  const [Loading, setLoading] = useState(false)
-  const navigate = useNavigate()
+const Admin = () => {
 
-  //kiểm tra token and đẵ đăng nhập hay chưa
+  //kiểm tra token and đẵ đăng nhập hay chưa vs cos phải là Admin
   useEffect(() => {
-    const checklogin = () => {
+    const checkAuth = () => {
       if (document.cookie.split(';').some((item) => item.trim().startsWith('accessToken='))) {
         //đoc cookie
         const cookieValue = document.cookie
@@ -24,30 +21,25 @@ const Home = () => {
           redirect: 'follow'
         };
 
-        return fetch("http://localhost:5000", requestOptions)
+        fetch("http://localhost:5000/admin", requestOptions)
           .then(res => res.json())
           .then(data => {
             if (!data.success) {
-              setLoading(true)
-              document.cookie = "accessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-              navigate("/login")
+              console.log(data.message);
             } else {
-              setLoading(true)
+              console.log(data.message);
             }
           })
           .catch(error => console.log('error', error))
-      }else{
-        navigate("/login")
-      };
+      }
     }
-    checklogin()
-  }, [navigate])
+    checkAuth()
+  }, [])
+
 
   return (
-    <div>
-      {Loading ? <div>Home</div> : <div>loading...</div>}
-    </div>
+    <div>Admin</div>
   )
 }
 
-export default Home
+export default Admin

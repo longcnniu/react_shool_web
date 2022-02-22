@@ -42,7 +42,6 @@ const [Loading, setLoading] = useState(false)
     checkAuth()
   }, [navigate])
 
-  //cho son
   return (
     <div>
       {Loading ? <div>Home</div> : <div>loading...</div>}

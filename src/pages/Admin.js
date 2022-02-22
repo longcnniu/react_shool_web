@@ -1,6 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useNavigate } from "react-router-dom";
 
 const Admin = () => {
+
+  const navigate = useNavigate()
+const [Loading, setLoading] = useState(false)
 
   //kiểm tra token and đẵ đăng nhập hay chưa vs cos phải là Admin
   useEffect(() => {
@@ -31,14 +35,18 @@ const Admin = () => {
             }
           })
           .catch(error => console.log('error', error))
+      }else{
+        navigate('/login')
       }
     }
     checkAuth()
-  }, [])
+  }, [navigate])
 
 
   return (
-    <div>Admin</div>
+    <div>
+      {Loading ? <div>Home</div> : <div>loading...</div>}
+    </div>
   )
 }
 

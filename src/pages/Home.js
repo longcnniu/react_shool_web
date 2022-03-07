@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 const Home = () => {
   const [Loading, setLoading] = useState(false)
   const navigate = useNavigate()
+  const [RoleAuth, setRoleAuth] = useState('')
 
   //kiểm tra token and đẵ đăng nhập hay chưa
   useEffect(() => {
@@ -25,7 +26,7 @@ const Home = () => {
           redirect: 'follow'
         };
 
-        return fetch("https://salty-brook-05753.herokuapp.com/", requestOptions)
+        return fetch("http://localhost:5000", requestOptions)
           .then(res => res.json())
           .then(data => {
             if (!data.success) {
@@ -34,6 +35,7 @@ const Home = () => {
               navigate("/login")
             } else {
               setLoading(true)
+              setRoleAuth(data.role)
             }
           })
           .catch(error => console.log('error', error))
@@ -44,15 +46,41 @@ const Home = () => {
     checklogin()
   }, [navigate])
 
-  return (
-    <div>
-      {Loading ?
+  //click creact new Post
+  const CreactPost = () => {
+    navigate('/new-post')
+  }
+
+  //click creact new Category
+  const CreactCategory = () => {
+    navigate('/Category')
+  }
+
+  let body
+  if (Loading) {
+    if (RoleAuth === 'admin' || RoleAuth === 'qa-manager') {
+      body = (
         <div>
-          Home
+          <button onClick={CreactPost}>Dang bai viet</button>
+          <button onClick={CreactCategory}>View Category</button>
         </div>
-        : <div className='loading'>loading...</div>}
-    </div>
-  )
+      )
+    } else {
+      body = (
+        <div>
+          <button onClick={CreactPost}>Dang bai viet</button>
+        </div>
+      )
+    }
+  } else {
+    body = (
+      <>
+        <div className='loading'>loading...</div>
+      </>
+    )
+  }
+
+  return (body)
 }
 
 export default Home

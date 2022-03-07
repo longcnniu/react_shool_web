@@ -2,7 +2,7 @@ import '../css/admin.css'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from "react-router-dom";
 
-const Admin = () => {
+const QaManager = () => {
 
   const navigate = useNavigate()
   const [Loading, setLoading] = useState(false)
@@ -30,7 +30,7 @@ const Admin = () => {
           redirect: 'follow'
         };
 
-        return fetch("https://salty-brook-05753.herokuapp.com/admin", requestOptions)
+        return fetch("http://localhost:5000/manager", requestOptions)
           .then(res => res.json())
           .then(data => {
             if (data.success) {
@@ -59,7 +59,7 @@ const Admin = () => {
       redirect: 'follow'
     };
 
-    return fetch("http://localhost:5000/all-user", requestOptions)
+    return fetch("http://localhost:5000/all-user-qa", requestOptions)
       .then(res => res.json())
       .then(data => {
         if (data.success) {
@@ -164,4 +164,4 @@ const Admin = () => {
   return (body)
 }
 
-export default Admin
+export default QaManager

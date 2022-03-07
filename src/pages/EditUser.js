@@ -1,27 +1,52 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from "react-router-dom";
 
 const EditUser = () => {
 
+    const navigate = useNavigate()
     const [Email, setEmail] = useState('')
-    const [Role, setRole] = useState('')
+    const [Role, setRole] = useState('staff')
+    const [RoleAuth, setRoleAuth] = useState('')
+    const [Loading, setLoading] = useState(false)
 
     useEffect(() => {
-        var requestOptions = {
-            method: 'GET',
-            redirect: 'follow'
-        };
+        const checkAuth = () => {
+            if (document.cookie.split(';').some((item) => item.trim().startsWith('accessToken='))) {
+                //đoc cookie
+                const cookieValue = document.cookie
+                    .split('; ')
+                    .find(row => row.startsWith('accessToken='))
+                    .split('=')[1];
+                //Gửi req token lên server xác thực
+                var myHeaders = new Headers();
+                myHeaders.append("token", cookieValue);
 
-        fetch("http://localhost:5000"+ window.location.pathname, requestOptions)
-            .then(response => response.json())
-            .then(result => {
-                if(result.success){
-                    setEmail(result.data.email)
-                    setRole(result.data.role)
-                }                
-            })
-            .catch(error => console.log('error', error));
-    }, [])
+                var requestOptions = {
+                    method: 'GET',
+                    headers: myHeaders,
+                    redirect: 'follow'
+                }
 
+                fetch("http://localhost:5000" + window.location.pathname, requestOptions)
+                    .then(response => response.json())
+                    .then(result => {
+                        if (result.success) {
+                            setEmail(result.data.email)
+                            setRole(result.data.role)
+                            setRoleAuth(result.roleAuth);
+                            setLoading(true)
+                        } else {
+                            setLoading(true)
+                            navigate('/')
+                        }
+                    })
+                    .catch(error => console.log('error', error));
+            } else {
+                navigate('/login')
+            }
+        }
+        checkAuth()
+    }, [navigate])
 
     const updateUser = () => {
         var myHeaders = new Headers();
@@ -44,13 +69,46 @@ const EditUser = () => {
             .catch(error => console.log('error', error));
     }
 
-    return (
-        <div>
-            <input type='email' onChange={e => setEmail(e.target.value)} value={Email} />
-            <input type='text' onChange={e => setRole(e.target.value)} value={Role}/>
-            <button onClick={updateUser}>Xac Nhan</button>
-        </div>
-    )
+    //html
+    let body
+
+    if (Loading) {
+        if (RoleAuth === 'admin') {
+            body = (
+                <div>
+                    <input type='email' onChange={e => setEmail(e.target.value)} value={Email} />
+                    <div>
+                        <label>Role User:</label>
+                        <select value={Role} onChange={e => setRole(e.target.value)}>
+                            <option value='staff'>Staff</option>
+                            <option value='qa-manager'>QA Manager</option>
+                            <option value='admin'>Admin</option>
+                        </select>
+                    </div>
+                    <button onClick={updateUser}>Xac Nhan</button>
+                </div>
+            )
+        } else {
+            body = (
+                <div>
+                    <input type='email' onChange={e => setEmail(e.target.value)} value={Email} />
+                    <div>
+                        <label>Role User:</label>
+                        <select value={Role} onChange={e => setRole(e.target.value)}>
+                            <option value='staff'>Staff</option>
+                        </select>
+                    </div>
+                    <button onClick={updateUser}>Xac Nhan</button>
+                </div>
+            )
+        }
+    } else {
+        body = (
+            <div>Loading...</div>
+        )
+    }
+
+    return (body)
 }
 
 export default EditUser

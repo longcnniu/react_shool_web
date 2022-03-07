@@ -45,7 +45,7 @@ const CreacteCategory = () => {
 
   const creacteCategory = () => {
     var myHeaders = new Headers();
-    myHeaders.append("token", "Bearer ");
+    myHeaders.append("token", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjIyY2E4MGNhNmU2MjBjZGFlZGI4ZGMiLCJlbWFpbCI6Imx1dWhvYW5nbG9uZzIxQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsIm5hbWUiOiJMdXUgTG9uZyIsImlhdCI6MTY0NjYzNzgyNywiZXhwIjoxNjQ2NzI0MjI3fQ.RYNQlJ7tDwPz-KIeTv6L02N7kVIcSfC8M7ozffs3ZtQ");
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
     var urlencoded = new URLSearchParams();

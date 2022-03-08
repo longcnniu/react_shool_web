@@ -49,7 +49,14 @@ const EditUser = () => {
     }, [navigate])
 
     const updateUser = () => {
+        //đoc cookie
+        const cookieValue = document.cookie
+            .split('; ')
+            .find(row => row.startsWith('accessToken='))
+            .split('=')[1];
+        //FUn Del
         var myHeaders = new Headers();
+        myHeaders.append("token", cookieValue);
         myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
         var urlencoded = new URLSearchParams();

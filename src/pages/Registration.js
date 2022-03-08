@@ -89,7 +89,8 @@ const Registration = () => {
       body = (
         <div>
           <div>
-            <label type="email" name='email' onChange={e => setUserName(e.target.value)} />
+            <label>Email</label>
+            <input type="email" name='email' onChange={e => setUserName(e.target.value)}/>
           </div>
           <div >
             <label name="password">Password</label>

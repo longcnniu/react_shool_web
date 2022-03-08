@@ -59,7 +59,7 @@ const Admin = () => {
       redirect: 'follow'
     };
 
-    return fetch("http://localhost:5000/all-user", requestOptions)
+    return fetch("https://salty-brook-05753.herokuapp.com/all-user", requestOptions)
       .then(res => res.json())
       .then(data => {
         if (data.success) {
@@ -91,7 +91,7 @@ const Admin = () => {
         redirect: 'follow'
       };
 
-      fetch("http://localhost:5000/view-user/" + data._id, requestOptions)
+      fetch("https://salty-brook-05753.herokuapp.com/view-user/" + data._id, requestOptions)
         .then(response => response.json())
         .then(result => {
           if (result.success) {

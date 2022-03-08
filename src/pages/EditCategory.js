@@ -24,7 +24,7 @@ const EditCategory = () => {
                     redirect: 'follow'
                 }
 
-                fetch("http://localhost:5000" + window.location.pathname, requestOptions)
+                fetch("https://salty-brook-05753.herokuapp.com" + window.location.pathname, requestOptions)
                     .then(response => response.json())
                     .then(result => {
                         if (result.success) {
@@ -64,7 +64,7 @@ const EditCategory = () => {
             redirect: 'follow'
         };
 
-        fetch("http://localhost:5000/category"+ window.location.pathname, requestOptions)
+        fetch("https://salty-brook-05753.herokuapp.com/category"+ window.location.pathname, requestOptions)
             .then(response => response.text())
             .then(result => console.log(result))
             .catch(error => console.log('error', error));

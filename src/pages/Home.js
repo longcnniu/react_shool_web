@@ -28,7 +28,7 @@ const Home = () => {
           redirect: 'follow'
         };
 
-        return fetch("http://localhost:5000", requestOptions)
+        return fetch("https://salty-brook-05753.herokuapp.com", requestOptions)
           .then(res => res.json())
           .then(data => {
             if (!data.success) {
@@ -60,7 +60,7 @@ const Home = () => {
       redirect: 'follow'
     };
 
-    return fetch("http://localhost:5000/all-post", requestOptions)
+    return fetch("https://salty-brook-05753.herokuapp.com/all-post", requestOptions)
       .then(res => res.json())
       .then(data => {
         setPosts(data.dataPost)

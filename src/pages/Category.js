@@ -29,7 +29,7 @@ const Category = () => {
                     redirect: 'follow'
                 };
 
-                return fetch("http://localhost:5000/category", requestOptions)
+                return fetch("https://salty-brook-05753.herokuapp.com/category", requestOptions)
                     .then(res => res.json())
                     .then(data => {
                         if (data.success) {
@@ -58,7 +58,7 @@ const Category = () => {
             redirect: 'follow'
         };
 
-        return fetch("http://localhost:5000/all-category", requestOptions)
+        return fetch("https://salty-brook-05753.herokuapp.com/all-category", requestOptions)
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
@@ -95,7 +95,7 @@ const Category = () => {
                 redirect: 'follow'
             };
 
-            fetch("http://localhost:5000/category/" + data._id, requestOptions)
+            fetch("https://salty-brook-05753.herokuapp.com/category/" + data._id, requestOptions)
                 .then(response => response.json())
                 .then(result => {
                     if (result.success) {

@@ -26,7 +26,7 @@ const CreacteCategory = () => {
           redirect: 'follow'
         };
 
-        return fetch("http://localhost:5000/category", requestOptions)
+        return fetch("https://salty-brook-05753.herokuapp.com/category", requestOptions)
           .then(res => res.json())
           .then(data => {
             if (data.success) {
@@ -62,7 +62,7 @@ const CreacteCategory = () => {
       redirect: 'follow'
     };
 
-    fetch("http://localhost:5000/category", requestOptions)
+    fetch("https://salty-brook-05753.herokuapp.com/category", requestOptions)
       .then(response => response.json())
       .then(result => {
         console.log(result.message);

@@ -4,8 +4,10 @@ import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [Loading, setLoading] = useState(false)
+  const [LoadingPost, setLoadingPost] = useState(false)
   const navigate = useNavigate()
   const [RoleAuth, setRoleAuth] = useState('')
+  const [Posts, setPosts] = useState([])
 
   //kiểm tra token and đẵ đăng nhập hay chưa
   useEffect(() => {
@@ -34,8 +36,9 @@ const Home = () => {
               document.cookie = "accessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
               navigate("/login")
             } else {
-              setLoading(true)
               setRoleAuth(data.role)
+              GetAllPost(cookieValue)
+              setLoading(true)
             }
           })
           .catch(error => console.log('error', error))
@@ -45,6 +48,27 @@ const Home = () => {
     }
     checklogin()
   }, [navigate])
+
+  //Get POST
+  const GetAllPost = (cookieValue) => {
+    var myHeaders = new Headers();
+    myHeaders.append("token", cookieValue);
+
+    var requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+      redirect: 'follow'
+    };
+
+    return fetch("http://localhost:5000/all-post", requestOptions)
+      .then(res => res.json())
+      .then(data => {
+        setPosts(data.dataPost)
+        setLoadingPost(true)
+      })
+      .catch(error => console.log('error', error));
+
+  }
 
   //click creact new Post
   const CreactPost = () => {
@@ -56,6 +80,45 @@ const Home = () => {
     navigate('/Category')
   }
 
+  //HTML 2
+
+  let bodyPost
+
+  if (LoadingPost) {
+    const listPost = Posts.map(data => (
+      <div className='post' key={data._id}>
+        <div>
+          <h4>Name: {data.name}</h4>
+        </div>
+        <div>
+          <p>Ngay Dang: {data.dateCreate}</p>
+        </div>
+        <div>
+          <p>Category: {data.category}</p>
+        </div>
+        <div>
+          <h4>Tieu De: {data.title}</h4>
+        </div>
+        <div>
+          <p>Noi Dung: {data.content}</p>
+        </div>
+        <div>
+          <p>Vote: {data.numberVote}</p>
+        </div>
+      </div>
+    ))
+    bodyPost = (
+      <div>
+        {listPost}
+      </div>
+    )
+  } else {
+    bodyPost = (
+      <div className='loading'>Loading Posts...</div>
+    )
+  }
+
+  //HTML 1
   let body
   if (Loading) {
     if (RoleAuth === 'admin' || RoleAuth === 'qa-manager') {
@@ -63,12 +126,14 @@ const Home = () => {
         <div>
           <button onClick={CreactPost}>Dang bai viet</button>
           <button onClick={CreactCategory}>View Category</button>
+          {bodyPost}
         </div>
       )
     } else {
       body = (
         <div>
           <button onClick={CreactPost}>Dang bai viet</button>
+          {bodyPost}
         </div>
       )
     }

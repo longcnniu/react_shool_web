@@ -7,3 +7,11 @@
     font-size: 20px;
     font-weight: 500;
 }
+
+.post {
+    display: flex;
+    justify-content: center;
+    flex-direction:column;
+    align-items: center;
+    border-bottom: 1px solid;
+}

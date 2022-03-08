@@ -7,6 +7,8 @@ const Category = () => {
     const [Loading, setLoading] = useState(false)
     const [LoadingViewUser, setLoadingViewUser] = useState(false)
     const [ViewCategorys, setViewCategorys] = useState([])
+    const [changedCategory, setchangedCategory] = useState(false)
+    const [changedListCategory, setchangedListCategory] = useState(false)
 
     //kiểm tra token and đẵ đăng nhập hay chưa vs cos phải là Admin or QA
     useEffect(() => {
@@ -43,7 +45,7 @@ const Category = () => {
             }
         }
         checkAuth()
-    }, [navigate])
+    }, [navigate, changedCategory, changedListCategory])
 
     //hiện danh sách user
     const getView = (cookieValue) => {
@@ -75,6 +77,47 @@ const Category = () => {
         navigate('/creacte-category')
     }
 
+    function click(data) {
+        return (event) => {
+            //đoc cookie
+            const cookieValue = document.cookie
+                .split('; ')
+                .find(row => row.startsWith('accessToken='))
+                .split('=')[1];
+
+            //Gửi req token lên server xác thực
+            var myHeaders = new Headers();
+            myHeaders.append("token", cookieValue);
+            //fun req
+            var requestOptions = {
+                method: 'DELETE',
+                headers: myHeaders,
+                redirect: 'follow'
+            };
+
+            fetch("http://localhost:5000/category/" + data._id, requestOptions)
+                .then(response => response.json())
+                .then(result => {
+                    if (result.success) {
+                        console.log(result.message);
+                        setchangedCategory(!changedCategory)
+                    }
+                })
+                .catch(error => console.log('error', error));
+        }
+    }
+
+    const clickRefrc = () => {
+        setchangedListCategory(!changedListCategory)
+      }
+
+    //Next Page Edit Category
+    const clickEdit = (data) => {
+        return (event) => {
+          navigate(`/category/${data._id}`)
+        }
+      }
+
     //html
     let body
     if (Loading) {
@@ -84,20 +127,20 @@ const Category = () => {
                     <tr key={data._id}>
                         <td>{data.title}</td>
                         <td>
-                            <button >Edit</button>
-                            <button >Xoa</button>
+                            <button onClick={clickEdit(data)}>Edit</button>
+                            <button onClick={click(data)}>Xoa</button>
                         </td>
                     </tr>
                 ))
                 body = (
                     <>
                         <button onClick={nextPageCreacteCategory}>Add Category</button>
-                        {/* <button onClick={clickRefrc}>Lam moi list</button> */}
+                        <button onClick={clickRefrc}>Lam moi list</button>
                         <div>
                             <table>
                                 <tbody>
                                     <tr>
-                                        <th>Title</th>                
+                                        <th>Title</th>
                                         <th>...</th>
                                     </tr>
                                     {listview}
@@ -110,7 +153,7 @@ const Category = () => {
                 body = (
                     <>
                         <button onClick={nextPageCreacteCategory}>Add Category</button>
-                        {/* <button onClick={clickRefrc}>Lam moi list</button> */}
+                        <button onClick={clickRefrc}>Lam moi list</button>
                         <h1>Khong co category nao</h1>
                     </>
                 )

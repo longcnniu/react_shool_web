@@ -9,19 +9,24 @@ import QaManager from './pages/QaManager';
 import CreatePosts from './pages/CreatePosts';
 import Category from './pages/Category';
 import CreacteCategory from './pages/CreacteCategory';
+import EditCategory from './pages/EditCategory';
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
+
       <Route path="/admin" element={<Admin />} />
       <Route path="registration" element={<Registration />} />
       <Route path="/view-user/:id" element={<EditUser />} />
       <Route path="/manager" element={<QaManager />} />
-      <Route path='/new-post' element={<CreatePosts/>}/>
+
       <Route path='/category' element={<Category/>}/>
       <Route path='/creacte-category' element={<CreacteCategory/>}/>
+      <Route path='/category/:id' element={<EditCategory/>}/>
+
+      <Route path='/new-post' element={<CreatePosts/>}/>
     </Routes>
   );
 }

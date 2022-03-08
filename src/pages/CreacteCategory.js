@@ -44,8 +44,12 @@ const CreacteCategory = () => {
   }, [navigate])
 
   const creacteCategory = () => {
+    const cookieValue = document.cookie
+      .split('; ')
+      .find(row => row.startsWith('accessToken='))
+      .split('=')[1];
     var myHeaders = new Headers();
-    myHeaders.append("token", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjIyY2E4MGNhNmU2MjBjZGFlZGI4ZGMiLCJlbWFpbCI6Imx1dWhvYW5nbG9uZzIxQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsIm5hbWUiOiJMdXUgTG9uZyIsImlhdCI6MTY0NjYzNzgyNywiZXhwIjoxNjQ2NzI0MjI3fQ.RYNQlJ7tDwPz-KIeTv6L02N7kVIcSfC8M7ozffs3ZtQ");
+    myHeaders.append("token", cookieValue);
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
     var urlencoded = new URLSearchParams();
@@ -59,8 +63,10 @@ const CreacteCategory = () => {
     };
 
     fetch("http://localhost:5000/category", requestOptions)
-      .then(response => response.text())
-      .then(result => console.log(result))
+      .then(response => response.json())
+      .then(result => {
+        console.log(result.message);
+      })
       .catch(error => console.log('error', error));
   }
 

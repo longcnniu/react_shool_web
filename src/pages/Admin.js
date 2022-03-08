@@ -86,8 +86,18 @@ const Admin = () => {
 
   function click(data) {
     return (event) => {
+      //đoc cookie
+      const cookieValue = document.cookie
+      .split('; ')
+      .find(row => row.startsWith('accessToken='))
+      .split('=')[1];
+      //FUn Del
+      var myHeaders = new Headers();
+      myHeaders.append("token", cookieValue); 
+
       var requestOptions = {
         method: 'DELETE',
+        headers: myHeaders,
         redirect: 'follow'
       };
 
@@ -144,7 +154,7 @@ const Admin = () => {
       } else {
         body = (
           <>
-          <button onClick={nextPageRegistration}>Add Account</button>
+            <button onClick={nextPageRegistration}>Add Account</button>
             <button onClick={clickRefrc}>Lam moi list</button>
             <h1>Khong co tai khoan nao</h1>
           </>

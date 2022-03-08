@@ -91,7 +91,7 @@ const Admin = () => {
         redirect: 'follow'
       };
 
-      fetch("https://salty-brook-05753.herokuapp.com/view-user" + data._id, requestOptions)
+      fetch("https://salty-brook-05753.herokuapp.com/view-user/" + data._id, requestOptions)
         .then(response => response.json())
         .then(result => {
           if (result.success) {

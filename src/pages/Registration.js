@@ -31,7 +31,7 @@ const Registration = () => {
           redirect: 'follow'
         };
 
-        fetch("https://salty-brook-05753.herokuapp.com/registration", requestOptions)
+        fetch("http://localhost:5000/registration", requestOptions)
           .then(res => res.json())
           .then(data => {
             if (data.success) {
@@ -73,7 +73,7 @@ const Registration = () => {
       redirect: 'follow'
     };
 
-    fetch("https://salty-brook-05753.herokuapp.com/registration", requestOptions)
+    fetch("http://localhost:5000/registration", requestOptions)
       .then(res => res.json())
       .then(data => {
         console.log(data);

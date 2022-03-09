@@ -9,6 +9,7 @@ const Home = () => {
   const [RoleAuth, setRoleAuth] = useState('')
   const [Posts, setPosts] = useState([])
 
+
   //kiểm tra token and đẵ đăng nhập hay chưa
   useEffect(() => {
     const checklogin = () => {
@@ -18,7 +19,6 @@ const Home = () => {
           .split('; ')
           .find(row => row.startsWith('accessToken='))
           .split('=')[1];
-        //Gửi req token lên server xác thực
         var myHeaders = new Headers();
         myHeaders.append("token", cookieValue);
 
@@ -28,20 +28,18 @@ const Home = () => {
           redirect: 'follow'
         };
 
-        return fetch("https://salty-brook-05753.herokuapp.com", requestOptions)
-          .then(res => res.json())
+        fetch("http://localhost:5000/", requestOptions)
+          .then(response => response.json())
           .then(data => {
             if (!data.success) {
               setLoading(true)
-              document.cookie = "accessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-              navigate("/login")
             } else {
               setRoleAuth(data.role)
               GetAllPost(cookieValue)
               setLoading(true)
             }
           })
-          .catch(error => console.log('error', error))
+          .catch(error => console.log('error', error));
       } else {
         navigate("/login")
       };
@@ -60,7 +58,7 @@ const Home = () => {
       redirect: 'follow'
     };
 
-    return fetch("https://salty-brook-05753.herokuapp.com/all-post", requestOptions)
+    return fetch("http://localhost:5000/all-post", requestOptions)
       .then(res => res.json())
       .then(data => {
         setPosts(data.dataPost)
@@ -86,12 +84,13 @@ const Home = () => {
 
   if (LoadingPost) {
     const listPost = Posts.map(data => (
+
       <div className='post' key={data._id}>
         <div>
           <h4>Name: {data.name}</h4>
         </div>
         <div>
-          <p>Ngay Dang: {data.dateCreate}</p>
+          <p>Ngay Dang: {new Date(data.dateCreate).toLocaleString()}</p>
         </div>
         <div>
           <p>Category: {data.category}</p>
@@ -104,6 +103,10 @@ const Home = () => {
         </div>
         <div>
           <p>Vote: {data.numberVote}</p>
+        </div>
+        <div>
+          <button>like</button>
+          <button>Edit</button>
         </div>
       </div>
     ))

@@ -5,6 +5,7 @@ const CreacteCategory = () => {
 
   const navigate = useNavigate()
   const [Category, setCategory] = useState('')
+  const [endDate, setendDate] = useState('')
   const [Loading, setLoading] = useState(false)
 
   //kiểm tra token and đẵ đăng nhập hay chưa vs cos phải là Admin or QA
@@ -26,7 +27,7 @@ const CreacteCategory = () => {
           redirect: 'follow'
         };
 
-        return fetch("https://salty-brook-05753.herokuapp.com/category", requestOptions)
+        return fetch("http://localhost:5000/category", requestOptions)
           .then(res => res.json())
           .then(data => {
             if (data.success) {
@@ -54,6 +55,7 @@ const CreacteCategory = () => {
 
     var urlencoded = new URLSearchParams();
     urlencoded.append("title", Category);
+    urlencoded.append("endDate", endDate)
 
     var requestOptions = {
       method: 'POST',
@@ -62,7 +64,7 @@ const CreacteCategory = () => {
       redirect: 'follow'
     };
 
-    fetch("https://salty-brook-05753.herokuapp.com/category", requestOptions)
+    fetch("http://localhost:5000/category", requestOptions)
       .then(response => response.json())
       .then(result => {
         console.log(result.message);
@@ -76,8 +78,14 @@ const CreacteCategory = () => {
   if (Loading) {
     body = (
       <div>
-        <label>Title: </label>
-        <input onChange={e => setCategory(e.target.value)} />
+        <div>
+          <label>Title: </label>
+          <input type='text' onChange={e => setCategory(e.target.value)} />
+        </div>
+        <div>
+          <label>Ngay het hang: </label>
+          <input type='datetime-local' onChange={e => setendDate(e.target.value)} />
+        </div>
         <button onClick={creacteCategory}>Xac Nhan</button>
       </div>
     )

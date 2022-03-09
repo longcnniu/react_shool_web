@@ -28,7 +28,7 @@ const Login = () => {
                     redirect: 'follow'
                 };
 
-                return fetch("https://salty-brook-05753.herokuapp.com/login", requestOptions)
+                return fetch("http://localhost:5000/login", requestOptions)
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
@@ -58,7 +58,7 @@ const Login = () => {
             redirect: 'follow'
         };
 
-        fetch("https://salty-brook-05753.herokuapp.com/login", requestOptions)
+        fetch("http://localhost:5000/login", requestOptions)
             .then(response => response.json())
             .then(data => {
                 if (data.success) {

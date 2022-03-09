@@ -30,7 +30,7 @@ const QaManager = () => {
           redirect: 'follow'
         };
 
-        return fetch("https://salty-brook-05753.herokuapp.com/manager", requestOptions)
+        return fetch("http://localhost:5000/manager", requestOptions)
           .then(res => res.json())
           .then(data => {
             if (data.success) {
@@ -59,7 +59,7 @@ const QaManager = () => {
       redirect: 'follow'
     };
 
-    return fetch("https://salty-brook-05753.herokuapp.com/all-user-qa", requestOptions)
+    return fetch("http://localhost:5000/all-user-qa", requestOptions)
       .then(res => res.json())
       .then(data => {
         if (data.success) {
@@ -101,7 +101,7 @@ const QaManager = () => {
         redirect: 'follow'
       };
 
-      fetch("https://salty-brook-05753.herokuapp.com/view-user/" + data._id, requestOptions)
+      fetch("http://localhost:5000/view-user/" + data._id, requestOptions)
         .then(response => response.json())
         .then(result => {
           if (result.success) {

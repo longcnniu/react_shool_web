@@ -29,7 +29,7 @@ const Category = () => {
                     redirect: 'follow'
                 };
 
-                return fetch("https://salty-brook-05753.herokuapp.com/category", requestOptions)
+                return fetch("http://localhost:5000/category", requestOptions)
                     .then(res => res.json())
                     .then(data => {
                         if (data.success) {
@@ -58,7 +58,7 @@ const Category = () => {
             redirect: 'follow'
         };
 
-        return fetch("https://salty-brook-05753.herokuapp.com/all-category", requestOptions)
+        return fetch("http://localhost:5000/all-category", requestOptions)
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
@@ -95,7 +95,7 @@ const Category = () => {
                 redirect: 'follow'
             };
 
-            fetch("https://salty-brook-05753.herokuapp.com/category/" + data._id, requestOptions)
+            fetch("http://localhost:5000/category/" + data._id, requestOptions)
                 .then(response => response.json())
                 .then(result => {
                     if (result.success) {
@@ -126,6 +126,8 @@ const Category = () => {
                 const listview = ViewCategorys.map(data => (
                     <tr key={data._id}>
                         <td>{data.title}</td>
+                        <td>{new Date(data.createDate).toLocaleString()}</td>
+                        <td>{new Date(data.endDate).toLocaleString()}</td>
                         <td>
                             <button onClick={clickEdit(data)}>Edit</button>
                             <button onClick={click(data)}>Xoa</button>
@@ -141,6 +143,8 @@ const Category = () => {
                                 <tbody>
                                     <tr>
                                         <th>Title</th>
+                                        <th>Ngay tao</th>
+                                        <th>Ngay het han</th>
                                         <th>...</th>
                                     </tr>
                                     {listview}

@@ -1,6 +1,7 @@
 import '../css/home.css'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from "react-router-dom";
+import { apiUrl } from '../contexts/constants';
 
 const Home = () => {
   const [Loading, setLoading] = useState(false)
@@ -28,7 +29,7 @@ const Home = () => {
           redirect: 'follow'
         };
 
-        fetch("http://localhost:5000/", requestOptions)
+        fetch(`${apiUrl}/`, requestOptions)
           .then(response => response.json())
           .then(data => {
             if (!data.success) {
@@ -58,7 +59,7 @@ const Home = () => {
       redirect: 'follow'
     };
 
-    return fetch("http://localhost:5000/all-post", requestOptions)
+    return fetch(`${apiUrl}/all-post`, requestOptions)
       .then(res => res.json())
       .then(data => {
         setPosts(data.dataPost)
@@ -77,6 +78,12 @@ const Home = () => {
   const CreactCategory = () => {
     navigate('/Category')
   }
+  //click chuyển sang xem bài viết chi tiết
+  const clickPostDetail = (data) => {
+    return (event) => {
+      navigate('/post/'+data._id)
+    }
+  }
 
   //HTML 2
 
@@ -84,8 +91,7 @@ const Home = () => {
 
   if (LoadingPost) {
     const listPost = Posts.map(data => (
-
-      <div className='post' key={data._id}>
+      <div className='post' key={data._id} onClick={clickPostDetail(data)}>
         <div>
           <h4>Name: {data.name}</h4>
         </div>
@@ -99,17 +105,12 @@ const Home = () => {
           <h4>Tieu De: {data.title}</h4>
         </div>
         <div>
-          <p>Noi Dung: {data.content}</p>
-        </div>
-        <div>
           <p>Vote: {data.numberVote}</p>
-        </div>
-        <div>
-          <button>like</button>
-          <button>Edit</button>
+          <p>View: {data.numberView}</p>
         </div>
       </div>
     ))
+
     bodyPost = (
       <div>
         {listPost}

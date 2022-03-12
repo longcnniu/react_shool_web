@@ -1,6 +1,7 @@
 import '../css/admin.css'
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"
+import { apiUrl } from '../contexts/constants';
 
 const Admin = () => {
 
@@ -30,7 +31,7 @@ const Admin = () => {
           redirect: 'follow'
         };
 
-        return fetch("http://localhost:5000/admin", requestOptions)
+        return fetch(`${apiUrl}/admin`, requestOptions)
           .then(res => res.json())
           .then(data => {
             if (data.success) {
@@ -59,7 +60,7 @@ const Admin = () => {
       redirect: 'follow'
     };
 
-    return fetch("http://localhost:5000/all-user", requestOptions)
+    return fetch(`${apiUrl}/all-user`, requestOptions)
       .then(res => res.json())
       .then(data => {
         if (data.success) {
@@ -101,7 +102,7 @@ const Admin = () => {
         redirect: 'follow'
       };
 
-      fetch("http://localhost:5000/view-user/" + data._id, requestOptions)
+      fetch(`${apiUrl}/view-user/` + data._id, requestOptions)
         .then(response => response.json())
         .then(result => {
           if (result.success) {

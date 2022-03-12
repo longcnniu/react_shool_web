@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from "react-router-dom";
+import { apiUrl } from '../contexts/constants';
 
 const EditUser = () => {
 
@@ -27,7 +28,7 @@ const EditUser = () => {
                     redirect: 'follow'
                 }
 
-                fetch("http://localhost:5000" + window.location.pathname, requestOptions)
+                fetch(`${apiUrl}` + window.location.pathname, requestOptions)
                     .then(response => response.json())
                     .then(result => {
                         if (result.success) {
@@ -70,7 +71,7 @@ const EditUser = () => {
             redirect: 'follow'
         };
 
-        fetch("http://localhost:5000" + window.location.pathname, requestOptions)
+        fetch(`${apiUrl}` + window.location.pathname, requestOptions)
             .then(response => response.text())
             .then(result => console.log(result))
             .catch(error => console.log('error', error));

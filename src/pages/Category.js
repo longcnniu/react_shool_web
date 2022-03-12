@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from "react-router-dom";
+import { apiUrl } from '../contexts/constants';
 
 const Category = () => {
 
@@ -29,7 +30,7 @@ const Category = () => {
                     redirect: 'follow'
                 };
 
-                return fetch("http://localhost:5000/category", requestOptions)
+                return fetch(`${apiUrl}/category`, requestOptions)
                     .then(res => res.json())
                     .then(data => {
                         if (data.success) {
@@ -58,7 +59,7 @@ const Category = () => {
             redirect: 'follow'
         };
 
-        return fetch("http://localhost:5000/all-category", requestOptions)
+        return fetch(`${apiUrl}/all-category`, requestOptions)
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
@@ -95,7 +96,7 @@ const Category = () => {
                 redirect: 'follow'
             };
 
-            fetch("http://localhost:5000/category/" + data._id, requestOptions)
+            fetch(`${apiUrl}/category/` + data._id, requestOptions)
                 .then(response => response.json())
                 .then(result => {
                     if (result.success) {

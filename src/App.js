@@ -10,6 +10,7 @@ import CreatePosts from './pages/CreatePosts';
 import Category from './pages/Category';
 import CreacteCategory from './pages/CreacteCategory';
 import EditCategory from './pages/EditCategory';
+import PostDetail from './pages/PostDetail';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
       <Route path='/category/:id' element={<EditCategory/>}/>
 
       <Route path='/new-post' element={<CreatePosts/>}/>
+      <Route path='/post/:id' element={<PostDetail/>}/>
     </Routes>
   );
 }

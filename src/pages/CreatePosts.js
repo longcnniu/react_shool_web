@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from "react-router-dom";
+import { apiUrl } from '../contexts/constants';
 
 const CreatePosts = () => {
 
@@ -30,7 +31,7 @@ const CreatePosts = () => {
                     redirect: 'follow'
                 };
 
-                return fetch("http://localhost:5000/post", requestOptions)
+                return fetch(`${apiUrl}/post`, requestOptions)
                     .then(res => res.json())
                     .then(data => {
                         if (!data.success) {
@@ -61,7 +62,7 @@ const CreatePosts = () => {
             redirect: 'follow'
         };
 
-        return fetch("http://localhost:5000/all-category", requestOptions)
+        return fetch(`${apiUrl}/all-category/exp`, requestOptions)
             .then(res => res.json())
             .then(data => {
                 setAllCategory(data.dataCategorys)
@@ -93,7 +94,7 @@ const CreatePosts = () => {
             redirect: 'follow'
         };
 
-        fetch("http://localhost:5000/post", requestOptions)
+        fetch(`${apiUrl}/post`, requestOptions)
             .then(response => response.json())
             .then(result => console.log(result.message))
             .catch(error => console.log('error', error));
@@ -119,9 +120,11 @@ const CreatePosts = () => {
                 </div>
                 <div>
                     <label>Category</label>
-                    <select value={Category} onChange={e => setCategory(e.target.value)}>
+                    <select onChange={e => setCategory(e.target.value)}>
+                        <option value=''></option>
                         {listCategory}
                     </select>
+
                 </div>
                 <div>
                     <label>Dong y dieu khoan</label>

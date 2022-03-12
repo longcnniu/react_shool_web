@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from "react-router-dom";
+import { apiUrl } from '../contexts/constants';
 
 const Registration = () => {
 
@@ -31,7 +32,7 @@ const Registration = () => {
           redirect: 'follow'
         };
 
-        fetch("http://localhost:5000/registration", requestOptions)
+        fetch(`${apiUrl}/registration`, requestOptions)
           .then(res => res.json())
           .then(data => {
             if (data.success) {
@@ -73,7 +74,7 @@ const Registration = () => {
       redirect: 'follow'
     };
 
-    fetch("http://localhost:5000/registration", requestOptions)
+    fetch(`${apiUrl}/registration`, requestOptions)
       .then(res => res.json())
       .then(data => {
         console.log(data);

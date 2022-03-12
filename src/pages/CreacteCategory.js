@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from "react-router-dom";
+import { apiUrl } from '../contexts/constants';
 
 const CreacteCategory = () => {
 
@@ -27,7 +28,7 @@ const CreacteCategory = () => {
           redirect: 'follow'
         };
 
-        return fetch("http://localhost:5000/category", requestOptions)
+        return fetch(`${apiUrl}/category`, requestOptions)
           .then(res => res.json())
           .then(data => {
             if (data.success) {
@@ -64,7 +65,7 @@ const CreacteCategory = () => {
       redirect: 'follow'
     };
 
-    fetch("http://localhost:5000/category", requestOptions)
+    fetch(`${apiUrl}/category`, requestOptions)
       .then(response => response.json())
       .then(result => {
         console.log(result.message);

@@ -11,6 +11,7 @@ import Category from './pages/Category';
 import CreacteCategory from './pages/CreacteCategory';
 import EditCategory from './pages/EditCategory';
 import PostDetail from './pages/PostDetail';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
@@ -29,6 +30,8 @@ function App() {
 
       <Route path='/new-post' element={<CreatePosts/>}/>
       <Route path='/post/:id' element={<PostDetail/>}/>
+      
+      <Route element={<NotFound/>}/>
     </Routes>
   );
 }

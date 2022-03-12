@@ -6,6 +6,10 @@ const PostDetail = () => {
   const navigate = useNavigate()
   const [Loading, setLoading] = useState(false)
   const [Post, setPost] = useState([])
+  const [Comment, setComment] = useState([])
+  const [inputComment, setinputComment] = useState('')
+  //trang thai
+  const [ChangeComment, setChangeComment] = useState(false)
 
   //kiểm tra token and đẵ đăng nhập hay chưa
   useEffect(() => {
@@ -32,6 +36,7 @@ const PostDetail = () => {
               setLoading(true)
             } else {
               getPost(cookieValue)
+              getComment(cookieValue)
               setLoading(true)
             }
           })
@@ -41,7 +46,7 @@ const PostDetail = () => {
       };
     }
     checklogin()
-  }, [navigate])
+  }, [navigate, ChangeComment])
 
   const getPost = (cookie) => {
     var myHeaders = new Headers();
@@ -63,20 +68,89 @@ const PostDetail = () => {
       .catch(error => console.log('error', error));
   }
 
-  console.log(Post);
+  const getComment = (cookie) => {
+    var myHeaders = new Headers();
+    myHeaders.append("token", cookie);
+
+    var requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+      redirect: 'follow'
+    };
+
+    const id = (window.location.pathname).split('/')
+
+    fetch(`${apiUrl}/post-comment/` + id[2], requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        setComment(result.message)
+      })
+      .catch(error => console.log('error', error));
+  }
+
+  //Dang comment
+  const uplaodComment = () => {
+     //đoc cookie
+     const cookieValue = document.cookie
+     .split('; ')
+     .find(row => row.startsWith('accessToken='))
+     .split('=')[1];
+   //fun
+    var myHeaders = new Headers();
+    myHeaders.append("token",cookieValue);
+    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+    var urlencoded = new URLSearchParams();
+    urlencoded.append("comment", inputComment);
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: urlencoded,
+      redirect: 'follow'
+    };
+
+    const id = (window.location.pathname).split('/')
+    fetch(`${apiUrl}/post-comment/` + id[2], requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        if(result.success){
+          setChangeComment(!ChangeComment)
+          console.log(result.message);
+        }else{
+          console.log(result.message);
+        }
+      })
+      .catch(error => console.log('error', error));
+  }
 
   //HTMl
   let body
   if (Loading) {
+    const listComment = Comment.map(data => (
+      <div key={data._id}>
+        <div>Name: {data.name}</div>
+        <div>Date: {new Date(data.createDateComment).toLocaleString()}</div>
+        <div>Comment: {data.comment}</div>
+      </div>
+    ))
     body = (
       <>
         <div>
           <div>Name: {Post.name}</div>
+          <div>Date: {new Date(Post.dateCreate).toLocaleString()}</div>
           <div>Category: {Post.category}</div>
           <p>Content: {Post.content}</p>
           <p>View: {Post.numberView}</p>
           <p>Vote: {Post.numberVote}</p>
           <button>Vote</button>
+        </div>
+        <div>
+          <h2>Bình Luận</h2>
+          <label>Binh luan</label>
+          <input type='text' onChange={e => setinputComment(e.target.value)}/>
+          <button onClick={uplaodComment}>Xac nhan</button>
+          {listComment}
         </div>
       </>
     )

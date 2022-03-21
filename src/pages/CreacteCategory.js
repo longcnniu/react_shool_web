@@ -76,6 +76,9 @@ const CreacteCategory = () => {
   //html
   let body
 
+  console.log(endDate);
+  console.log(new Date(endDate).getTime());
+
   if (Loading) {
     body = (
       <div>
@@ -84,7 +87,7 @@ const CreacteCategory = () => {
           <input type='text' onChange={e => setCategory(e.target.value)} />
         </div>
         <div>
-          <label>Ngay het hang: </label>
+          <label>Ngay het han: </label>
           <input type='datetime-local' onChange={e => setendDate(e.target.value)} />
         </div>
         <button onClick={creacteCategory}>Xac Nhan</button>

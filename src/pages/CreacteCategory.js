@@ -46,6 +46,10 @@ const CreacteCategory = () => {
   }, [navigate])
 
   const creacteCategory = () => {
+    //Change loc TO GM T
+    var d = new Date(endDate)
+    var EndTime = d.getUTCFullYear()+'-'+("0" + (d.getUTCMonth() + 1)).slice(-2)+'-'+("0" + (d.getUTCDate())).slice(-2)+'T'+("0" + (d.getUTCHours())).slice(-2)+':'+("0" + (d.getUTCMinutes())).slice(-2)
+
     const cookieValue = document.cookie
       .split('; ')
       .find(row => row.startsWith('accessToken='))
@@ -56,7 +60,7 @@ const CreacteCategory = () => {
 
     var urlencoded = new URLSearchParams();
     urlencoded.append("title", Category);
-    urlencoded.append("endDate", endDate)
+    urlencoded.append("endDate", EndTime)
 
     var requestOptions = {
       method: 'POST',

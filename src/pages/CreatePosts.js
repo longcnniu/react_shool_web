@@ -96,7 +96,11 @@ const CreatePosts = () => {
 
         fetch(`${apiUrl}/post`, requestOptions)
             .then(response => response.json())
-            .then(result => console.log(result.message))
+            .then(result => {
+                if(result.success){
+                    navigate('/')
+                }
+            })
             .catch(error => console.log('error', error));
     }
 

@@ -8,6 +8,9 @@ const PostDetail = () => {
   const [Post, setPost] = useState([])
   const [Comment, setComment] = useState([])
   const [inputComment, setinputComment] = useState('')
+  const [Role, setRole] = useState('')
+  const [UserId, setUserId] = useState('')
+  const [PostUserId, setPostUserId] = useState('')
   //trang thai
   const [ChangeComment, setChangeComment] = useState(false)
   const [Change, setChange] = useState(false)
@@ -36,6 +39,8 @@ const PostDetail = () => {
             if (!data.success) {
               setLoading(true)
             } else {
+              setUserId(data.UserId);
+              setRole(data.role)
               getPost(cookieValue)
               getComment(cookieValue)
               setLoading(true)
@@ -64,6 +69,7 @@ const PostDetail = () => {
       .then(result => {
         if (result.success) {
           setPost(result.dataPost)
+          setPostUserId(result.dataPost.UserId);
         }
       })
       .catch(error => console.log('error', error));
@@ -144,16 +150,73 @@ const PostDetail = () => {
     fetch(`${apiUrl}/post-vote/` + id[2], requestOptions)
       .then(response => response.json())
       .then(result => {
-        if(result){
+        if (result) {
           setChange(!Change)
         }
       })
       .catch(error => console.log('error', error));
   }
 
+  //click Del
+  const clickDel = () => {
+    //đoc cookie
+    const cookieValue = document.cookie
+      .split('; ')
+      .find(row => row.startsWith('accessToken='))
+      .split('=')[1];
+    //full
+    var myHeaders = new Headers();
+    myHeaders.append("token", cookieValue);
+
+    var requestOptions = {
+      method: 'DELETE',
+      headers: myHeaders,
+      redirect: 'follow'
+    };
+    const id = (window.location.pathname).split('/')
+    fetch(`${apiUrl}/post/` + id[2], requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        if (result.success) {
+          console.log("thanh cong");
+          navigate('/')
+        } else {
+          console.log(result);
+        }
+      })
+      .catch(error => console.log('error', error));
+  }
+
+  //Click updata
+  const ClickUpdata = () => {
+   
+  }
+
   //HTMl
   let body
+  let body2
+  let body3
+
   if (Loading) {
+    //Button Edit
+    if (UserId === PostUserId || Role === 'admin' || Role === 'qa-manager') {
+      body2 = (
+        <>
+          <button onClick={clickDel}>Xoa</button>
+        </>
+      )
+    }
+
+    //Button Edit
+    if (UserId === PostUserId) {
+      body3 = (
+        <>
+          <button onClick={ClickUpdata}>Edit</button>
+        </>
+      )
+    }
+
+    //Body Main
     const listComment = Comment.map(data => (
       <div key={data._id}>
         <div>Name: {data.name}</div>
@@ -161,6 +224,7 @@ const PostDetail = () => {
         <div>Comment: {data.comment}</div>
       </div>
     ))
+    //admin || qa-manager
     body = (
       <>
         <div>
@@ -171,6 +235,8 @@ const PostDetail = () => {
           <p>View: {Post.numberView}</p>
           <p>Vote: {Post.numberVote}</p>
           <button onClick={clickVote}>Vote</button>
+          {body2}
+          {body3}
         </div>
         <div>
           <h2>Bình Luận</h2>

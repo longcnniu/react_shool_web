@@ -119,21 +119,21 @@ const Registration = () => {
     }else{
       body = (
         <div>
-          <div className='mb-6 pt-3 rounded bg-gray-200'>
-            <label className="block text-gray-700 text-sm font-bold mb-2 ml-3" name="email">Email</label>
-            <input className='bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-blue-600 transition duration-500 px-3 pb-3' type="email" name='email' onChange={e => setUserName(e.target.value)} />
+          <div>
+            <label>Email</label>
+            <input type="email" name='email' onChange={e => setUserName(e.target.value)} />
           </div>
-          <div className='mb-6 pt-3 rounded bg-gray-200'>
-            <label className="block text-gray-700 text-sm font-bold mb-2 ml-3" name="password">Password</label>
-            <input className='bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-blue-600 transition duration-500 px-3 pb-3' type="password" name='password' onChange={e => setPassword(e.target.value)} />
+          <div>
+            <label>Password</label>
+            <input type="password" name='password' onChange={e => setPassword(e.target.value)} />
           </div>
-          <div className='mb-6 pt-3 rounded bg-gray-200'>
-            <label className="block text-gray-700 text-sm font-bold mb-2 ml-3" name="firstName">First Name</label>
-            <input className='bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-blue-600 transition duration-500 px-3 pb-3' type="text" name='firstName' onChange={e => setFirstName(e.target.value)} />
+          <div>
+            <label name="firstName">First Name</label>
+            <input type="text" name='firstName' onChange={e => setFirstName(e.target.value)} />
           </div>
-          <div className='mb-6 pt-3 rounded bg-gray-200'>
-            <label className="block text-gray-700 text-sm font-bold mb-2 ml-3" name="lastName">Last Name</label>
-            <input className='bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-blue-600 transition duration-500 px-3 pb-3' type="text" name='lastName' onChange={e => setLastName(e.target.value)} />
+          <div >
+            <label>Last Name</label>
+            <input type="text" name='lastName' onChange={e => setLastName(e.target.value)} />
           </div>
           <div>
             <label>Role User:</label>
@@ -141,7 +141,7 @@ const Registration = () => {
               <option value='staff'>Staff</option>
             </select>
           </div>
-          <button className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200 w-32" type="submit" onClick={registration}>Dang ki</button>
+          <button onClick={registration}>Dang ki</button>
         </div>
       )
     }

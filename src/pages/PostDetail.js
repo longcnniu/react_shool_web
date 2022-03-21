@@ -123,6 +123,7 @@ const PostDetail = () => {
       .then(result => {
         if (result.success) {
           setChangeComment(!ChangeComment)
+          setinputComment('')
           console.log(result.message);
         } else {
           console.log(result.message);
@@ -189,13 +190,14 @@ const PostDetail = () => {
 
   //Click updata
   const ClickUpdata = () => {
-   
+
   }
 
   //HTMl
   let body
   let body2
   let body3
+  var body4
 
   if (Loading) {
     //Button Edit
@@ -216,14 +218,19 @@ const PostDetail = () => {
       )
     }
 
+    // Button Del Comment
+    
+
     //Body Main
     const listComment = Comment.map(data => (
       <div key={data._id}>
         <div>Name: {data.name}</div>
         <div>Date: {new Date(data.createDateComment).toLocaleString()}</div>
         <div>Comment: {data.comment}</div>
+        
       </div>
     ))
+
     //admin || qa-manager
     body = (
       <>
@@ -241,7 +248,7 @@ const PostDetail = () => {
         <div>
           <h2>Bình Luận</h2>
           <label>Binh luan</label>
-          <input type='text' onChange={e => setinputComment(e.target.value)} />
+          <input type='text' value={inputComment} onChange={e => setinputComment(e.target.value)} />
           <button onClick={uplaodComment}>Xac nhan</button>
           {listComment}
         </div>

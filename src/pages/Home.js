@@ -62,6 +62,7 @@ const Home = () => {
     return fetch(`${apiUrl}/all-post`, requestOptions)
       .then(res => res.json())
       .then(data => {
+        console.log(data.dataPost);
         setPosts(data.dataPost)
         setLoadingPost(true)
       })
@@ -81,7 +82,29 @@ const Home = () => {
   //click chuyển sang xem bài viết chi tiết
   const clickPostDetail = (data) => {
     return (event) => {
-      navigate('/post/'+data._id)
+       //đoc cookie
+       const cookieValue = document.cookie
+       .split('; ')
+       .find(row => row.startsWith('accessToken='))
+       .split('=')[1];
+       //fun
+      var myHeaders = new Headers();
+      myHeaders.append("token", cookieValue);
+
+      var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        redirect: 'follow'
+      };
+
+      fetch(`${apiUrl}/post-view/${data._id}`, requestOptions)
+        .then(response => response.text())
+        .then(result => {
+          if(result){
+            navigate('/post/' + data._id)
+          }
+        })
+        .catch(error => console.log('error', error));
     }
   }
 

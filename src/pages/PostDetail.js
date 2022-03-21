@@ -10,6 +10,7 @@ const PostDetail = () => {
   const [inputComment, setinputComment] = useState('')
   //trang thai
   const [ChangeComment, setChangeComment] = useState(false)
+  const [Change, setChange] = useState(false)
 
   //kiểm tra token and đẵ đăng nhập hay chưa
   useEffect(() => {
@@ -46,7 +47,7 @@ const PostDetail = () => {
       };
     }
     checklogin()
-  }, [navigate, ChangeComment])
+  }, [navigate, ChangeComment, Change])
 
   const getPost = (cookie) => {
     var myHeaders = new Headers();
@@ -90,14 +91,14 @@ const PostDetail = () => {
 
   //Dang comment
   const uplaodComment = () => {
-     //đoc cookie
-     const cookieValue = document.cookie
-     .split('; ')
-     .find(row => row.startsWith('accessToken='))
-     .split('=')[1];
-   //fun
+    //đoc cookie
+    const cookieValue = document.cookie
+      .split('; ')
+      .find(row => row.startsWith('accessToken='))
+      .split('=')[1];
+    //fun
     var myHeaders = new Headers();
-    myHeaders.append("token",cookieValue);
+    myHeaders.append("token", cookieValue);
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
     var urlencoded = new URLSearchParams();
@@ -114,11 +115,37 @@ const PostDetail = () => {
     fetch(`${apiUrl}/post-comment/` + id[2], requestOptions)
       .then(response => response.json())
       .then(result => {
-        if(result.success){
+        if (result.success) {
           setChangeComment(!ChangeComment)
           console.log(result.message);
-        }else{
+        } else {
           console.log(result.message);
+        }
+      })
+      .catch(error => console.log('error', error));
+  }
+
+  //Click Vote
+  const clickVote = () => {
+    //đoc cookie
+    const cookieValue = document.cookie
+      .split('; ')
+      .find(row => row.startsWith('accessToken='))
+      .split('=')[1];
+    var myHeaders = new Headers();
+    myHeaders.append("token", cookieValue);
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      redirect: 'follow'
+    };
+    const id = (window.location.pathname).split('/')
+    fetch(`${apiUrl}/post-vote/` + id[2], requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        if(result){
+          setChange(!Change)
         }
       })
       .catch(error => console.log('error', error));
@@ -143,12 +170,12 @@ const PostDetail = () => {
           <p>Content: {Post.content}</p>
           <p>View: {Post.numberView}</p>
           <p>Vote: {Post.numberVote}</p>
-          <button>Vote</button>
+          <button onClick={clickVote}>Vote</button>
         </div>
         <div>
           <h2>Bình Luận</h2>
           <label>Binh luan</label>
-          <input type='text' onChange={e => setinputComment(e.target.value)}/>
+          <input type='text' onChange={e => setinputComment(e.target.value)} />
           <button onClick={uplaodComment}>Xac nhan</button>
           {listComment}
         </div>

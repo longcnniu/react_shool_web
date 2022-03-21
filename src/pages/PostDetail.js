@@ -197,7 +197,6 @@ const PostDetail = () => {
   let body
   let body2
   let body3
-  var body4
 
   if (Loading) {
     //Button Edit

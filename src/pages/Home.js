@@ -62,7 +62,6 @@ const Home = () => {
     return fetch(`${apiUrl}/all-post`, requestOptions)
       .then(res => res.json())
       .then(data => {
-        console.log(data.dataPost);
         setPosts(data.dataPost)
         setLoadingPost(true)
       })

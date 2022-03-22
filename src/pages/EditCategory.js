@@ -31,7 +31,10 @@ const EditCategory = () => {
                     .then(result => {
                         if (result.success) {
                             settitle(result.data.title)
-                            setendDate(result.data.endDate)
+
+                            const d = new Date(result.data.endDate)
+                            setendDate(`${d.getFullYear()}-${("0" + (d.getMonth() + 1)).slice(-2)}-${("0" + (d.getDate())).slice(-2)}T${("0" + (d.getHours())).slice(-2)}:${("0" + (d.getMinutes())).slice(-2)}`)
+
                             setLoading(true)
                         } else {
                             setLoading(true)
@@ -53,13 +56,17 @@ const EditCategory = () => {
             .find(row => row.startsWith('accessToken='))
             .split('=')[1];
         //Gửi req token lên server xác thực
+        //Change loc TO GM T
+        var d = new Date(endDate)
+        var EndTime = d.getUTCFullYear() + '-' + ("0" + (d.getUTCMonth() + 1)).slice(-2) + '-' + ("0" + (d.getUTCDate())).slice(-2) + 'T' + ("0" + (d.getUTCHours())).slice(-2) + ':' + ("0" + (d.getUTCMinutes())).slice(-2)
+        //fun
         var myHeaders = new Headers();
         myHeaders.append("token", cookieValue);
         myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
         var urlencoded = new URLSearchParams();
         urlencoded.append("title", title);
-        urlencoded.append("endDate", endDate)
+        urlencoded.append("endDate", EndTime)
 
         var requestOptions = {
             method: 'PUT',
@@ -75,30 +82,33 @@ const EditCategory = () => {
 
     }
 
-    const a = new Date(endDate).toLocaleString().split('/').join(',').split(', ').join(',').split(':').join(',').split(' ').join(',').split(',')
-    if(a[0] < 10) {
-        a[0] = `0${a[0]}`
-    }
-    if(a[1] < 10) {
-        a[1] = `0${a[1]}`
-    }
-    if(a[3] < 10) {
-        a[3] = `0${a[3]}`
-    }
-    if(a[4] < 10) {
-        a[4] = `0${a[4]}`
-    }
+    // const a = new Date(endDate).toLocaleString().split('/').join(',').split(', ').join(',').split(':').join(',').split(' ').join(',').split(',')
+    // if(a[0] < 10) {s
+    //     a[0] = `0${a[0]}`
+    // }
+    // if(a[1] < 10) {
+    //     a[1] = `0${a[1]}`
+    // }
+    // if(a[3] < 10) {
+    //     a[3] = `0${a[3]}`
+    // }
+    // if(a[4] < 10) {
+    //     a[4] = `0${a[4]}`
+    // }
+
+    console.log(endDate);
+
     //html
     let body
 
     if (Loading) {
-        
+
         body = (
             <div>
                 <label>Title</label>
                 <input type='text' onChange={e => settitle(e.target.value)} value={title} />
                 <label>Ngay het hang: </label>
-                <input type='datetime-local' onChange={e => setendDate(e.target.value)} value={`${a[2]}-${a[0]}-${a[1]}T${a[3]}:${a[4]}:${a[5]}`}/>
+                <input type='datetime-local' onChange={e => setendDate(e.target.value)} value={endDate} />
                 <button onClick={updateUser}>Xac Nhan</button>
             </div>
         )

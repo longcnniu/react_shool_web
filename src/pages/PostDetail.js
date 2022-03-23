@@ -54,6 +54,7 @@ const PostDetail = () => {
     checklogin()
   }, [navigate, ChangeComment, Change])
 
+  //Get Post
   const getPost = (cookie) => {
     var myHeaders = new Headers();
     myHeaders.append("token", cookie);
@@ -75,6 +76,7 @@ const PostDetail = () => {
       .catch(error => console.log('error', error));
   }
 
+  //Get Comment
   const getComment = (cookie) => {
     var myHeaders = new Headers();
     myHeaders.append("token", cookie);
@@ -199,60 +201,135 @@ const PostDetail = () => {
   let body3
 
   if (Loading) {
-    //Button Edit
-    if (UserId === PostUserId || Role === 'admin' || Role === 'qa-manager') {
-      body2 = (
+    if (Post.endTime1 === false) {
+      //Button Edit
+      if (UserId === PostUserId || Role === 'admin' || Role === 'qa-manager') {
+        body2 = (
+          <>
+            <button onClick={clickDel}>Xoa</button>
+          </>
+        )
+      }
+
+      //Button Edit
+      if (UserId === PostUserId) {
+        body3 = (
+          <>
+            <button onClick={ClickUpdata}>Edit</button>
+          </>
+        )
+      }
+
+      // Button Del Comment
+
+
+      //Body Main
+      const listComment = Comment.map(data => (
+        <div key={data._id}>
+          <div>Name: {data.name}</div>
+          <div>Date: {new Date(data.createDateComment).toLocaleString()}</div>
+          <div>Comment: {data.comment}</div>
+        </div>
+      ))
+
+      //admin || qa-manager
+      body = (
         <>
-          <button onClick={clickDel}>Xoa</button>
+          <div>
+            <div>Name: {Post.name}</div>
+            <div>Date: {new Date(Post.dateCreate).toLocaleString()}</div>
+            <div>Category: {Post.category}</div>
+            <p>Content: {Post.content}</p>
+            <p>View: {Post.numberView}</p>
+            <p>Vote: {Post.numberVote}</p>
+            <button onClick={clickVote}>Vote</button>
+            {body2}
+            {body3}
+          </div>
+          <div>
+            <h2>Bình Luận</h2>
+            <label>Binh luan</label>
+            <input type='text' value={inputComment} onChange={e => setinputComment(e.target.value)} />
+            <button onClick={uplaodComment}>Xac nhan</button>
+            {listComment}
+          </div>
         </>
       )
+    } else {
+      if (Post.lockPost === false) {
+        if (Role === 'admin' || Role === 'qa-manager') {
+          body2 = (
+            <>
+              <button onClick={clickDel}>Xoa</button>
+            </>
+          )
+        }
+        //Body Main
+        const listComment = Comment.map(data => (
+          <div key={data._id}>
+            <div>Name: {data.name}</div>
+            <div>Date: {new Date(data.createDateComment).toLocaleString()}</div>
+            <div>Comment: {data.comment}</div>
+          </div>
+        ))
+        body = (
+          <>
+            <div>
+              <div>Name: {Post.name}</div>
+              <div>Date: {new Date(Post.dateCreate).toLocaleString()}</div>
+              <div>Category: {Post.category}</div>
+              <p>Content: {Post.content}</p>
+              <p>View: {Post.numberView}</p>
+              <p>Vote: {Post.numberVote}</p>
+              <button onClick={clickVote}>Vote</button>
+              {body2}
+            </div>
+            <div>
+              <h2>Bình Luận</h2>
+              <label>Binh luan</label>
+              <input type='text' value={inputComment} onChange={e => setinputComment(e.target.value)} />
+              <button onClick={uplaodComment}>Xac nhan</button>
+              {listComment}
+            </div>
+          </>
+        )
+      } else {
+        if (UserId === PostUserId || Role === 'admin' || Role === 'qa-manager') {
+          body2 = (
+            <>
+              <button onClick={clickDel}>Xoa</button>
+            </>
+          )
+        }
+        //Body Main
+        const listComment = Comment.map(data => (
+          <div key={data._id}>
+            <div>Name: {data.name}</div>
+            <div>Date: {new Date(data.createDateComment).toLocaleString()}</div>
+            <div>Comment: {data.comment}</div>
+          </div>
+        ))
+
+        body = (
+          <>
+            <div>
+              <div>Name: {Post.name}</div>
+              <div>Date: {new Date(Post.dateCreate).toLocaleString()}</div>
+              <div>Category: {Post.category}</div>
+              <p>Content: {Post.content}</p>
+              <p>View: {Post.numberView}</p>
+              <p>Vote: {Post.numberVote}</p>
+              {body2}
+            </div>
+            <div>
+              <h2>Bình Luận</h2>
+              {listComment}
+            </div>
+          </>
+        )
+      }
     }
 
-    //Button Edit
-    if (UserId === PostUserId) {
-      body3 = (
-        <>
-          <button onClick={ClickUpdata}>Edit</button>
-        </>
-      )
-    }
-
-    // Button Del Comment
-    
-
-    //Body Main
-    const listComment = Comment.map(data => (
-      <div key={data._id}>
-        <div>Name: {data.name}</div>
-        <div>Date: {new Date(data.createDateComment).toLocaleString()}</div>
-        <div>Comment: {data.comment}</div>
-        
-      </div>
-    ))
-
-    //admin || qa-manager
-    body = (
-      <>
-        <div>
-          <div>Name: {Post.name}</div>
-          <div>Date: {new Date(Post.dateCreate).toLocaleString()}</div>
-          <div>Category: {Post.category}</div>
-          <p>Content: {Post.content}</p>
-          <p>View: {Post.numberView}</p>
-          <p>Vote: {Post.numberVote}</p>
-          <button onClick={clickVote}>Vote</button>
-          {body2}
-          {body3}
-        </div>
-        <div>
-          <h2>Bình Luận</h2>
-          <label>Binh luan</label>
-          <input type='text' value={inputComment} onChange={e => setinputComment(e.target.value)} />
-          <button onClick={uplaodComment}>Xac nhan</button>
-          {listComment}
-        </div>
-      </>
-    )
   } else {
     body = (
       <div>Loading...</div>

@@ -97,8 +97,8 @@ const CreatePosts = () => {
         fetch(`${apiUrl}/post`, requestOptions)
             .then(response => response.json())
             .then(result => {
-                if(result.success){
-                    navigate('/')
+                if (result.success) {
+                    navigate('/?page=1')
                 }
             })
             .catch(error => console.log('error', error));
@@ -108,35 +108,43 @@ const CreatePosts = () => {
     let body
 
     if (Loading) {
-        const listCategory = AllCategory.map(data => (
-            <option key={data._id} value={data.title}>{data.title}</option>
-        ))
-        body = (
-            <div>
-                <h3>POST Bai Viet</h3>
+        if (AllCategory !== undefined) {
+            const listCategory = AllCategory.map(data => (
+                <option key={data._id} value={data.title}>{data.title}</option>
+            ))
+            body = (
                 <div>
-                    <label>Title</label>
-                    <input type='text' name='title' onChange={e => setTitle(e.target.value)} />
-                </div>
-                <div>
-                    <label>Content</label>
-                    <textarea onChange={e => setContent(e.target.value)} name="w3review" rows="4" cols="50" />
-                </div>
-                <div>
-                    <label>Category</label>
-                    <select onChange={e => setCategory(e.target.value)}>
-                        <option value=''></option>
-                        {listCategory}
-                    </select>
+                    <h3>POST Bai Viet</h3>
+                    <div>
+                        <label>Title</label>
+                        <input type='text' name='title' onChange={e => setTitle(e.target.value)} />
+                    </div>
+                    <div>
+                        <label>Content</label>
+                        <textarea onChange={e => setContent(e.target.value)} name="w3review" rows="4" cols="50" />
+                    </div>
+                    <div>
+                        <label>Category</label>
+                        <select onChange={e => setCategory(e.target.value)}>
+                            <option value=''></option>
+                            {listCategory}
+                        </select>
 
+                    </div>
+                    <div>
+                        <label>Dong y dieu khoan</label>
+                        <input type="checkbox" name="vehicle1" value="Bike" />
+                    </div>
+                    <button onClick={uploadPost}>Xac Nhan</button>
                 </div>
-                <div>
-                    <label>Dong y dieu khoan</label>
-                    <input type="checkbox" name="vehicle1" value="Bike" />
-                </div>
-                <button onClick={uploadPost}>Xac Nhan</button>
-            </div>
-        )
+            )
+        } else {
+            body = (
+                <>
+                    <div className='loading'>Hien tại không có category nào để tạo post</div>
+                </>
+            )
+        }
     } else {
         body = (
             <div>Loading...</div>

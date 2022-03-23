@@ -129,6 +129,7 @@ const Category = () => {
                         <td>{data.title}</td>
                         <td>{new Date(data.createDate).toLocaleString()}</td>
                         <td>{new Date(data.endDate).toLocaleString()}</td>
+                        <td>{new Date(data.lockDate).toLocaleString()}</td>
                         <td>
                             <button onClick={clickEdit(data)}>Edit</button>
                             <button onClick={click(data)}>Xoa</button>
@@ -146,6 +147,7 @@ const Category = () => {
                                         <th>Title</th>
                                         <th>Ngay tao</th>
                                         <th>Ngay het han</th>
+                                        <th>Ngay Khoa Bai</th>
                                         <th>...</th>
                                     </tr>
                                     {listview}

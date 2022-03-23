@@ -9,7 +9,10 @@ const Home = () => {
   const navigate = useNavigate()
   const [RoleAuth, setRoleAuth] = useState('')
   const [Posts, setPosts] = useState([])
-
+  const [NumberPost, setNumberPost] = useState('')
+  if(NumberPost === ''){
+    setNumberPost('5')
+  }
 
   //kiểm tra token and đẵ đăng nhập hay chưa
   useEffect(() => {
@@ -36,7 +39,6 @@ const Home = () => {
               setLoading(true)
             } else {
               setRoleAuth(data.role)
-              GetAllPost(cookieValue)
               setLoading(true)
             }
           })
@@ -49,25 +51,41 @@ const Home = () => {
   }, [navigate])
 
   //Get POST
-  const GetAllPost = (cookieValue) => {
-    var myHeaders = new Headers();
-    myHeaders.append("token", cookieValue);
+  useEffect(() => {
+    const GetAllPost = () => {
+      if (document.cookie.split(';').some((item) => item.trim().startsWith('accessToken='))) {
+        //đoc cookie
+        const cookieValue = document.cookie
+          .split('; ')
+          .find(row => row.startsWith('accessToken='))
+          .split('=')[1];
+        //fun
 
-    var requestOptions = {
-      method: 'GET',
-      headers: myHeaders,
-      redirect: 'follow'
-    };
+        var myHeaders = new Headers();
+        myHeaders.append("token", cookieValue);
 
-    return fetch(`${apiUrl}/all-post`, requestOptions)
-      .then(res => res.json())
-      .then(data => {
-        setPosts(data.dataPost)
-        setLoadingPost(true)
-      })
-      .catch(error => console.log('error', error));
+        var requestOptions = {
+          method: 'GET',
+          headers: myHeaders,
+          redirect: 'follow'
+        };
+        const urlSearchParams = new URLSearchParams(window.location.search);
+        const params = Object.fromEntries(urlSearchParams.entries());
+        
+        return fetch(`${apiUrl}/posts?page=${params.page}&page_size=${NumberPost}`, requestOptions)
+          .then(res => res.json())
+          .then(data => {
+            setPosts(data.dataPost)
+            setLoadingPost(true)
+          })
+          .catch(error => console.log('error', error));
 
-  }
+      } else {
+        navigate("/login")
+      }
+    }
+    GetAllPost()
+  }, [navigate,NumberPost])
 
   //click creact new Post
   const CreactPost = () => {
@@ -81,12 +99,12 @@ const Home = () => {
   //click chuyển sang xem bài viết chi tiết
   const clickPostDetail = (data) => {
     return (event) => {
-       //đoc cookie
-       const cookieValue = document.cookie
-       .split('; ')
-       .find(row => row.startsWith('accessToken='))
-       .split('=')[1];
-       //fun
+      //đoc cookie
+      const cookieValue = document.cookie
+        .split('; ')
+        .find(row => row.startsWith('accessToken='))
+        .split('=')[1];
+      //fun
       var myHeaders = new Headers();
       myHeaders.append("token", cookieValue);
 
@@ -99,7 +117,7 @@ const Home = () => {
       fetch(`${apiUrl}/post-view/${data._id}`, requestOptions)
         .then(response => response.text())
         .then(result => {
-          if(result){
+          if (result) {
             navigate('/post/' + data._id)
           }
         })
@@ -107,10 +125,25 @@ const Home = () => {
     }
   }
 
+  //html 3
+  let changeNumberPost
+  changeNumberPost = (
+    <>
+      <select onChange={e => setNumberPost(e.target.value)} value={NumberPost}>
+        <option value='5'>5</option>
+        <option value='10'>10</option>
+        <option value='15'>15</option>
+        <option value='20'>20</option>
+        <option value='25'>25</option>
+        <option value='30'>30</option>
+        <option value='35'>35</option>
+        <option value='40'>40</option>
+      </select>
+    </>
+  )
+
   //HTML 2
-
   let bodyPost
-
   if (LoadingPost) {
     const listPost = Posts.map(data => (
       <div className='post' key={data._id} onClick={clickPostDetail(data)}>
@@ -152,6 +185,7 @@ const Home = () => {
         <div>
           <button onClick={CreactPost}>Dang bai viet</button>
           <button onClick={CreactCategory}>View Category</button>
+          {changeNumberPost}
           {bodyPost}
         </div>
       )
@@ -159,6 +193,7 @@ const Home = () => {
       body = (
         <div>
           <button onClick={CreactPost}>Dang bai viet</button>
+          {changeNumberPost}
           {bodyPost}
         </div>
       )

@@ -6,6 +6,7 @@ const EditCategory = () => {
     const navigate = useNavigate()
     const [title, settitle] = useState('')
     const [endDate, setendDate] = useState('')
+    const [lockDate, setlockDate] = useState('')
     const [Loading, setLoading] = useState(false)
 
     useEffect(() => {
@@ -31,10 +32,13 @@ const EditCategory = () => {
                     .then(result => {
                         if (result.success) {
                             settitle(result.data.title)
-
+                            //Get Time End 1
                             const d = new Date(result.data.endDate)
                             setendDate(`${d.getFullYear()}-${("0" + (d.getMonth() + 1)).slice(-2)}-${("0" + (d.getDate())).slice(-2)}T${("0" + (d.getHours())).slice(-2)}:${("0" + (d.getMinutes())).slice(-2)}`)
-
+                            //Get Time End 2
+                            const dd = new Date(result.data.lockDate)
+                            setlockDate(`${dd.getFullYear()}-${("0" + (dd.getMonth() + 1)).slice(-2)}-${("0" + (dd.getDate())).slice(-2)}T${("0" + (dd.getHours())).slice(-2)}:${("0" + (dd.getMinutes())).slice(-2)}`)
+                            //Off loading
                             setLoading(true)
                         } else {
                             setLoading(true)
@@ -57,8 +61,12 @@ const EditCategory = () => {
             .split('=')[1];
         //Gửi req token lên server xác thực
         //Change loc TO GM T
+        //End Date time 1
         var d = new Date(endDate)
         var EndTime = d.getUTCFullYear() + '-' + ("0" + (d.getUTCMonth() + 1)).slice(-2) + '-' + ("0" + (d.getUTCDate())).slice(-2) + 'T' + ("0" + (d.getUTCHours())).slice(-2) + ':' + ("0" + (d.getUTCMinutes())).slice(-2)
+        //End DDate Time 2
+        var dd = new Date(endDate)
+        var LockTime = d.getUTCFullYear() + '-' + ("0" + (dd.getUTCMonth() + 1)).slice(-2) + '-' + ("0" + (dd.getUTCDate())).slice(-2) + 'T' + ("0" + (dd.getUTCHours())).slice(-2) + ':' + ("0" + (dd.getUTCMinutes())).slice(-2)
         //fun
         var myHeaders = new Headers();
         myHeaders.append("token", cookieValue);
@@ -67,6 +75,7 @@ const EditCategory = () => {
         var urlencoded = new URLSearchParams();
         urlencoded.append("title", title);
         urlencoded.append("endDate", EndTime)
+        urlencoded.append("lockDate", LockTime)
 
         var requestOptions = {
             method: 'PUT',
@@ -82,33 +91,26 @@ const EditCategory = () => {
 
     }
 
-    // const a = new Date(endDate).toLocaleString().split('/').join(',').split(', ').join(',').split(':').join(',').split(' ').join(',').split(',')
-    // if(a[0] < 10) {s
-    //     a[0] = `0${a[0]}`
-    // }
-    // if(a[1] < 10) {
-    //     a[1] = `0${a[1]}`
-    // }
-    // if(a[3] < 10) {
-    //     a[3] = `0${a[3]}`
-    // }
-    // if(a[4] < 10) {
-    //     a[4] = `0${a[4]}`
-    // }
-
-    console.log(endDate);
-
     //html
     let body
 
     if (Loading) {
-
+        const d = new Date()
+        const MinTime = `${d.getFullYear()}-${("0" + (d.getMonth() + 1)).slice(-2)}-${("0" + (d.getDate())).slice(-2)}T${("0" + (d.getHours())).slice(-2)}:${("0" + (d.getMinutes())).slice(-2)}`
         body = (
             <div>
-                <label>Title</label>
-                <input type='text' onChange={e => settitle(e.target.value)} value={title} />
-                <label>Ngay het hang: </label>
-                <input type='datetime-local' onChange={e => setendDate(e.target.value)} value={endDate} />
+                <div>
+                    <label>Title</label>
+                    <input type='text' onChange={e => settitle(e.target.value)} value={title} />
+                </div>
+                <div>
+                    <label>Ngay het hang: </label>
+                    <input type='datetime-local' onChange={e => setendDate(e.target.value)} value={endDate} min={MinTime} />
+                </div>
+                <div>
+                    <label>Ngay khoa bai: </label>
+                    <input type='datetime-local' onChange={e => setlockDate(e.target.value)} value={lockDate} min={MinTime} />
+                </div>
                 <button onClick={updateUser}>Xac Nhan</button>
             </div>
         )

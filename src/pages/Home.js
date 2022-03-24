@@ -10,6 +10,7 @@ const Home = () => {
   const [RoleAuth, setRoleAuth] = useState('')
   const [Posts, setPosts] = useState([])
   const [NumberPost, setNumberPost] = useState('')
+  const [Time, setTime] = useState('')
   if (NumberPost === '') {
     setNumberPost('5')
   }
@@ -157,6 +158,25 @@ const Home = () => {
     }
   }
 
+  //click logout
+  const logout = () => {
+    document.cookie = "accessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    window.location.reload();
+  }
+
+  //Time
+  useEffect(() => {
+    const d = new Date()
+    const time = setInterval(() => {
+      setTime(`${("0" + (d.getHours())).slice(-2)}:${("0" + (d.getMinutes())).slice(-2)}:${("0" + (d.getSeconds())).slice(-2)}`)
+    }, 1000);
+
+    return () => {
+      clearInterval(time)
+    }
+  }, [Time])
+
+
   //html 3
   let changeNumberPost
   changeNumberPost = (
@@ -207,7 +227,7 @@ const Home = () => {
     } else {
       bodyPost = (
         <>
-          <h1>Khong co Bai viet nao</h1>
+          <h1 className='loading'>Khong co Bai viet nao</h1>
         </>
       )
     }
@@ -220,19 +240,46 @@ const Home = () => {
 
   //HTML 1
   let body
+  //GET today
+  const d = new Date()
+  const weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  const month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+  const today = `${weekday[d.getDay()]}, ${d.getDate()} ${month[d.getMonth()]} ${d.getFullYear()}`
+
+  //HTMl
   if (Loading) {
     if (RoleAuth === 'admin' || RoleAuth === 'qa-manager') {
       body = (
         <div>
-          <button onClick={CreactPost}>Dang bai viet</button>
-          <button onClick={CreactCategory}>View Category</button>
-          {changeNumberPost}
+          <header>
+            <div>
+              <p>Logo</p>
+            </div>
+            <div>
+              <button onClick={logout}>Dang xuat</button>
+            </div>
+          </header>
+          <div className='top'>
+            <div>
+              <h1>Hello, </h1>
+              <p>Today is {today}</p>
+              <p>Time: {Time}</p>
+            </div>
+            <div>
+              <button onClick={CreactPost}>Dang bai viet</button>
+              <button onClick={CreactCategory}>View Category</button>
+              {changeNumberPost}
+            </div>
+          </div>
           {bodyPost}
         </div>
       )
     } else {
       body = (
         <div>
+          <h1>Hello, </h1>
+          <p>Today is {today}</p>
           <button onClick={CreactPost}>Dang bai viet</button>
           {changeNumberPost}
           {bodyPost}

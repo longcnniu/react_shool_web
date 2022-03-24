@@ -1,4 +1,3 @@
-import '../css/admin.css'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from "react-router-dom"
 import { apiUrl } from '../contexts/constants';
@@ -89,12 +88,12 @@ const Admin = () => {
     return (event) => {
       //đoc cookie
       const cookieValue = document.cookie
-      .split('; ')
-      .find(row => row.startsWith('accessToken='))
-      .split('=')[1];
+        .split('; ')
+        .find(row => row.startsWith('accessToken='))
+        .split('=')[1];
       //FUn Del
       var myHeaders = new Headers();
-      myHeaders.append("token", cookieValue); 
+      myHeaders.append("token", cookieValue);
 
       var requestOptions = {
         method: 'DELETE',
@@ -128,8 +127,8 @@ const Admin = () => {
             <td>{`${data.firstName} ${data.lastName}`}</td>
             <td>{data.role}</td>
             <td>
-              <button onClick={clickEdit(data)}>Edit</button>
-              <button onClick={click(data)}>Xoa</button>
+              <button className='btn-edit' onClick={clickEdit(data)}>Edit</button>
+              <button className='btn-del' onClick={click(data)}>Xoa</button>
             </td>
           </tr>
         ))
@@ -137,17 +136,15 @@ const Admin = () => {
           <>
             <button onClick={nextPageRegistration}>Add Account</button>
             <button onClick={clickRefrc}>Lam moi list</button>
-            <div>
+            <div className='out_table'>
               <table>
-                <tbody>
-                  <tr>
-                    <th>Email</th>
-                    <th>Name</th>
-                    <th>Role</th>
-                    <th>...</th>
-                  </tr>
-                  {listview}
-                </tbody>
+                <tr>
+                  <th>Email</th>
+                  <th>Name</th>
+                  <th>Role</th>
+                  <th>...</th>
+                </tr>
+                {listview}
               </table>
             </div>
           </>

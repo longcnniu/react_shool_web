@@ -110,14 +110,14 @@ const Category = () => {
 
     const clickRefrc = () => {
         setchangedListCategory(!changedListCategory)
-      }
+    }
 
     //Next Page Edit Category
     const clickEdit = (data) => {
         return (event) => {
-          navigate(`/category/${data._id}`)
+            navigate(`/category/${data._id}`)
         }
-      }
+    }
 
     //html
     let body
@@ -131,8 +131,8 @@ const Category = () => {
                         <td>{new Date(data.endDate).toLocaleString()}</td>
                         <td>{new Date(data.lockDate).toLocaleString()}</td>
                         <td>
-                            <button onClick={clickEdit(data)}>Edit</button>
-                            <button onClick={click(data)}>Xoa</button>
+                            <button className='btn-edit' onClick={clickEdit(data)}>Edit</button>
+                            <button className='btn-del' onClick={click(data)}>Xoa</button>
                         </td>
                     </tr>
                 ))
@@ -140,7 +140,7 @@ const Category = () => {
                     <>
                         <button onClick={nextPageCreacteCategory}>Add Category</button>
                         <button onClick={clickRefrc}>Lam moi list</button>
-                        <div>
+                        <div className='out_table'>
                             <table>
                                 <tbody>
                                     <tr>
@@ -161,7 +161,7 @@ const Category = () => {
                     <>
                         <button onClick={nextPageCreacteCategory}>Add Category</button>
                         <button onClick={clickRefrc}>Lam moi list</button>
-                        <h1>Khong co category nao</h1>
+                        <h1 className='loading'>Khong co category nao</h1>
                     </>
                 )
             }

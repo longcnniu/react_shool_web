@@ -32,7 +32,7 @@ function App() {
       <Route path='/post/:id' element={<PostDetail/>}/>
       <Route path='/post-eidt/:id' element={<EditPost/>}/>
       
-      <Route element={<NotFound/>}/>
+      <Route path='*' element={<NotFound/>}/>
     </Routes>
   );
 }

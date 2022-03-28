@@ -33,7 +33,7 @@ const Login = () => {
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
-                            navigate('/')
+                            navigate('/?page=1')
                         }
                     })
                     .catch(error => console.log('error', error));
@@ -64,7 +64,7 @@ const Login = () => {
             .then(data => {
                 if (data.success) {
                     document.cookie = `accessToken= Bearer ${data.accessToken}`;
-                    navigate("/");
+                    navigate("/?page=1");
                 }
             })
             .catch(error => console.log('error', error));

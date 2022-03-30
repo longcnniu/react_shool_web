@@ -132,22 +132,22 @@ const Category = () => {
                         <td>{new Date(data.lockDate).toLocaleString()}</td>
                         <td>
                             <button className='btn-edit' onClick={clickEdit(data)}>Edit</button>
-                            <button className='btn-del' onClick={click(data)}>Xoa</button>
+                            <button className='btn-del' onClick={click(data)}>Delete</button>
                         </td>
                     </tr>
                 ))
                 body = (
                     <>
                         <button onClick={nextPageCreacteCategory}>Add Category</button>
-                        <button onClick={clickRefrc}>Lam moi list</button>
+                        <button onClick={clickRefrc}>Refresh list</button>
                         <div className='out_table'>
                             <table>
                                 <tbody>
                                     <tr>
                                         <th>Title</th>
-                                        <th>Ngay tao</th>
-                                        <th>Ngay het han</th>
-                                        <th>Ngay Khoa Bai</th>
+                                        <th>Date create</th>
+                                        <th>Expiration date</th>
+                                        <th>Lock date</th>
                                         <th>...</th>
                                     </tr>
                                     {listview}
@@ -160,19 +160,19 @@ const Category = () => {
                 body = (
                     <>
                         <button onClick={nextPageCreacteCategory}>Add Category</button>
-                        <button onClick={clickRefrc}>Lam moi list</button>
-                        <h1 className='loading'>Khong co category nao</h1>
+                        <button onClick={clickRefrc}>Refresh list</button>
+                        <h1 className='loading'>No Category yet</h1>
                     </>
                 )
             }
         } else {
             body = (
-                <div>Loading categorys...</div>
+                <div>Loading categories...</div>
             )
         }
     } else {
         body = (
-            <div>Loadning...</div>
+            <div>Loading...</div>
         )
     }
 

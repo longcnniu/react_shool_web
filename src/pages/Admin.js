@@ -165,7 +165,7 @@ const Admin = () => {
     }
   } else {
     body = (
-      <div className='loading'>loading...</div>
+      <div className='loading'>Loading...</div>
     )
   }
 

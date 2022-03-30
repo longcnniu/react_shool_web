@@ -227,7 +227,7 @@ const Home = () => {
     } else {
       bodyPost = (
         <>
-          <h1 className='loading'>Khong co Bai viet nao</h1>
+          <h1 className='loading'>There are no posts yet</h1>
         </>
       )
     }
@@ -257,7 +257,7 @@ const Home = () => {
               <p>Logo</p>
             </div>
             <div>
-              <button onClick={logout}>Dang xuat</button>
+              <button onClick={logout}>Log out</button>
             </div>
           </header>
           <div className='top'>
@@ -267,7 +267,7 @@ const Home = () => {
               <p>Time: {Time}</p>
             </div>
             <div>
-              <button onClick={CreactPost}>Dang bai viet</button>
+              <button onClick={CreactPost}>Create new Post</button>
               <button onClick={CreactCategory}>View Category</button>
               {changeNumberPost}
             </div>
@@ -280,7 +280,7 @@ const Home = () => {
         <div>
           <h1>Hello, </h1>
           <p>Today is {today}</p>
-          <button onClick={CreactPost}>Dang bai viet</button>
+          <button onClick={CreactPost}>Post</button>
           {changeNumberPost}
           {bodyPost}
         </div>

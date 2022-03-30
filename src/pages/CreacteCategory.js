@@ -93,17 +93,17 @@ const CreacteCategory = () => {
       <div>
         <div>
           <label>Title: </label>
-          <input type='text' onChange={e => setCategory(e.target.value)} />
+          <input id='title' type='text' onChange={e => setCategory(e.target.value)} />
         </div>
         <div>
-          <label>Ngay het han: </label>
-          <input type='datetime-local' onChange={e => setendDate(e.target.value)} min={MinTime} />
+          <label>Expiration date: </label>
+          <input id='exp-date' type='datetime-local' onChange={e => setendDate(e.target.value)} min={MinTime} />
         </div>
         <div>
-          <label>Ngay khóa Post: </label>
-          <input type='datetime-local' onChange={e => setlockDate(e.target.value)} min={MinTime} />
+          <label>Lock Date: </label>
+          <input id='lock-date' type='datetime-local' onChange={e => setlockDate(e.target.value)} min={MinTime} />
         </div>
-        <button onClick={creacteCategory}>Xac Nhan</button>
+        <button id='Create-category' onClick={creacteCategory}>Confirm</button>
       </div>
     )
   } else {

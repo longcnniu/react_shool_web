@@ -133,16 +133,16 @@ const CreatePosts = () => {
 
                     </div>
                     <div>
-                        <label>Dong y dieu khoan</label>
+                        <label>Accept </label>
                         <input type="checkbox" name="vehicle1" value="Bike" />
                     </div>
-                    <button onClick={uploadPost}>Xac Nhan</button>
+                    <button onClick={uploadPost}>Confirm</button>
                 </div>
             )
         } else {
             body = (
                 <>
-                    <div className='loading'>Hien tại không có category nào để tạo post</div>
+                    <div className='loading'>Currently there is no category to create a post</div>
                 </>
             )
         }

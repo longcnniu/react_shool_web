@@ -41,7 +41,7 @@ const Login = () => {
         }
         checklogin()
     }, [navigate])
-
+    
 
     //gủi req Email vs Password lên server
     const login = () => {
@@ -62,9 +62,14 @@ const Login = () => {
         fetch(`${apiUrl}/login`, requestOptions)
             .then(response => response.json())
             .then(data => {
+                console.log(data.message)
                 if (data.success) {
-                    document.cookie = `accessToken= Bearer ${data.accessToken}`;
-                    navigate("/?page=1");
+                    alert(data.message)
+                document.cookie = `accessToken= Bearer ${data.accessToken}`;
+                     navigate("/?page=1");
+                }
+                else {
+                    alert(data.message)
                 }
             })
             .catch(error => console.log('error', error));
@@ -76,21 +81,22 @@ const Login = () => {
                 <h1>Login</h1>
                 <div className='form'>
                     <div className="txt_field">
-                        <input type="text" required onChange={e => setUserName(e.target.value)}/>
+                        <input id='username' type="text" required onChange={e => setUserName(e.target.value)}/>
                         <span></span>
                         <label>Email</label>
                     </div>
                     <div className="txt_field">
-                        <input type="password" required onChange={e => setPassword(e.target.value)}/>
+                        <input id='password' type="password" required onChange={e => setPassword(e.target.value)}/>
                         <span></span>
                         <label>Password</label>
                     </div>
                     <div className="pass">Forgot Password?</div>
-                    <button className='btn' onClick={login}>Login</button>
+                    <button id='btn' className='btn' onClick={login} >Login</button>
                 </div>
             </div>
         </div>
     )
+    
 }
 
 export default Login

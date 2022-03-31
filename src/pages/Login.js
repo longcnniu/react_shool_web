@@ -64,7 +64,6 @@ const Login = () => {
             .then(data => {
                 console.log(data.message)
                 if (data.success) {
-                    alert(data.message)
                 document.cookie = `accessToken= Bearer ${data.accessToken}`;
                      navigate("/?page=1");
                 }

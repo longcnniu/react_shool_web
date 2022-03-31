@@ -8,6 +8,11 @@
     font-weight: 500;
 }
 
+html {
+    background-color: #4D648D;
+    height: 100%;
+}
+
 .top {
     display: flex;
     justify-content: space-between;
@@ -16,19 +21,48 @@
 }
 
 header {
-    background-color: #1590e2;
+    background-color: #373947;
     padding: 25px 50px 25px 50px;
     display: flex;
     justify-content: space-between;
 }
 
-.post {
-    padding: 20px;
-    box-shadow: 5px 2px;
-    margin: 50px 50px;
+.Home-Logo {
+    color: white;
+    font-size: 30px;
+}
+
+.Home-btn-logout {
+    background-color: #DF0000;
+    margin-right: 20px;
+    border: none;
+    color: white;
+    padding: 10px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+}
+
+/*Card Post*/
+.Home-bottom-card {
+    display: flex;
+}
+
+.All-Posts {
     display: flex;
     justify-content: center;
-    flex-direction:column;
-    align-items: center;
+}
+
+.post {
+    background-color: #D0E1F9;
+    padding: 50px 50px;
+    box-shadow: 5px 2px;
+    margin: 50px 50px;
+    min-width: 1200px;
     border: 1px solid;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }

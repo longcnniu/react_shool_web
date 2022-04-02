@@ -106,8 +106,10 @@ const QaManager = () => {
         .then(response => response.json())
         .then(result => {
           if (result.success) {
-            console.log(result.message);
+            alert(result.message)
             setchangedUser(!changedUser)
+          }else {
+            alert(result.message)
           }
         })
         .catch(error => console.log('error', error));
@@ -127,9 +129,11 @@ const QaManager = () => {
             <td>{data.email}</td>
             <td>{`${data.firstName} ${data.lastName}`}</td>
             <td>{data.role}</td>
+            <td>{data.Department}</td>
+            <td>{`${("0" + (new Date(data.date).getDate())).slice(-2)}-${("0" + (new Date(data.date).getMonth() + 1)).slice(-2)}-${new Date(data.date).getFullYear()}`}</td>
             <td>
-              <button onClick={clickEdit(data)}>Edit</button>
-              <button onClick={click(data)}>Xoa</button>
+              <button className='btn-edit' onClick={clickEdit(data)}>Edit</button>
+              <button className='btn-del' onClick={click(data)}>Xoa</button>
             </td>
           </tr>
         ))
@@ -144,6 +148,8 @@ const QaManager = () => {
                     <th>Email</th>
                     <th>Name</th>
                     <th>Role</th>
+                    <th>Department</th>
+                    <th>Date created</th>
                     <th>...</th>
                   </tr>
                   {listview}

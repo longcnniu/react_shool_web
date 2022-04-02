@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from 'react'
-import { useNavigate } from "react-router-dom";
-import { apiUrl } from '../contexts/constants';
+import React, {useEffect, useState} from 'react'
+import {useNavigate} from "react-router-dom";
+import {apiUrl} from '../contexts/constants';
 
 const EditUser = () => {
 
     const navigate = useNavigate()
     const [Email, setEmail] = useState('')
     const [Role, setRole] = useState('staff')
+    const [Department, setDepartment] = useState('IT')
     const [RoleAuth, setRoleAuth] = useState('')
+    const [FirstName, setFirstName] = useState('')
+    const [LastName, setLastName] = useState('')
     const [Loading, setLoading] = useState(false)
 
     useEffect(() => {
@@ -34,6 +37,9 @@ const EditUser = () => {
                         if (result.success) {
                             setEmail(result.data.email)
                             setRole(result.data.role)
+                            setFirstName(result.data.firstName)
+                            setLastName(result.data.lastName)
+                            setDepartment(result.data.Department)
                             setRoleAuth(result.roleAuth);
                             setLoading(true)
                         } else {
@@ -63,6 +69,9 @@ const EditUser = () => {
         var urlencoded = new URLSearchParams();
         urlencoded.append("email", Email);
         urlencoded.append("role", Role);
+        urlencoded.append("firstName", FirstName);
+        urlencoded.append("lastName", LastName);
+        urlencoded.append("Department", Department);
 
         var requestOptions = {
             method: 'PUT',
@@ -72,8 +81,14 @@ const EditUser = () => {
         };
 
         fetch(`${apiUrl}` + window.location.pathname, requestOptions)
-            .then(response => response.text())
-            .then(result => console.log(result))
+            .then(response => response.json())
+            .then(result => {
+                if(result.success){
+                    alert(result.message)
+                }else {
+                    alert(result.message)
+                }
+            })
             .catch(error => console.log('error', error));
     }
 
@@ -84,7 +99,18 @@ const EditUser = () => {
         if (RoleAuth === 'admin') {
             body = (
                 <div>
-                    <input type='email' onChange={e => setEmail(e.target.value)} value={Email} />
+                    <div>
+                        <label name="email">Email</label>
+                        <input type='email' onChange={e => setEmail(e.target.value)} value={Email}/>
+                    </div>
+                    <div>
+                        <label name="firstName">First Name</label>
+                        <input type="text" name='firstName' onChange={e => setFirstName(e.target.value)} value={FirstName}/>
+                    </div>
+                    <div>
+                        <label>Last Name</label>
+                        <input type="text" name='lastName' onChange={e => setLastName(e.target.value)} value={LastName}/>
+                    </div>
                     <div>
                         <label>Role User:</label>
                         <select value={Role} onChange={e => setRole(e.target.value)}>
@@ -93,13 +119,22 @@ const EditUser = () => {
                             <option value='admin'>Admin</option>
                         </select>
                     </div>
+                    <div>
+                        <label>Department:</label>
+                        <select value={Department} onChange={e => setDepartment(e.target.value)}>
+                            <option value='IT'>IT</option>
+                            <option value='Business'>Business</option>
+                            <option value='Design'>Design</option>
+                            <option value='Marketing'>Marketing</option>
+                        </select>
+                    </div>
                     <button onClick={updateUser}>Xac Nhan</button>
                 </div>
             )
         } else {
             body = (
                 <div>
-                    <input type='email' onChange={e => setEmail(e.target.value)} value={Email} />
+                    <input type='email' onChange={e => setEmail(e.target.value)} value={Email}/>
                     <div>
                         <label>Role User:</label>
                         <select value={Role} onChange={e => setRole(e.target.value)}>

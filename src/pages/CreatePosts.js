@@ -12,6 +12,7 @@ const CreatePosts = () => {
     const [Content, setContent] = useState('')
     const [Category, setCategory] = useState('')
     const [AllCategory, setAllCategory] = useState([])
+    const [photo, setPhoto] = useState('');
 
     //kiểm tra token and đẵ đăng nhập hay chưa
     useEffect(() => {
@@ -27,9 +28,7 @@ const CreatePosts = () => {
                 myHeaders.append("token", cookieValue);
 
                 var requestOptions = {
-                    method: 'GET',
-                    headers: myHeaders,
-                    redirect: 'follow'
+                    method: 'GET', headers: myHeaders, redirect: 'follow'
                 };
 
                 return fetch(`${apiUrl}/post`, requestOptions)
@@ -47,7 +46,8 @@ const CreatePosts = () => {
                     .catch(error => console.log('error', error))
             } else {
                 navigate("/login")
-            };
+            }
+            ;
         }
         checklogin()
     }, [navigate])
@@ -58,9 +58,7 @@ const CreatePosts = () => {
         myHeaders.append("token", cookieValue);
 
         var requestOptions = {
-            method: 'GET',
-            headers: myHeaders,
-            redirect: 'follow'
+            method: 'GET', headers: myHeaders, redirect: 'follow'
         };
 
         return fetch(`${apiUrl}/all-category/exp`, requestOptions)
@@ -78,31 +76,59 @@ const CreatePosts = () => {
             .split('; ')
             .find(row => row.startsWith('accessToken='))
             .split('=')[1];
-        //fun POST
         var myHeaders = new Headers();
         myHeaders.append("token", cookieValue);
-        myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+        if (photo === '') {
+            var formdata = new FormData();
+            formdata.append("title", Title);
+            formdata.append("content", Content);
+            formdata.append("category", Category);
 
-        var urlencoded = new URLSearchParams();
-        urlencoded.append("title", Title);
-        urlencoded.append("content", Content);
-        urlencoded.append("category", Category);
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: formdata,
+                redirect: 'follow'
+            };
+            fetch(`${apiUrl}/post`, requestOptions)
+                .then(response => response.json())
+                .then(result => {
+                    if (result.success) {
+                        navigate('/?page=1')
+                        alert(result.message)
+                    } else {
+                        alert(result.message)
+                    }
 
-        var requestOptions = {
-            method: 'POST',
-            headers: myHeaders,
-            body: urlencoded,
-            redirect: 'follow'
-        };
+                })
+                .catch(error => console.log('error', error));
+        } else {
+            //fun POST
+            var formdatas = new FormData();
+            formdatas.append("image", photo, photo.name);
+            formdatas.append("title", Title);
+            formdatas.append("content", Content);
+            formdatas.append("category", Category);
 
-        fetch(`${apiUrl}/post`, requestOptions)
-            .then(response => response.json())
-            .then(result => {
-                if (result.success) {
-                    navigate('/?page=1')
-                }
-            })
-            .catch(error => console.log('error', error));
+            var requestOptionss = {
+                method: 'POST',
+                headers: myHeaders,
+                body: formdatas,
+                redirect: 'follow'
+            }
+            fetch(`${apiUrl}/post`, requestOptionss)
+                .then(response => response.json())
+                .then(result => {
+                    if (result.success) {
+                        navigate('/?page=1')
+                        alert(result.message)
+                    } else {
+                        alert(result.message)
+                    }
+
+                })
+                .catch(error => console.log('error', error));
+        }
     }
 
     //html
@@ -111,45 +137,42 @@ const CreatePosts = () => {
     if (Loading) {
         if (AllCategory !== undefined) {
             const listCategory = AllCategory.map(data => (
-                <option key={data._id} value={data.title}>{data.title}</option>
-            ))
-            body = (
+                <option key={data._id} value={data.title}>{data.title}</option>))
+            body = (<div>
+                <h3>POST Bai Viet</h3>
                 <div>
-                    <h3>POST Bai Viet</h3>
-                    <div>
-                        <label>Title</label>
-                        <input type='text' name='title' onChange={e => setTitle(e.target.value)} />
-                    </div>
-                    <div>
-                        <label>Content</label>
-                        <textarea onChange={e => setContent(e.target.value)} name="w3review" rows="4" cols="50" />
-                    </div>
-                    <div>
-                        <label>Category</label>
-                        <select onChange={e => setCategory(e.target.value)}>
-                            <option value=''></option>
-                            {listCategory}
-                        </select>
-
-                    </div>
-                    <div>
-                        <label>Accept </label>
-                        <input type="checkbox" name="vehicle1" value="Bike" />
-                    </div>
-                    <button onClick={uploadPost}>Confirm</button>
+                    <label>Title</label>
+                    <input type='text' name='title' onChange={e => setTitle(e.target.value)} />
                 </div>
-            )
+                <div>
+                    <label>Upload file:</label>
+                    <input type="file" onChange={e => setPhoto(e.target.files[0])} />
+                </div>
+                <div>
+                    <label>Content</label>
+                    <textarea onChange={e => setContent(e.target.value)} name="w3review" rows="4" cols="50" />
+                </div>
+                <div>
+                    <label>Category</label>
+                    <select onChange={e => setCategory(e.target.value)}>
+                        <option value=''></option>
+                        {listCategory}
+                    </select>
+
+                </div>
+                <div>
+                    <label>Accept </label>
+                    <input type="checkbox" name="vehicle1" value="Bike" />
+                </div>
+                <button onClick={uploadPost}>Confirm</button>
+            </div>)
         } else {
-            body = (
-                <>
-                    <div className='loading'>Currently there is no category to create a post</div>
-                </>
-            )
+            body = (<>
+                <div className='loading'>Currently there is no category to create a post</div>
+            </>)
         }
     } else {
-        body = (
-            <div>Loading...</div>
-        )
+        body = (<div>Loading...</div>)
     }
 
     return (body)

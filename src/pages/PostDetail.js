@@ -1,6 +1,6 @@
 import '../css/PostDetail.css'
 import React, { useEffect, useState } from 'react'
-import { useNavigate  } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { apiUrl } from '../contexts/constants';
 
 const PostDetail = () => {
@@ -158,8 +158,8 @@ const PostDetail = () => {
             .catch(error => console.log('error', error));
     }
 
-    //Click Vote
-    const clickVote = () => {
+    //Click Like
+    const clickLike = () => {
         //đoc cookie
         const cookieValue = document.cookie
             .split('; ')
@@ -174,7 +174,34 @@ const PostDetail = () => {
             redirect: 'follow'
         };
         const id = (window.location.pathname).split('/')
-        fetch(`${apiUrl}/post-vote/` + id[2], requestOptions)
+        fetch(`${apiUrl}/post-Like/` + id[2], requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                if (result) {
+                    setChange(!Change)
+                }
+            })
+            .catch(error => console.log('error', error));
+    }
+
+    //Click Dislick
+    const clickDislick = () => {
+        //đoc cookie
+        const cookieValue = document.cookie
+            .split('; ')
+            .find(row => row.startsWith('accessToken='))
+            .split('=')[1];
+        var myHeaders = new Headers();
+        myHeaders.append("token", cookieValue);
+
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            redirect: 'follow'
+        };
+
+        const id = (window.location.pathname).split('/')
+        fetch(`${apiUrl}/post-DisLike/` + id[2], requestOptions)
             .then(response => response.json())
             .then(result => {
                 if (result) {
@@ -285,7 +312,7 @@ const PostDetail = () => {
             //Body Main
             const listComment = Comment.map(data => (
                 <div key={data._id}>
-                    <div>Name: {data.name}</div>
+                    {/* <div>Name: {data.name}</div> */}
                     <div>Date: {new Date(data.createDateComment).toLocaleString()}</div>
                     <div>Comment: {data.comment}</div>
                 </div>
@@ -301,8 +328,10 @@ const PostDetail = () => {
                         {body4}
                         <p>Content: {Post.content}</p>
                         <p>View: {Post.numberView}</p>
-                        <p>Vote: {Post.numberVote}</p>
-                        <button onClick={clickVote}>Vote</button>
+                        <p>Like: {Post.Like}</p>
+                        <p>Dislike: {Post.DisLike}</p>
+                        <button onClick={clickLike}>Like</button>
+                        <button onClick={clickDislick}>Dislike</button>
                         {body2}
                         {body3}
                     </div>
@@ -341,8 +370,10 @@ const PostDetail = () => {
                             {body4}
                             <p>Content: {Post.content}</p>
                             <p>View: {Post.numberView}</p>
-                            <p>Vote: {Post.numberVote}</p>
-                            <button onClick={clickVote}>Vote</button>
+                            <p>Like: {Post.Like}</p>
+                            <p>Dislike: {Post.DisLike}</p>
+                            <button onClick={clickLike}>Like</button>
+                            <button onClick={clickDislick}>Dislike</button>
                             {body2}
                         </div>
                         <div>
@@ -380,7 +411,8 @@ const PostDetail = () => {
                             {body4}
                             <p>Content: {Post.content}</p>
                             <p>View: {Post.numberView}</p>
-                            <p>Vote: {Post.numberVote}</p>
+                            <p>Like: {Post.Like}</p>
+                            <p>Dislike: {Post.DisLike}</p>
                             {body2}
                         </div>
                         <div>

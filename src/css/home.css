@@ -20,11 +20,28 @@ html {
     align-items: flex-end;
 }
 
-header {
+.Home-header {
     background-color: #373947;
     padding: 25px 50px 25px 50px;
     display: flex;
     justify-content: space-between;
+}
+
+.Home-header__btn{
+    display: flex;
+}
+
+.Home-btn-PageMa {
+    margin-right: 10px;
+    background-color: #4D648D;
+    margin-right: 20px;
+    border: none;
+    color: white;
+    padding: 10px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
 }
 
 .Home-Logo {

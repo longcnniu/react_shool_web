@@ -1,7 +1,7 @@
 import '../css/home.css'
-import React, {useEffect, useState} from 'react'
-import {useNavigate} from "react-router-dom";
-import {apiUrl} from '../contexts/constants';
+import React, { useEffect, useState } from 'react'
+import { useNavigate } from "react-router-dom";
+import { apiUrl } from '../contexts/constants';
 
 const Home = () => {
     const [Loading, setLoading] = useState(false)
@@ -170,6 +170,34 @@ const Home = () => {
     }, [Time])
 
 
+    //clickPageQA
+    const clickPageMa = () => {
+        navigate('/manager')
+    }
+
+    //clickPageQA
+    const clickPageAdmin = () => {
+        navigate('/admin')
+    }
+
+    //html 4
+    //kiểm tra Admin or Qa xuất hiện đường dẫn tới nơi quản lý
+    let PageMagAccount
+    if (RoleAuth === 'admin') {
+        PageMagAccount = (
+            <>
+                <button className='Home-btn-PageMa' onClick={clickPageAdmin}>Pagee Admin</button>
+            </>
+        )
+    } else if (RoleAuth === 'qa-manager') {
+        PageMagAccount = (
+            <>
+                <button className='Home-btn-PageMa' onClick={clickPageMa}>Pagee QA Manager</button>
+            </>
+        )
+    }
+
+
     //html 3
     let changeNumberPost
     changeNumberPost = (
@@ -210,7 +238,10 @@ const Home = () => {
                     </div>
                     <div className='Home-bottom-card'>
                         <div>
-                            <p>Vote: {data.numberVote}</p>
+                            <p>Like: {data.Like}</p>
+                        </div>
+                        <div>
+                            <p>DisLike: {data.DisLike}</p>
                         </div>
                         <div>
                             <p>View: {data.numberView}</p>
@@ -244,12 +275,17 @@ const Home = () => {
     if (Loading) {
         if (RoleAuth === 'admin' || RoleAuth === 'qa-manager') {
             body = (<div className='Home-body'>
-                <header>
+                <header className='Home-header'>
                     <div>
                         <p className='Home-Logo'>Logo</p>
                     </div>
-                    <div>
-                        <button className='Home-btn-logout' onClick={logout}>Log out</button>
+                    <div className='Home-header__btn'>
+                        <div>
+                            {PageMagAccount}
+                        </div>
+                        <div>
+                            <button className='Home-btn-logout' onClick={logout}>Log out</button>
+                        </div>
                     </div>
                 </header>
                 <div className='top'>

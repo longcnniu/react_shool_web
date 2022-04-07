@@ -11,6 +11,7 @@ const EditUser = () => {
     const [RoleAuth, setRoleAuth] = useState('')
     const [FirstName, setFirstName] = useState('')
     const [LastName, setLastName] = useState('')
+    const [Password, setPassword] = useState('')
     const [Loading, setLoading] = useState(false)
 
     useEffect(() => {
@@ -72,6 +73,7 @@ const EditUser = () => {
         urlencoded.append("firstName", FirstName);
         urlencoded.append("lastName", LastName);
         urlencoded.append("Department", Department);
+        urlencoded.append("password", Password);
 
         var requestOptions = {
             method: 'PUT',
@@ -103,6 +105,10 @@ const EditUser = () => {
                         <label name="email">Email</label>
                         <input type='email' onChange={e => setEmail(e.target.value)} value={Email}/>
                     </div>
+                    <idv>
+                        <label>Password</label>
+                        <input type='password' onChange={e => setPassword(e.target.value)}/>
+                    </idv>
                     <div>
                         <label name="firstName">First Name</label>
                         <input type="text" name='firstName' onChange={e => setFirstName(e.target.value)} value={FirstName}/>

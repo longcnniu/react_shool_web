@@ -11,6 +11,7 @@ const Home = () => {
     const [Posts, setPosts] = useState([])
     const [NumberPost, setNumberPost] = useState('')
     const [Time, setTime] = useState('')
+    const [SortNumber, setSortNumber] = useState('0')
     if (NumberPost === '') {
         setNumberPost('5')
     }
@@ -69,8 +70,12 @@ const Home = () => {
                 };
                 const urlSearchParams = new URLSearchParams(window.location.search);
                 const params = Object.fromEntries(urlSearchParams.entries());
+                
+                //tao mang chu sort
+                const sort = ['dateCreate','dateCreate','Like','Like','DisLike','DisLike','numberView','numberView']
+                const sortty = ['-1', '1', '-1', '1', '-1', '1', '-1','1']
 
-                return fetch(`${apiUrl}/posts?page=${params.page}&page_size=${NumberPost}`, requestOptions)
+                return fetch(`${apiUrl}/posts?page=${params.page}&page_size=${NumberPost}&sort=${sort[SortNumber]}&sortty=${sortty[SortNumber]}`, requestOptions)
                     .then(res => res.json())
                     .then(data => {
                         setPosts(data.dataPost)
@@ -83,7 +88,7 @@ const Home = () => {
             }
         }
         GetAllPost()
-    }, [navigate, NumberPost])
+    }, [navigate, NumberPost, SortNumber])
 
     //click creact new Post
     const CreactPost = () => {
@@ -186,16 +191,34 @@ const Home = () => {
     if (RoleAuth === 'admin') {
         PageMagAccount = (
             <>
-                <button className='Home-btn-PageMa' onClick={clickPageAdmin}>Pagee Admin</button>
+                <button className='Home-btn-PageMa' onClick={clickPageAdmin}>Page Admin</button>
             </>
         )
     } else if (RoleAuth === 'qa-manager') {
         PageMagAccount = (
             <>
-                <button className='Home-btn-PageMa' onClick={clickPageMa}>Pagee QA Manager</button>
+                <button className='Home-btn-PageMa' onClick={clickPageMa}>Page QA Manager</button>
             </>
         )
     }
+
+    //html 4
+    //Bộ lọc
+    let sort
+    sort = (
+        <>
+            <select onChange={e => setSortNumber(e.target.value)}>
+                <option value='0'>Post mới nhất</option>
+                <option value='1'>Post cũ nhất</option>
+                <option value='2'>Post Like Nhiều Nhất</option>
+                <option value='3'>Post Like Thấp Nhất</option>
+                <option value='4'>Post Dislike Nhiều Nhất</option>
+                <option value='5'>Post Dislik Thấp Nhất</option>
+                <option value='6'>Post có View cao</option>
+                <option value='7'>Post có View Thấp</option>
+            </select>
+        </>
+    )
 
 
     //html 3
@@ -297,6 +320,7 @@ const Home = () => {
                     <div>
                         <button onClick={CreactPost}>Create new Post</button>
                         <button onClick={CreactCategory}>View Category</button>
+                        {sort}
                         {changeNumberPost}
                     </div>
                 </div>
@@ -305,13 +329,34 @@ const Home = () => {
                 </div>
             </div>)
         } else {
-            body = (<div className='Home-body'>
-                <h1>Hello, </h1>
-                <p>Today is {today}</p>
-                <button onClick={CreactPost}>Post</button>
-                {changeNumberPost}
-                {bodyPost}
-            </div>)
+            body = (
+                <div className='Home-body'>
+                    <header className='Home-header'>
+                        <div>
+                            <p className='Home-Logo'>Logo</p>
+                        </div>
+                        <div className='Home-header__btn'>
+                            <div>
+                                <button className='Home-btn-logout' onClick={logout}>Log out</button>
+                            </div>
+                        </div>
+                    </header>
+                    <div className='top'>
+                        <div>
+                            <h1>Hello, </h1>
+                            <p>Today is {today}</p>
+                            <p>Time: {Time}</p>
+                        </div>
+                        <div>
+                            <button onClick={CreactPost}>Create new Post</button>
+                            {sort}
+                            {changeNumberPost}
+                        </div>
+                    </div>
+                    <div className='All-Posts'>
+                        {bodyPost}
+                    </div>
+                </div>)
         }
     } else {
         body = (<>

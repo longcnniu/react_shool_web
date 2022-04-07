@@ -15,6 +15,7 @@ const PostDetail = () => {
     const [Img, setImg] = useState('null')
     const [NameImg, setNameImg] = useState('')
     const [FileOrImg, setFileOrImg] = useState(false)
+    const [URLFile, setURLFile] = useState('')
     //trang thai
     const [ChangeComment, setChangeComment] = useState(false)
     const [Change, setChange] = useState(false)
@@ -70,7 +71,7 @@ const PostDetail = () => {
                                                     method: 'GET',
                                                     redirect: 'follow'
                                                 };
-                                                fetch("http://localhost:5000/get-img?nameImg=" + result.dataPost.NameImg, requestOptions)
+                                                fetch(`${apiUrl}/get-img?nameImg=` + result.dataPost.NameImg, requestOptions)
                                                     .then(response => response.blob())
                                                     .then(result => {
                                                         const imageObjectURL = URL.createObjectURL(result);
@@ -81,7 +82,8 @@ const PostDetail = () => {
                                         } else {
                                             if (result.dataPost.NameImg !== 'null') {
                                                 setFileOrImg(true)
-                                                setNameImg(`${apiUrl}/get-img?nameImg=${result.dataPost.NameImg}`);
+                                                setNameImg(result.dataPost.NameImg)
+                                                setURLFile(`${apiUrl}/get-img?nameImg=${result.dataPost.NameImg}`);
                                             }
                                         }
                                     }
@@ -225,7 +227,7 @@ const PostDetail = () => {
             redirect: 'follow'
         };
 
-        fetch("http://localhost:5000/del-img", requestOptionss)
+        fetch(`${apiUrl}/del-img`, requestOptionss)
             .then(response => response.text())
             .then(result => console.log(result))
             .catch(error => console.log('error', error));
@@ -246,7 +248,7 @@ const PostDetail = () => {
     if (FileOrImg) {
         body4 = (
             <>
-                <a href={NameImg}>Dowload File</a>
+                <a href={URLFile}>Dowload File</a>
             </>
         )
     } else {

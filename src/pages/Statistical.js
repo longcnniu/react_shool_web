@@ -20,7 +20,6 @@ ChartJS.register(
     Tooltip,
     Legend
 );
-///ASDSDAD
 
 const Statistical = () => {
 

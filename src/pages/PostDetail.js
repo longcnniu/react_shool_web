@@ -240,24 +240,27 @@ const PostDetail = () => {
             })
             .catch(error => console.log('error', error));
 
-        //Del Img
-        var myHeaderss = new Headers();
-        myHeaderss.append("Content-Type", "application/x-www-form-urlencoded");
+        //Kiểm tra xem đây là File hay ảnh rồi xóa
+        if (Img !== 'null') {
+            //Del Img
+            var myHeaderss = new Headers();
+            myHeaderss.append("Content-Type", "application/x-www-form-urlencoded");
 
-        var urlencoded = new URLSearchParams();
-        urlencoded.append("nameImg", NameImg);
+            var urlencoded = new URLSearchParams();
+            urlencoded.append("nameImg", NameImg);
 
-        var requestOptionss = {
-            method: 'DELETE',
-            headers: myHeaderss,
-            body: urlencoded,
-            redirect: 'follow'
-        };
+            var requestOptionss = {
+                method: 'DELETE',
+                headers: myHeaderss,
+                body: urlencoded,
+                redirect: 'follow'
+            };
 
-        fetch(`${apiUrl}/del-img`, requestOptionss)
-            .then(response => response.text())
-            .then(result => console.log(result))
-            .catch(error => console.log('error', error));
+            fetch(`${apiUrl}/del-img`, requestOptionss)
+                .then(response => response.text())
+                .then(result => console.log(result))
+                .catch(error => console.log('error', error));
+        }
     }
 
     //Click updata

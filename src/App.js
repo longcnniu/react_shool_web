@@ -12,6 +12,7 @@ import EditCategory from './pages/EditCategory';
 import PostDetail from './pages/PostDetail';
 import NotFound from './pages/NotFound';
 import EditPost from './pages/EditPost';
+import Statistical from "./pages/Statistical";
 
 function App() {
   return (
@@ -31,7 +32,9 @@ function App() {
       <Route path='/new-post' element={<CreatePosts/>}/>
       <Route path='/post/:id' element={<PostDetail/>}/>
       <Route path='/post-eidt/:id' element={<EditPost/>}/>
-      
+
+      <Route path="/statistical" element={<Statistical/>}/>
+
       <Route path='*' element={<NotFound/>}/>
     </Routes>
   );

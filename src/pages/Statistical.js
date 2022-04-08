@@ -21,6 +21,7 @@ ChartJS.register(
     Legend
 );
 
+/// Long ngu
 const Statistical = () => {
 
     const [DataDe_id, setDataDe_id] = useState([])

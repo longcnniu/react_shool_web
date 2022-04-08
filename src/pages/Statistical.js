@@ -21,14 +21,11 @@ ChartJS.register(
     Legend
 );
 
-/// Long ngu
 const Statistical = () => {
 
     const [DataDe_id, setDataDe_id] = useState([])
     const [tyChart, settyChart] = useState('0')
     
-   //SSSS
-
     useEffect(() => {
         const tagChart = ['ideas', 'Percent', 'comment']
         var requestOptions = {

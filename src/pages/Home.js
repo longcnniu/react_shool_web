@@ -185,6 +185,11 @@ const Home = () => {
         navigate('/admin')
     }
 
+    //clickPage Statistical
+    const clickPageStatistical = () => {
+        navigate('/statistical')
+    }
+
     //html 4
     //kiểm tra Admin or Qa xuất hiện đường dẫn tới nơi quản lý
     let PageMagAccount
@@ -192,12 +197,15 @@ const Home = () => {
         PageMagAccount = (
             <>
                 <button className='Home-btn-PageMa' onClick={clickPageAdmin}>Page Admin</button>
+                <button className='Home-btn-PageMa' onClick={clickPageStatistical}>Page Statistical</button>
             </>
+
         )
     } else if (RoleAuth === 'qa-manager') {
         PageMagAccount = (
             <>
                 <button className='Home-btn-PageMa' onClick={clickPageMa}>Page QA Manager</button>
+                <button className='Home-btn-PageMa' onClick={clickPageStatistical}>Page Statistical</button>
             </>
         )
     }

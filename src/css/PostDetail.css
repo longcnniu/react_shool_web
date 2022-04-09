@@ -1,0 +1,54 @@
+.PostDetail-Main {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    box-shadow: 2px 2px 2px 3px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    margin: 50px 50px;
+}
+
+.PostDetail-btn {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+}
+
+.PostDetail-Main-infor {
+    display: flex;
+    justify-content: space-between;
+}
+
+.PostDetail-Main-container {
+    margin: 50px 0;
+    max-width: 1000px;
+}
+
+.PostDetail-btn-cc {
+    margin-right: 5px;
+}
+
+.PostDetail-view {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 20px 0;
+    box-shadow: 2px 2px 2px 3px rgba(0, 0, 0, 0.2);
+    padding: 10px 0;
+    border-radius: 10px;
+}
+
+/* comment */
+.PostDetail-main-comment {
+    border-radius: 0 15px 15px 15px;
+    margin-top: 15px;
+    width: 500px;
+    box-shadow: 2px 2px 2px 3px rgba(0, 0, 0, 0.2);
+}
+
+.PostDetail-comment-container {
+    padding: 20px 10px;
+}
+
+.PostDetail-comment-titleDay {
+    border-bottom: 1px solid #000;
+    margin-bottom: 10px;
+}

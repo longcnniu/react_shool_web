@@ -69,10 +69,10 @@ const Home = () => {
                 };
                 const urlSearchParams = new URLSearchParams(window.location.search);
                 const params = Object.fromEntries(urlSearchParams.entries());
-                
+
                 //tao mang chu sort
-                const sort = ['dateCreate','dateCreate','Like','Like','DisLike','DisLike','numberView','numberView']
-                const sortty = ['-1', '1', '-1', '1', '-1', '1', '-1','1']
+                const sort = ['dateCreate', 'dateCreate', 'Like', 'Like', 'DisLike', 'DisLike', 'numberView', 'numberView']
+                const sortty = ['-1', '1', '-1', '1', '-1', '1', '-1', '1']
 
                 return fetch(`${apiUrl}/posts?page=${params.page}&page_size=${NumberPost}&sort=${sort[SortNumber]}&sortty=${sortty[SortNumber]}`, requestOptions)
                     .then(res => res.json())
@@ -189,6 +189,11 @@ const Home = () => {
         navigate('/statistical')
     }
 
+    //ClickPage Export
+    const clickPageExport = () => {
+        navigate('/export')
+    }
+
     //html 4
     //kiểm tra Admin or Qa xuất hiện đường dẫn tới nơi quản lý
     let PageMagAccount
@@ -197,6 +202,7 @@ const Home = () => {
             <>
                 <button className='Home-btn-PageMa' onClick={clickPageAdmin}>Page Admin</button>
                 <button className='Home-btn-PageMa' onClick={clickPageStatistical}>Page Statistical</button>
+                <button className='Home-btn-PageMa' onClick={clickPageExport}>Page Export</button>
             </>
 
         )
@@ -205,6 +211,7 @@ const Home = () => {
             <>
                 <button className='Home-btn-PageMa' onClick={clickPageMa}>Page QA Manager</button>
                 <button className='Home-btn-PageMa' onClick={clickPageStatistical}>Page Statistical</button>
+                <button className='Home-btn-PageMa' onClick={clickPageExport}>Page Export</button>
             </>
         )
     }
@@ -251,29 +258,29 @@ const Home = () => {
         if (Posts.length !== 0) {
             const listPost = Posts.map(data => (
                 <div className='post' key={data._id} onClick={clickPostDetail(data)}>
-                    {/*<div>*/}
-                    {/*    <h4>Name: {data.name}</h4>*/}
-                    {/*</div>*/}
                     <div>
-                        <h4>User</h4>
+                        <h4>Name: {data.name}</h4>
                     </div>
+                    {/* <div>
+                        <h4>User</h4>
+                    </div> */}
                     <div>
-                        <p>Ngay Dang: {new Date(data.dateCreate).toLocaleString()}</p>
+                        <p>Date Submitted: {new Date(data.dateCreate).toLocaleString()}</p>
                     </div>
                     <div>
                         <p>Category: {data.category}</p>
                     </div>
                     <div>
-                        <h4>Tieu De: {data.title}</h4>
+                        <h4>Title: {data.title}</h4>
                     </div>
                     <div className='Home-bottom-card'>
-                        <div>
+                        <div className='Home-view-number1'>
                             <p>Like: {data.Like}</p>
                         </div>
-                        <div>
+                        <div className='Home-view-number2'>
                             <p>DisLike: {data.DisLike}</p>
                         </div>
-                        <div>
+                        <div className='Home-view-number3'>
                             <p>View: {data.numberView}</p>
                         </div>
                     </div>
@@ -325,8 +332,8 @@ const Home = () => {
                         <p>Time: {Time}</p>
                     </div>
                     <div>
-                        <button onClick={CreactPost}>Create new Post</button>
-                        <button onClick={CreactCategory}>View Category</button>
+                        <button className='Home-btn-body' onClick={CreactPost}>Create new Post</button>
+                        <button className='Home-btn-body' onClick={CreactCategory}>View Category</button>
                         {sort}
                         {changeNumberPost}
                     </div>
@@ -355,7 +362,7 @@ const Home = () => {
                             <p>Time: {Time}</p>
                         </div>
                         <div>
-                            <button onClick={CreactPost}>Create new Post</button>
+                            <button className='Home-btn-body' onClick={CreactPost}>Create new Post</button>
                             {sort}
                             {changeNumberPost}
                         </div>

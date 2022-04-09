@@ -295,7 +295,7 @@ const PostDetail = () => {
             if (UserId === PostUserId || Role === 'admin' || Role === 'qa-manager') {
                 body2 = (
                     <>
-                        <button onClick={clickDel}>Xoa</button>
+                        <button className='PostDetail-btn-cc' onClick={clickDel}>Xoa</button>
                     </>
                 )
             }
@@ -304,7 +304,7 @@ const PostDetail = () => {
             if (UserId === PostUserId) {
                 body3 = (
                     <>
-                        <button onClick={ClickUpdata}>Edit</button>
+                        <button className='PostDetail-btn-ccc' onClick={ClickUpdata}>Edit</button>
                     </>
                 )
             }
@@ -314,36 +314,50 @@ const PostDetail = () => {
 
             //Body Main
             const listComment = Comment.map(data => (
-                <div key={data._id}>
-                    {/* <div>Name: {data.name}</div> */}
-                    <div>Date: {new Date(data.createDateComment).toLocaleString()}</div>
-                    <div>Comment: {data.comment}</div>
+                <div key={data._id} className='PostDetail-main-comment'>
+                    <div className='PostDetail-comment-container'>
+                        {/* <div>Name: {data.name}</div> */}
+                        <div className='PostDetail-comment-titleDay'>Date: {new Date(data.createDateComment).toLocaleString()}</div>
+                        <div>Comment: {data.comment}</div>
+                    </div>
                 </div>
             ))
 
             //admin || qa-manager
             body = (
                 <>
-                    <div>
-                        <div>Name: {Post.name}</div>
-                        <div>Date: {new Date(Post.dateCreate).toLocaleString()}</div>
-                        <div>Category: {Post.category}</div>
-                        {body4}
-                        <p>Content: {Post.content}</p>
-                        <p>View: {Post.numberView}</p>
-                        <p>Like: {Post.Like}</p>
-                        <p>Dislike: {Post.DisLike}</p>
-                        <button onClick={clickLike}>Like</button>
-                        <button onClick={clickDislick}>Dislike</button>
-                        {body2}
-                        {body3}
-                    </div>
-                    <div>
-                        <h2>Bình Luận</h2>
-                        <label>Binh luan</label>
-                        <input type='text' value={inputComment} onChange={e => setinputComment(e.target.value)} />
-                        <button onClick={uplaodComment}>Xac nhan</button>
-                        {listComment}
+                    <div className='PostDetail-Main'>
+                        <div className='PostDetail-Main-container'>
+                            <div>Name: {Post.name}</div>
+                            <div className='PostDetail-Main-infor'>
+                                <div>Category: {Post.category}</div>
+                                <div>Date: {new Date(Post.dateCreate).toLocaleString()}</div>
+                            </div>
+                            {body4}
+                            <p>Content: {Post.content}</p>
+                            <div className='PostDetail-view'>
+                                <p>View: {Post.numberView}</p>
+                                <p>Like: {Post.Like}</p>
+                                <p>Dislike: {Post.DisLike}</p>
+                            </div>
+                            <div className='PostDetail-btn'>
+                                <div className='PostDetail-btn-left'>
+                                    <button className='PostDetail-btn-cc' onClick={clickLike}>Like</button>
+                                    <button className='PostDetail-btn-cc' onClick={clickDislick}>Dislike</button>
+                                </div>
+                                <div className='PostDetail-btn-right'>
+                                    {body2}
+                                    {body3}
+                                </div>
+                            </div>
+                            <div>
+                                <h2>Comment</h2>
+                                <label>Comment </label>
+                                <input type='text' value={inputComment} onChange={e => setinputComment(e.target.value)} />
+                                <button onClick={uplaodComment}>Submit</button>
+                                {listComment}
+                            </div>
+                        </div>
                     </div>
                 </>
             )
@@ -366,25 +380,37 @@ const PostDetail = () => {
                 ))
                 body = (
                     <>
-                        <div>
-                            <div>Name: {Post.name}</div>
-                            <div>Date: {new Date(Post.dateCreate).toLocaleString()}</div>
-                            <div>Category: {Post.category}</div>
-                            {body4}
-                            <p>Content: {Post.content}</p>
-                            <p>View: {Post.numberView}</p>
-                            <p>Like: {Post.Like}</p>
-                            <p>Dislike: {Post.DisLike}</p>
-                            <button onClick={clickLike}>Like</button>
-                            <button onClick={clickDislick}>Dislike</button>
-                            {body2}
-                        </div>
-                        <div>
-                            <h2>Bình Luận</h2>
-                            <label>Binh luan</label>
-                            <input type='text' value={inputComment} onChange={e => setinputComment(e.target.value)} />
-                            <button onClick={uplaodComment}>Xac nhan</button>
-                            {listComment}
+                        <div className='PostDetail-Main'>
+                            <div className='PostDetail-Main-container'>
+                                <div>Name: {Post.name}</div>
+                                <div className='PostDetail-Main-infor'>
+                                    <div>Category: {Post.category}</div>
+                                    <div>Date: {new Date(Post.dateCreate).toLocaleString()}</div>
+                                </div>
+                                {body4}
+                                <p>Content: {Post.content}</p>
+                                <div className='PostDetail-view'>
+                                    <p>View: {Post.numberView}</p>
+                                    <p>Like: {Post.Like}</p>
+                                    <p>Dislike: {Post.DisLike}</p>
+                                </div>
+                                <div className='PostDetail-btn'>
+                                    <div className='PostDetail-btn-left'>
+                                        <button className='PostDetail-btn-cc' onClick={clickLike}>Like</button>
+                                        <button className='PostDetail-btn-cc' onClick={clickDislick}>Dislike</button>
+                                    </div>
+                                    <div className='PostDetail-btn-right'>
+                                        {body2}
+                                    </div>
+                                </div>
+                                <div>
+                                    <h2>Comment</h2>
+                                    <label>Comment </label>
+                                    <input type='text' value={inputComment} onChange={e => setinputComment(e.target.value)} />
+                                    <button onClick={uplaodComment}>Submit</button>
+                                    {listComment}
+                                </div>
+                            </div>
                         </div>
                     </>
                 )
@@ -407,20 +433,30 @@ const PostDetail = () => {
 
                 body = (
                     <>
-                        <div>
-                            <div>Name: {Post.name}</div>
-                            <div>Date: {new Date(Post.dateCreate).toLocaleString()}</div>
-                            <div>Category: {Post.category}</div>
-                            {body4}
-                            <p>Content: {Post.content}</p>
-                            <p>View: {Post.numberView}</p>
-                            <p>Like: {Post.Like}</p>
-                            <p>Dislike: {Post.DisLike}</p>
-                            {body2}
-                        </div>
-                        <div>
-                            <h2>Bình Luận</h2>
-                            {listComment}
+                        <div className='PostDetail-Main'>
+                            <div className='PostDetail-Main-container'>
+                                <div>Name: {Post.name}</div>
+                                <div className='PostDetail-Main-infor'>
+                                    <div>Category: {Post.category}</div>
+                                    <div>Date: {new Date(Post.dateCreate).toLocaleString()}</div>
+                                </div>
+                                {body4}
+                                <p>Content: {Post.content}</p>
+                                <div className='PostDetail-view'>
+                                    <p>View: {Post.numberView}</p>
+                                    <p>Like: {Post.Like}</p>
+                                    <p>Dislike: {Post.DisLike}</p>
+                                </div>
+                                <div className='PostDetail-btn'>
+                                    <div>
+                                        {body2}
+                                    </div>
+                                </div>
+                                <div>
+                                    <h2>Comment</h2>
+                                    {listComment}
+                                </div>
+                            </div>
                         </div>
                     </>
                 )

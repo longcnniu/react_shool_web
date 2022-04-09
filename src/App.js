@@ -13,6 +13,7 @@ import PostDetail from './pages/PostDetail';
 import NotFound from './pages/NotFound';
 import EditPost from './pages/EditPost';
 import Statistical from "./pages/Statistical";
+import Export from "./pages/Export";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
       <Route path='/post-eidt/:id' element={<EditPost/>}/>
 
       <Route path="/statistical" element={<Statistical/>}/>
+      <Route path="/export" element={<Export/>}/>
 
       <Route path='*' element={<NotFound/>}/>
     </Routes>

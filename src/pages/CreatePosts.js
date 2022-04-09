@@ -46,8 +46,7 @@ const CreatePosts = () => {
                     .catch(error => console.log('error', error))
             } else {
                 navigate("/login")
-            }
-            ;
+            };
         }
         checklogin()
     }, [navigate])
@@ -138,34 +137,34 @@ const CreatePosts = () => {
         if (AllCategory !== undefined) {
             const listCategory = AllCategory.map(data => (
                 <option key={data._id} value={data.title}>{data.title}</option>))
-            body = (<div>
-                <h3>POST Bai Viet</h3>
+            body = (
                 <div>
-                    <label>Title</label>
-                    <input type='text' name='title' onChange={e => setTitle(e.target.value)} />
-                </div>
-                <div>
-                    <label>Upload file:</label>
-                    <input type="file" onChange={e => setPhoto(e.target.files[0])} />
-                </div>
-                <div>
-                    <label>Content</label>
-                    <textarea onChange={e => setContent(e.target.value)} name="w3review" rows="4" cols="50" />
-                </div>
-                <div>
-                    <label>Category</label>
-                    <select onChange={e => setCategory(e.target.value)}>
-                        <option value=''></option>
-                        {listCategory}
-                    </select>
-
-                </div>
-                <div>
-                    <label>Accept </label>
-                    <input type="checkbox" name="vehicle1" value="Bike" />
-                </div>
-                <button onClick={uploadPost}>Confirm</button>
-            </div>)
+                    <h3>POST Bai Viet</h3>
+                    <div>
+                        <label>Title</label>
+                        <input type='text' name='title' onChange={e => setTitle(e.target.value)} />
+                    </div>
+                    <div>
+                        <label>Upload file:</label>
+                        <input type="file" onChange={e => setPhoto(e.target.files[0])} />
+                    </div>
+                    <div>
+                        <label>Content</label>
+                        <textarea onChange={e => setContent(e.target.value)} name="w3review" rows="4" cols="50" />
+                    </div>
+                    <div>
+                        <label>Category</label>
+                        <select onChange={e => setCategory(e.target.value)}>
+                            <option value=''></option>
+                            {listCategory}
+                        </select>
+                    </div>
+                    <div>
+                        <label>Accept </label>
+                        <input type="checkbox" name="vehicle1" value="Bike" />
+                    </div>
+                    <button onClick={uploadPost}>Confirm</button>
+                </div>)
         } else {
             body = (<>
                 <div className='loading'>Currently there is no category to create a post</div>

@@ -46,7 +46,6 @@ const Home = () => {
             } else {
                 navigate("/login")
             }
-
         }
         checklogin()
     }, [navigate])
@@ -308,7 +307,7 @@ const Home = () => {
             body = (<div className='Home-body'>
                 <header className='Home-header'>
                     <div>
-                        <p className='Home-Logo'>Logo</p>
+                        <p className='Home-Logo'>GreenWich</p>
                     </div>
                     <div className='Home-header__btn'>
                         <div>

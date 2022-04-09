@@ -141,27 +141,36 @@ const CreatePosts = () => {
                 <div className='CreatePost-Main'>
                     <div className='CreatePost-container'>
                         <h3>Create Post</h3>
-                        <div>
-                            <label>Title</label>
+                        <div className='CreatePost-container-inputAll'>
+                            <div className='CreatePost-title'>
+                                <label>Title</label>
+                            </div>
                             <input type='text' name='title' onChange={e => setTitle(e.target.value)} />
                         </div>
-                        <div>
-                            <label>Upload file:</label>
+                        <div className='CreatePost-container-inputAll'>
+                            <div className='CreatePost-title'>
+                                <label>Upload file:</label>
+                            </div>
                             <input type="file" onChange={e => setPhoto(e.target.files[0])} />
                         </div>
-                        <div>
-                            <label>Content</label>
+                        <div className='CreatePost-container-inputAll'>
+                            <div className='CreatePost-title'>
+                                <label>Content</label>
+                            </div>
                             <textarea onChange={e => setContent(e.target.value)} name="w3review" rows="4" cols="50" />
                         </div>
-                        <div>
-                            <label>Category</label>
+                        <div className='CreatePost-container-inputAll'>
+                            <div className='CreatePost-title'>
+                                <label>Category</label>
+                            </div>
+
                             <select onChange={e => setCategory(e.target.value)}>
                                 <option value=''></option>
                                 {listCategory}
                             </select>
                         </div>
-                        <div>
-                            <label>Accept </label>
+                        <div className='CreatePost-container-inputAll'>
+                            <label className='CreatePost-title'>Accept </label>
                             <input type="checkbox" name="vehicle1" value="Bike" />
                         </div>
                         <button onClick={uploadPost}>Confirm</button>

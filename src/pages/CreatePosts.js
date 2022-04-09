@@ -157,7 +157,7 @@ const CreatePosts = () => {
                             <div className='CreatePost-title'>
                                 <label>Content</label>
                             </div>
-                            <textarea onChange={e => setContent(e.target.value)} name="w3review" rows="4" cols="50" />
+                            <textarea className='CreatePost-textarea' onChange={e => setContent(e.target.value)} name="w3review" rows="4" cols="50" />
                         </div>
                         <div className='CreatePost-container-inputAll'>
                             <div className='CreatePost-title'>

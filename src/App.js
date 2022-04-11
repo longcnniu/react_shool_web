@@ -14,6 +14,7 @@ import NotFound from './pages/NotFound';
 import EditPost from './pages/EditPost';
 import Statistical from "./pages/Statistical";
 import Export from "./pages/Export";
+import UpdataComment from "./pages/UpdataComment";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
       <Route path='/new-post' element={<CreatePosts/>}/>
       <Route path='/post/:id' element={<PostDetail/>}/>
       <Route path='/post-eidt/:id' element={<EditPost/>}/>
+      <Route path='/updata-comment/:id' element={<UpdataComment/>}/>
 
       <Route path="/statistical" element={<Statistical/>}/>
       <Route path="/export" element={<Export/>}/>

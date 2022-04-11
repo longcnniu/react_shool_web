@@ -8,6 +8,7 @@ const PostDetail = () => {
     const [Loading, setLoading] = useState(false)
     const [Post, setPost] = useState([])
     const [Comment, setComment] = useState([])
+    const [ChangeCommentMy, setChangeCommentMy] = useState(false)
     const [inputComment, setinputComment] = useState('')
     const [Role, setRole] = useState('')
     const [UserId, setUserId] = useState('')
@@ -46,7 +47,6 @@ const PostDetail = () => {
                         } else {
                             setUserId(data.UserId);
                             setRole(data.role)
-                            getComment(cookieValue)
                             //Get Post
                             var myHeaders = new Headers();
                             myHeaders.append("token", cookieValue);
@@ -98,28 +98,44 @@ const PostDetail = () => {
             };
         }
         checklogin()
-    }, [navigate, ChangeComment, Change, NameImg])
+    }, [navigate, Change, NameImg])
 
     //Get Comment
-    const getComment = (cookie) => {
-        var myHeaders = new Headers();
-        myHeaders.append("token", cookie);
+    useEffect(() => {
+        //đoc cookie
+        const cookieValue = document.cookie
+            .split('; ')
+            .find(row => row.startsWith('accessToken='))
+            .split('=')[1];
+        const getComment = () => {
+            var myHeaders = new Headers();
+            myHeaders.append("token", cookieValue);
 
-        var requestOptions = {
-            method: 'GET',
-            headers: myHeaders,
-            redirect: 'follow'
-        };
+            var requestOptions = {
+                method: 'GET',
+                headers: myHeaders,
+                redirect: 'follow'
+            };
 
-        const id = (window.location.pathname).split('/')
-
-        fetch(`${apiUrl}/post-comment/` + id[2], requestOptions)
-            .then(response => response.json())
-            .then(result => {
-                setComment(result.message)
-            })
-            .catch(error => console.log('error', error));
-    }
+            const id = (window.location.pathname).split('/')
+            if (ChangeCommentMy) {
+                fetch(`${apiUrl}/post-comment-my/` + id[2], requestOptions)
+                    .then(response => response.json())
+                    .then(result => {
+                        setComment(result.message)
+                    })
+                    .catch(error => console.log('error', error));
+            } else {
+                fetch(`${apiUrl}/post-comment/` + id[2], requestOptions)
+                    .then(response => response.json())
+                    .then(result => {
+                        setComment(result.message)
+                    })
+                    .catch(error => console.log('error', error));
+            }
+        }
+        getComment()
+    }, [ChangeCommentMy, ChangeComment])
 
     //Dang comment
     const uplaodComment = () => {
@@ -265,8 +281,52 @@ const PostDetail = () => {
 
     //Click updata
     const ClickUpdata = () => {
-
+        const id = (window.location.pathname).split('/')
+        navigate('/post-eidt/' + id[2])
     }
+
+    //Change comment
+    const ClickChangeMyComment = () => {
+        setChangeCommentMy(!ChangeCommentMy)
+    }
+
+    //Updata Comment
+    const UpDataComment = (data) => {
+        return (event) => {
+            navigate('/updata-comment/' + data._id)
+        }
+    }
+
+    //Del Comment
+    const DelComment = (data) => {
+        return (event) => {
+            //đoc cookie
+            const cookieValue = document.cookie
+                .split('; ')
+                .find(row => row.startsWith('accessToken='))
+                .split('=')[1];
+            var myHeaders = new Headers();
+            myHeaders.append("token", cookieValue);
+
+            var requestOptions = {
+                method: 'DELETE',
+                headers: myHeaders,
+                redirect: 'follow'
+            };
+
+            fetch(`${apiUrl}/del-comment/` + data._id, requestOptions)
+                .then(response => response.json())
+                .then(result => {
+                    if (result.success) {
+                        setChangeComment(!ChangeComment)
+                    } else {
+                        alert(result.message)
+                    }
+                })
+                .catch(error => console.log('error', error));
+        }
+    }
+    //Updata Comment
 
     //HTMl
     let body
@@ -302,6 +362,7 @@ const PostDetail = () => {
 
             //Button Edit
             if (UserId === PostUserId) {
+
                 body3 = (
                     <>
                         <button className='PostDetail-btn-ccc' onClick={ClickUpdata}>Edit</button>
@@ -311,17 +372,78 @@ const PostDetail = () => {
 
             // Button Del Comment
 
-
+            let listComment
             //Body Main
-            const listComment = Comment.map(data => (
-                <div key={data._id} className='PostDetail-main-comment'>
-                    <div className='PostDetail-comment-container'>
-                        {/* <div>Name: {data.name}</div> */}
-                        <div className='PostDetail-comment-titleDay'>Date: {new Date(data.createDateComment).toLocaleString()}</div>
-                        <div>Comment: {data.comment}</div>
-                    </div>
-                </div>
-            ))
+            if (UserId === PostUserId) {
+                if (ChangeCommentMy) {
+                    listComment = Comment.map(data => (
+                        <div key={data._id} className='PostDetail-main-comment'>
+                            <div className='PostDetail-comment-container'>
+                                {/* <div>Name: {data.name}</div> */}
+                                <div className='PostDetail-comment-titleDay'>Date: {new Date(data.createDateComment).toLocaleString()}</div>
+                                <div className='PostDetail-comment-titleDay_container'>
+                                    <div>Comment: {data.comment}</div>
+                                    <div>
+                                        <svg onClick={UpDataComment(data)} className="w-6 h-6 PostDetail-comment-titleDay_container_Icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
+                                        <svg onClick={DelComment(data)} className="w-6 h-6 PostDetail-comment-titleDay_container_Icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ))
+                } else {
+                    listComment = Comment.map(data => (
+                        <div key={data._id} className='PostDetail-main-comment'>
+                            <div className='PostDetail-comment-container'>
+                                {/* <div>Name: {data.name}</div> */}
+                                <div className='PostDetail-comment-titleDay'>Date: {new Date(data.createDateComment).toLocaleString()}</div>
+                                <div className='PostDetail-comment-titleDay_container'>
+                                    <div>Comment: {data.comment}</div>
+                                    <div>
+                                        <svg onClick={DelComment(data)} className="w-6 h-6 PostDetail-comment-titleDay_container_Icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ))
+                }
+            } else {
+                if (ChangeCommentMy) {
+                    listComment = Comment.map(data => (
+                        <div key={data._id} className='PostDetail-main-comment'>
+                            <div className='PostDetail-comment-container'>
+                                {/* <div>Name: {data.name}</div> */}
+                                <div className='PostDetail-comment-titleDay'>Date: {new Date(data.createDateComment).toLocaleString()}</div>
+                                <div className='PostDetail-comment-titleDay_container'>
+                                    <div>Comment: {data.comment}</div>
+                                    <div>
+                                        <svg onClick={UpDataComment(data)} className="w-6 h-6 PostDetail-comment-titleDay_container_Icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
+                                        <svg onClick={DelComment(data)} className="w-6 h-6 PostDetail-comment-titleDay_container_Icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ))
+                } else {
+                    listComment = Comment.map(data => (
+                        <div key={data._id} className='PostDetail-main-comment'>
+                            <div className='PostDetail-comment-container'>
+                                {/* <div>Name: {data.name}</div> */}
+                                <div className='PostDetail-comment-titleDay'>Date: {new Date(data.createDateComment).toLocaleString()}</div>
+                                <div className='PostDetail-comment-titleDay_container'>
+                                    <div>Comment: {data.comment}</div>
+                                </div>
+                            </div>
+                        </div>
+                    ))
+                }
+            }
+
 
             //admin || qa-manager
             body = (
@@ -352,9 +474,16 @@ const PostDetail = () => {
                             </div>
                             <div>
                                 <h2>Comment</h2>
-                                <label>Comment </label>
-                                <input type='text' value={inputComment} onChange={e => setinputComment(e.target.value)} />
-                                <button onClick={uplaodComment}>Submit</button>
+                                <div className='PostDetail-Comment-Main'>
+                                    <div>
+                                        <label>Comment </label>
+                                        <input type='text' value={inputComment} onChange={e => setinputComment(e.target.value)} />
+                                        <button onClick={uplaodComment}>Submit</button>
+                                    </div>
+                                    <div>
+                                        <button onClick={ClickChangeMyComment}>My Comment</button>
+                                    </div>
+                                </div>
                                 {listComment}
                             </div>
                         </div>

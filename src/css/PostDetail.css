@@ -48,7 +48,22 @@
     padding: 20px 10px;
 }
 
+.PostDetail-comment-titleDay_container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.PostDetail-comment-titleDay_container_Icon {
+    width: 20px;
+    height: 20px;
+}
+
 .PostDetail-comment-titleDay {
     border-bottom: 1px solid #000;
     margin-bottom: 10px;
+}
+
+.PostDetail-Comment-Main {
+    display: flex;
+    justify-content: space-between;
 }

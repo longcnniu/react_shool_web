@@ -534,9 +534,16 @@ const PostDetail = () => {
                                 </div>
                                 <div>
                                     <h2>Comment</h2>
-                                    <label>Comment </label>
-                                    <input type='text' value={inputComment} onChange={e => setinputComment(e.target.value)} />
-                                    <button onClick={uplaodComment}>Submit</button>
+                                    <div className='PostDetail-Comment-Main'>
+                                        <div>
+                                            <label>Comment </label>
+                                            <input type='text' value={inputComment} onChange={e => setinputComment(e.target.value)} />
+                                            <button onClick={uplaodComment}>Submit</button>
+                                        </div>
+                                        <div>
+                                            <button onClick={ClickChangeMyComment}>My Comment</button>
+                                        </div>
+                                    </div>
                                     {listComment}
                                 </div>
                             </div>

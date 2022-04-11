@@ -105,3 +105,14 @@
     flex-direction: column;
     color: white;
 }
+
+.Home__NextPage_Main {
+    display: flex;
+    justify-content: space-between;
+    margin: 100px 100px;
+    align-items: center;
+}
+
+.Home__NextPage_Main_Icon {
+    width: 50px;
+}

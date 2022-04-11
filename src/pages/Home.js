@@ -12,6 +12,8 @@ const Home = () => {
     const [NumberPost, setNumberPost] = useState('')
     const [Time, setTime] = useState('')
     const [SortNumber, setSortNumber] = useState('0')
+    const [ChangePage, setChangePage] = useState(false)
+    const [PageNumber, setPageNumber] = useState(1)
     if (NumberPost === '') {
         setNumberPost('5')
     }
@@ -87,7 +89,7 @@ const Home = () => {
             }
         }
         GetAllPost()
-    }, [navigate, NumberPost, SortNumber])
+    }, [navigate, NumberPost, SortNumber, ChangePage])
 
     //click creact new Post
     const CreactPost = () => {
@@ -192,6 +194,22 @@ const Home = () => {
     //ClickPage Export
     const clickPageExport = () => {
         navigate('/export')
+    }
+
+    const ClickNextPage = () => {
+        const id = (window.location.search).split('=')
+        const Page = Number(id[1]) +1
+        navigate(`/?page=${Page}`)
+        setChangePage(!ChangePage)
+        setPageNumber(PageNumber+1)
+    }
+
+    const ClickBackPage = () => {
+        const id = (window.location.search).split('=')
+        const Page = Number(id[1]) -1
+        navigate(`/?page=${Page}`)
+        setChangePage(!ChangePage)
+        setPageNumber(PageNumber-1)
     }
 
     //html 4
@@ -341,6 +359,11 @@ const Home = () => {
                 <div className='All-Posts'>
                     {bodyPost}
                 </div>
+                <div className='Home__NextPage_Main'>
+                    <svg onClick={ClickBackPage} className="w-6 h-6 Home__NextPage_Main_Icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 19l-7-7 7-7m8 14l-7-7 7-7" /></svg>
+                    <h2>{PageNumber}</h2>
+                    <svg onClick={ClickNextPage} className="w-6 h-6 Home__NextPage_Main_Icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 5l7 7-7 7M5 5l7 7-7 7" /></svg>
+                </div>
             </div>)
         } else {
             body = (
@@ -369,6 +392,11 @@ const Home = () => {
                     </div>
                     <div className='All-Posts'>
                         {bodyPost}
+                    </div>
+                    <div className='Home__NextPage_Main'>
+                        <svg onClick={ClickBackPage} className="w-6 h-6 Home__NextPage_Main_Icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 19l-7-7 7-7m8 14l-7-7 7-7" /></svg>
+                        <h2>{PageNumber}</h2>
+                        <svg onClick={ClickNextPage} className="w-6 h-6 Home__NextPage_Main_Icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 5l7 7-7 7M5 5l7 7-7 7" /></svg>
                     </div>
                 </div>)
         }

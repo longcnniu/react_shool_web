@@ -198,18 +198,18 @@ const Home = () => {
 
     const ClickNextPage = () => {
         const id = (window.location.search).split('=')
-        const Page = Number(id[1]) +1
+        const Page = Number(id[1]) + 1
         navigate(`/?page=${Page}`)
         setChangePage(!ChangePage)
-        setPageNumber(PageNumber+1)
+        setPageNumber(PageNumber + 1)
     }
 
     const ClickBackPage = () => {
         const id = (window.location.search).split('=')
-        const Page = Number(id[1]) -1
+        const Page = Number(id[1]) - 1
         navigate(`/?page=${Page}`)
         setChangePage(!ChangePage)
-        setPageNumber(PageNumber-1)
+        setPageNumber(PageNumber - 1)
     }
 
     //html 4
@@ -335,10 +335,8 @@ const Home = () => {
                         <p className='Home-Logo'>GreenWich</p>
                     </div>
                     <div className='Home-header__btn'>
-                        <div>
-                            {PageMagAccount}
-                            <button className='Home-btn-logout' onClick={logout}>Log out</button>
-                        </div>
+                        {PageMagAccount}
+                        <button className='Home-btn-logout' onClick={logout}>Log out</button>
                     </div>
                 </header>
                 <div className='top'>

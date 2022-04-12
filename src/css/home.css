@@ -149,6 +149,11 @@
         color: white;
     }
 
+    .Home-Logo {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
     .Home-header {
         background-color: #373947;
         padding: 25px 50px 25px 50px;

@@ -127,3 +127,26 @@
     display: inline-block;
     font-size: 12px;
 }
+
+/*Mobile: width < 740px*/
+@media only screen and (max-width: 768px) {
+
+    .PostDetail-Main {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        box-shadow: none;
+        border-radius: 10px;
+        margin: 0px 0px;
+    }
+
+    .PostDetail-Main-infor {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .PostDetail-Comment-Main {
+        display: flex;
+        flex-direction: column;
+    }
+}

@@ -337,8 +337,6 @@ const Home = () => {
                     <div className='Home-header__btn'>
                         <div>
                             {PageMagAccount}
-                        </div>
-                        <div>
                             <button className='Home-btn-logout' onClick={logout}>Log out</button>
                         </div>
                     </div>

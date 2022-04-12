@@ -148,4 +148,11 @@
         flex-direction: column;
         color: white;
     }
+
+    .Home-header {
+        background-color: #373947;
+        padding: 25px 50px 25px 50px;
+        display: flex;
+        flex-direction: column;
+    }
 }

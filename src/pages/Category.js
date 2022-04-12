@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from "react-router-dom";
 import { apiUrl } from '../contexts/constants';
@@ -138,8 +139,8 @@ const Category = () => {
                 ))
                 body = (
                     <>
-                        <button onClick={nextPageCreacteCategory}>Add Category</button>
-                        <button onClick={clickRefrc}>Refresh list</button>
+                        <button className='btn-edit btn-1' onClick={nextPageCreacteCategory}>Add Category</button>
+                        <button className='btn-edit btn-2' onClick={clickRefrc}>Refresh list</button>
                         <div className='out_table'>
                             <table>
                                 <tbody>
@@ -159,8 +160,8 @@ const Category = () => {
             } else {
                 body = (
                     <>
-                        <button onClick={nextPageCreacteCategory}>Add Category</button>
-                        <button onClick={clickRefrc}>Refresh list</button>
+                        <button className='btn-edit btn-1' onClick={nextPageCreacteCategory}>Add Category</button>
+                        <button className='btn-edit btn-2' onClick={clickRefrc}>Refresh list</button>
                         <h1 className='loading'>No Category yet</h1>
                     </>
                 )

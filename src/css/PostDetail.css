@@ -67,3 +67,63 @@
     display: flex;
     justify-content: space-between;
 }
+
+.PostDetail-btn-cc {
+    background-color: #DF0000;
+    margin-right: 20px;
+    border: none;
+    color: white;
+    padding: 10px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+}
+
+.PostDetail-btn-ccc {
+    background-color: rgb(35, 123, 255);
+    margin-right: 20px;
+    border: none;
+    color: white;
+    padding: 10px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+}
+
+.PostDetail-btn-cc-Like {
+    background-color: rgb(35, 123, 255);
+    margin-right: 20px;
+    border: none;
+    color: white;
+    padding: 10px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+}
+
+.PostDetail-btn-cc-DisLike {
+    background-color: rgb(68, 115, 184);
+    margin-right: 20px;
+    border: none;
+    color: white;
+    padding: 10px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+}
+
+.PostDetail-btn-cc-comment {
+    background-color: rgb(68, 115, 184);
+    margin-right: 20px;
+    border: none;
+    color: white;
+    padding: 5px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+}

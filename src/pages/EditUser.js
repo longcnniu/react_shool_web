@@ -1,6 +1,7 @@
-import React, {useEffect, useState} from 'react'
-import {useNavigate} from "react-router-dom";
-import {apiUrl} from '../contexts/constants';
+import '../css/editUser.css'
+import React, { useEffect, useState } from 'react'
+import { useNavigate } from "react-router-dom";
+import { apiUrl } from '../contexts/constants';
 
 const EditUser = () => {
 
@@ -85,9 +86,9 @@ const EditUser = () => {
         fetch(`${apiUrl}` + window.location.pathname, requestOptions)
             .then(response => response.json())
             .then(result => {
-                if(result.success){
+                if (result.success) {
                     alert(result.message)
-                }else {
+                } else {
                     alert(result.message)
                 }
             })
@@ -100,54 +101,77 @@ const EditUser = () => {
     if (Loading) {
         if (RoleAuth === 'admin') {
             body = (
-                <div>
-                    <div>
-                        <label name="email">Email</label>
-                        <input type='email' onChange={e => setEmail(e.target.value)} value={Email}/>
+                <div className='EditUser__Main'>
+                    <div className='EditUser__Container'>
+                        <div>
+                            <div className='EditUser__lable-div'>
+                                <label name="email">Email</label>
+                            </div>
+                            <input type='email' onChange={e => setEmail(e.target.value)} value={Email} />
+                        </div>
+                        <div>
+                            <div className='EditUser__lable-div'>
+                                <label>Password</label>
+                            </div>
+                            <input type='password' onChange={e => setPassword(e.target.value)} />
+                        </div>
+                        <div>
+                            <div className='EditUser__lable-div'>
+                                <label name="firstName">First Name</label>
+                            </div>
+                            <input type="text" name='firstName' onChange={e => setFirstName(e.target.value)} value={FirstName} />
+                        </div>
+                        <div>
+                            <div className='EditUser__lable-div'>
+                                <label>Last Name</label>
+                            </div>
+                            <input type="text" name='lastName' onChange={e => setLastName(e.target.value)} value={LastName} />
+                        </div>
+                        <div>
+                            <div className='EditUser__lable-div'>
+                                <label>Role User:</label>
+                            </div>
+                            <select value={Role} onChange={e => setRole(e.target.value)}>
+                                <option value='staff'>Staff</option>
+                                <option value='qa-manager'>QA Manager</option>
+                                <option value='admin'>Admin</option>
+                            </select>
+                        </div>
+                        <div>
+                            <div className='EditUser__lable-div'>
+                                <label>Department:</label>
+                            </div>
+                            <select value={Department} onChange={e => setDepartment(e.target.value)}>
+                                <option value='IT'>IT</option>
+                                <option value='Business'>Business</option>
+                                <option value='Design'>Design</option>
+                                <option value='Marketing'>Marketing</option>
+                            </select>
+                        </div>
+                        <button className='EditUser__btn' onClick={updateUser}>Xac Nhan</button>
                     </div>
-                    <idv>
-                        <label>Password</label>
-                        <input type='password' onChange={e => setPassword(e.target.value)}/>
-                    </idv>
-                    <div>
-                        <label name="firstName">First Name</label>
-                        <input type="text" name='firstName' onChange={e => setFirstName(e.target.value)} value={FirstName}/>
-                    </div>
-                    <div>
-                        <label>Last Name</label>
-                        <input type="text" name='lastName' onChange={e => setLastName(e.target.value)} value={LastName}/>
-                    </div>
-                    <div>
-                        <label>Role User:</label>
-                        <select value={Role} onChange={e => setRole(e.target.value)}>
-                            <option value='staff'>Staff</option>
-                            <option value='qa-manager'>QA Manager</option>
-                            <option value='admin'>Admin</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label>Department:</label>
-                        <select value={Department} onChange={e => setDepartment(e.target.value)}>
-                            <option value='IT'>IT</option>
-                            <option value='Business'>Business</option>
-                            <option value='Design'>Design</option>
-                            <option value='Marketing'>Marketing</option>
-                        </select>
-                    </div>
-                    <button onClick={updateUser}>Xac Nhan</button>
                 </div>
             )
         } else {
             body = (
-                <div>
-                    <input type='email' onChange={e => setEmail(e.target.value)} value={Email}/>
-                    <div>
-                        <label>Role User:</label>
-                        <select value={Role} onChange={e => setRole(e.target.value)}>
-                            <option value='staff'>Staff</option>
-                        </select>
+                <div className='EditUser__Main'>
+                    <div className='EditUser__Container'>
+                        <div>
+                            <div className='EditUser__lable-div'>
+                                <label name="email">Email</label>
+                            </div>
+                            <input type='email' onChange={e => setEmail(e.target.value)} value={Email} />
+                        </div>
+                        <div>
+                            <div className='EditUser__lable-div'>
+                                <label>Role User:</label>
+                            </div>
+                            <select value={Role} onChange={e => setRole(e.target.value)}>
+                                <option value='staff'>Staff</option>
+                            </select>
+                        </div>
+                        <button className='EditUser__btn' onClick={updateUser}>Xac Nhan</button>
                     </div>
-                    <button onClick={updateUser}>Xac Nhan</button>
                 </div>
             )
         }

@@ -68,3 +68,11 @@ td{
     display: inline-block;
     font-size: 12px;
 }
+
+.btn-1{
+    margin: 20px 0 0 50px;
+}
+
+.btn-2{
+    margin-left: 20px;
+}

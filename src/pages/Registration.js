@@ -1,6 +1,7 @@
-import React, {useEffect, useState} from 'react'
-import {useNavigate} from "react-router-dom";
-import {apiUrl} from '../contexts/constants';
+import '../css/registration.css'
+import React, { useEffect, useState } from 'react'
+import { useNavigate } from "react-router-dom";
+import { apiUrl } from '../contexts/constants';
 
 const Registration = () => {
 
@@ -79,9 +80,9 @@ const Registration = () => {
         fetch(`${apiUrl}/registration`, requestOptions)
             .then(res => res.json())
             .then(data => {
-                if(data.success){
+                if (data.success) {
                     alert(data.message)
-                }else {
+                } else {
                     alert(data.message)
                 }
             })
@@ -94,78 +95,106 @@ const Registration = () => {
     if (Loading) {
         if (RoleAuth === 'admin') {
             body = (
-                <div>
-                    <div>
-                        <label>Email</label>
-                        <input type="email" name='email' onChange={e => setUserName(e.target.value)}/>
+                <div className='Registration__Main'>
+                    <div className='Registration__Container'>
+                        <div>
+                            <div className='Registration__lable-div'>
+                                <label className='Registration__lable'>Email</label>
+                            </div>
+                            <input type="email" name='email' onChange={e => setUserName(e.target.value)} />
+                        </div>
+                        <div>
+                            <div className='Registration__lable-div'>
+                                <label className='Registration__lable' name="password">Password</label>
+                            </div>
+                            <input type="password" name='password' onChange={e => setPassword(e.target.value)} />
+                        </div>
+                        <div>
+                            <div className='Registration__lable-div'>
+                                <label className='Registration__lable' name="firstName">First Name</label>
+                            </div>
+                            <input type="text" name='firstName' onChange={e => setFirstName(e.target.value)} />
+                        </div>
+                        <div>
+                            <div className='Registration__lable-div'>
+                                <label className='Registration__lable' name="lastName">Last Name</label>
+                            </div>
+                            <input type="text" name='lastName' onChange={e => setLastName(e.target.value)} />
+                        </div>
+                        <div>
+                            <div className='Registration__lable-div'>
+                                <label className='Registration__lable'>Role User:</label>
+                            </div>
+                            <select value={Role} onChange={e => setRole(e.target.value)}>
+                                <option value='staff'>Staff</option>
+                                <option value='qa-manager'>QA Manager</option>
+                                <option value='admin'>Admin</option>
+                            </select>
+                        </div>
+                        <div>
+                            <div className='Registration__lable-div'>
+                                <label>Department:</label>
+                            </div>
+                            <select value={Department} onChange={e => setDepartment(e.target.value)}>
+                                <option value='IT'>IT</option>
+                                <option value='Business'>Business</option>
+                                <option value='Design'>Design</option>
+                                <option value='Marketing'>Marketing</option>
+                            </select>
+                        </div>
+                        <button className='Registration__btn' type="submit" onClick={registration}>Dang ki</button>
                     </div>
-                    <div>
-                        <label name="password">Password</label>
-                        <input type="password" name='password' onChange={e => setPassword(e.target.value)}/>
-                    </div>
-                    <div>
-                        <label name="firstName">First Name</label>
-                        <input type="text" name='firstName' onChange={e => setFirstName(e.target.value)}/>
-                    </div>
-                    <div>
-                        <label name="lastName">Last Name</label>
-                        <input type="text" name='lastName' onChange={e => setLastName(e.target.value)}/>
-                    </div>
-                    <div>
-                        <label>Role User:</label>
-                        <select value={Role} onChange={e => setRole(e.target.value)}>
-                            <option value='staff'>Staff</option>
-                            <option value='qa-manager'>QA Manager</option>
-                            <option value='admin'>Admin</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label>Department:</label>
-                        <select value={Department} onChange={e => setDepartment(e.target.value)}>
-                            <option value='IT'>IT</option>
-                            <option value='Business'>Business</option>
-                            <option value='Design'>Design</option>
-                            <option value='Marketing'>Marketing</option>
-                        </select>
-                    </div>
-                    <button type="submit" onClick={registration}>Dang ki</button>
                 </div>
             )
         } else {
             body = (
-                <div>
-                    <div>
-                        <label>Email</label>
-                        <input type="email" name='email' onChange={e => setUserName(e.target.value)}/>
+                <div className='Registration__Main'>
+                    <div className='Registration__Container'>
+                        <div>
+                            <div className='Registration__lable-div'>
+                                <label className='Registration__lable'>Email</label>
+                            </div>
+                            <input type="email" name='email' onChange={e => setUserName(e.target.value)} />
+                        </div>
+                        <div>
+                            <div className='Registration__lable-div'>
+                                <label className='Registration__lable' name="password">Password</label>
+                            </div>
+                            <input type="password" name='password' onChange={e => setPassword(e.target.value)} />
+                        </div>
+                        <div>
+                            <div className='Registration__lable-div'>
+                                <label className='Registration__lable' name="firstName">First Name</label>
+                            </div>
+                            <input type="text" name='firstName' onChange={e => setFirstName(e.target.value)} />
+                        </div>
+                        <div>
+                            <div className='Registration__lable-div'>
+                                <label className='Registration__lable' name="lastName">Last Name</label>
+                            </div>
+                            <input type="text" name='lastName' onChange={e => setLastName(e.target.value)} />
+                        </div>
+                        <div>
+                            <div className='Registration__lable-div'>
+                                <label className='Registration__lable'>Role User:</label>
+                            </div>
+                            <select value={Role} onChange={e => setRole(e.target.value)}>
+                                <option value='staff'>Staff</option>
+                            </select>
+                        </div>
+                        <div>
+                            <div className='Registration__lable-div'>
+                                <label>Department:</label>
+                            </div>
+                            <select value={Department} onChange={e => setDepartment(e.target.value)}>
+                                <option value='IT'>IT</option>
+                                <option value='Business'>Business</option>
+                                <option value='Design'>Design</option>
+                                <option value='Marketing'>Marketing</option>
+                            </select>
+                        </div>
+                        <button className='Registration__btn' type="submit" onClick={registration}>Dang ki</button>
                     </div>
-                    <div>
-                        <label>Password</label>
-                        <input type="password" name='password' onChange={e => setPassword(e.target.value)}/>
-                    </div>
-                    <div>
-                        <label name="firstName">First Name</label>
-                        <input type="text" name='firstName' onChange={e => setFirstName(e.target.value)}/>
-                    </div>
-                    <div>
-                        <label>Last Name</label>
-                        <input type="text" name='lastName' onChange={e => setLastName(e.target.value)}/>
-                    </div>
-                    <div>
-                        <label>Role User:</label>
-                        <select value={Role} onChange={e => setRole(e.target.value)}>
-                            <option value='staff'>Staff</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label>Department:</label>
-                        <select value={Department} onChange={e => setDepartment(e.target.value)}>
-                            <option value='IT'>IT</option>
-                            <option value='Business'>Business</option>
-                            <option value='Design'>Design</option>
-                            <option value='Marketing'>Marketing</option>
-                        </select>
-                    </div>
-                    <button onClick={registration}>Dang ki</button>
                 </div>
             )
         }

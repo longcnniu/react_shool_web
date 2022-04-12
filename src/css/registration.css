@@ -1,0 +1,31 @@
+.Registration__Main {
+    display: flex;
+    justify-content: center;
+}
+
+.Registration__Container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    box-shadow: 2px 2px 2px 3px rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    margin-top: 50px;
+    padding: 50px 100px;
+}
+
+.Registration__lable-div {
+    margin-top: 20px;
+}
+
+.Registration__btn {
+    background-color: #0893f0;
+    margin-top: 20px;
+    margin-right: 20px;
+    border: none;
+    color: white;
+    padding: 8px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+}

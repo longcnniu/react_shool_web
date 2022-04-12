@@ -1,3 +1,4 @@
+import '../css/editCategory.css'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from "react-router-dom";
 import { apiUrl } from '../contexts/constants';
@@ -98,20 +99,28 @@ const EditCategory = () => {
         const d = new Date()
         const MinTime = `${d.getFullYear()}-${("0" + (d.getMonth() + 1)).slice(-2)}-${("0" + (d.getDate())).slice(-2)}T${("0" + (d.getHours())).slice(-2)}:${("0" + (d.getMinutes())).slice(-2)}`
         body = (
-            <div>
-                <div>
-                    <label>Title</label>
-                    <input type='text' onChange={e => settitle(e.target.value)} value={title} />
+            <div className='EditCategory__Main'>
+                <div className='EditCategory__Container'>
+                    <div>
+                        <div className='EditCategory_label-div'>
+                            <label>Title</label>
+                        </div>
+                        <input type='text' onChange={e => settitle(e.target.value)} value={title} />
+                    </div>
+                    <div>
+                        <div className='EditCategory_label-div'>
+                            <label>Ngay het hang: </label>
+                        </div>
+                        <input type='datetime-local' onChange={e => setendDate(e.target.value)} value={endDate} min={MinTime} />
+                    </div>
+                    <div>
+                        <div className='EditCategory_label-div'>
+                            <label>Ngay khoa bai: </label>
+                        </div>
+                        <input type='datetime-local' onChange={e => setlockDate(e.target.value)} value={lockDate} min={MinTime} />
+                    </div>
+                    <button className='EditCategory__btn' onClick={updateUser}>Xac Nhan</button>
                 </div>
-                <div>
-                    <label>Ngay het hang: </label>
-                    <input type='datetime-local' onChange={e => setendDate(e.target.value)} value={endDate} min={MinTime} />
-                </div>
-                <div>
-                    <label>Ngay khoa bai: </label>
-                    <input type='datetime-local' onChange={e => setlockDate(e.target.value)} value={lockDate} min={MinTime} />
-                </div>
-                <button onClick={updateUser}>Xac Nhan</button>
             </div>
         )
     } else {

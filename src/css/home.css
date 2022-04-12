@@ -1,3 +1,4 @@
+
 .loading {
     position: absolute;
     top: 50%;
@@ -93,14 +94,12 @@
 }
 
 .post {
-    background-color: #5182d6;
-    padding: 50px 50px;
-    box-shadow: 2px 2px 2px 3px rgba(0, 0, 0, 0.2);
-    margin: 50px 50px;
-    min-width: 1200px;
-    border: 1px solid;
     border-radius: 20px;
+    padding: 50px 500px;
+    background-color: #5182d6;
+    box-shadow: 2px 2px 2px 3px rgba(0, 0, 0, 0.2);
     display: flex;
+    margin-top: 20px;
     align-items: center;
     flex-direction: column;
     color: white;
@@ -115,4 +114,36 @@
 
 .Home__NextPage_Main_Icon {
     width: 50px;
+}
+
+/*Mobile: width < 740px*/
+@media only screen and (max-width: 740px) {
+    .post {
+        margin-top: 20px;
+        background-color: #5182d6;
+        box-shadow: 2px 2px 2px 3px rgba(0, 0, 0, 0.2);
+        padding: 10px 10px;
+        border: 1px solid;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        color: white;
+    }
+}
+
+/*Tablet: width >= 740px and width < 1024px */
+@media only screen and (max-width: 740px) and (max-width: 1024) {
+    .post {
+        margin-top: 20px;
+        background-color: #000000;
+        box-shadow: 2px 2px 2px 3px rgba(0, 0, 0, 0.2);
+        padding: 10px 10px;
+        border: 1px solid;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        color: white;
+    }
 }

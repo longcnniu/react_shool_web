@@ -1,3 +1,4 @@
+import '../css/creacteCategory.css'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from "react-router-dom";
 import { apiUrl } from '../contexts/constants';
@@ -50,7 +51,7 @@ const CreacteCategory = () => {
     //Change loc TO GM T
     var d = new Date(endDate)
     var EndTime = d.getUTCFullYear() + '-' + ("0" + (d.getUTCMonth() + 1)).slice(-2) + '-' + ("0" + (d.getUTCDate())).slice(-2) + 'T' + ("0" + (d.getUTCHours())).slice(-2) + ':' + ("0" + (d.getUTCMinutes())).slice(-2)
-    
+
     var dd = new Date(lockDate)
     var LockTime = dd.getUTCFullYear() + '-' + ("0" + (dd.getUTCMonth() + 1)).slice(-2) + '-' + ("0" + (dd.getUTCDate())).slice(-2) + 'T' + ("0" + (dd.getUTCHours())).slice(-2) + ':' + ("0" + (dd.getUTCMinutes())).slice(-2)
 
@@ -90,20 +91,28 @@ const CreacteCategory = () => {
     const d = new Date()
     const MinTime = `${d.getFullYear()}-${("0" + (d.getMonth() + 1)).slice(-2)}-${("0" + (d.getDate())).slice(-2)}T${("0" + (d.getHours())).slice(-2)}:${("0" + (d.getMinutes())).slice(-2)}`
     body = (
-      <div>
-        <div>
-          <label>Title: </label>
-          <input id='title' type='text' onChange={e => setCategory(e.target.value)} />
+      <div className='CreacteCategory__Main'>
+        <div className='CreacteCategory_Container'>
+          <div>
+            <div className='CreacteCategory__lable_div'>
+              <label>Title: </label>
+            </div>
+            <input id='title' type='text' onChange={e => setCategory(e.target.value)} />
+          </div>
+          <div>
+            <div className='CreacteCategory__lable_div'>
+              <label>Expiration date: </label>
+            </div>
+            <input id='exp-date' type='datetime-local' onChange={e => setendDate(e.target.value)} min={MinTime} />
+          </div>
+          <div>
+            <div className='CreacteCategory__lable_div'>
+              <label>Lock Date: </label>
+            </div>
+            <input id='lock-date' type='datetime-local' onChange={e => setlockDate(e.target.value)} min={MinTime} />
+          </div>
+          <button className='CreacteCategory-btn' id='Create-category' onClick={creacteCategory}>Confirm</button>
         </div>
-        <div>
-          <label>Expiration date: </label>
-          <input id='exp-date' type='datetime-local' onChange={e => setendDate(e.target.value)} min={MinTime} />
-        </div>
-        <div>
-          <label>Lock Date: </label>
-          <input id='lock-date' type='datetime-local' onChange={e => setlockDate(e.target.value)} min={MinTime} />
-        </div>
-        <button id='Create-category' onClick={creacteCategory}>Confirm</button>
       </div>
     )
   } else {

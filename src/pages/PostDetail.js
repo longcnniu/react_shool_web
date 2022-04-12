@@ -464,8 +464,8 @@ const PostDetail = () => {
                             </div>
                             <div className='PostDetail-btn'>
                                 <div className='PostDetail-btn-left'>
-                                    <button className='PostDetail-btn-cc' onClick={clickLike}>Like</button>
-                                    <button className='PostDetail-btn-cc' onClick={clickDislick}>Dislike</button>
+                                    <button className='PostDetail-btn-cc-Like' onClick={clickLike}>Like</button>
+                                    <button className='PostDetail-btn-cc-DisLike' onClick={clickDislick}>Dislike</button>
                                 </div>
                                 <div className='PostDetail-btn-right'>
                                     {body2}
@@ -478,10 +478,10 @@ const PostDetail = () => {
                                     <div>
                                         <label>Comment </label>
                                         <input type='text' value={inputComment} onChange={e => setinputComment(e.target.value)} />
-                                        <button onClick={uplaodComment}>Submit</button>
+                                        <button className='PostDetail-btn-cc-comment' onClick={uplaodComment}>Submit</button>
                                     </div>
                                     <div>
-                                        <button onClick={ClickChangeMyComment}>My Comment</button>
+                                        <button className='PostDetail-btn-cc-comment' onClick={ClickChangeMyComment}>My Comment</button>
                                     </div>
                                 </div>
                                 {listComment}
@@ -525,8 +525,8 @@ const PostDetail = () => {
                                 </div>
                                 <div className='PostDetail-btn'>
                                     <div className='PostDetail-btn-left'>
-                                        <button className='PostDetail-btn-cc' onClick={clickLike}>Like</button>
-                                        <button className='PostDetail-btn-cc' onClick={clickDislick}>Dislike</button>
+                                        <button className='PostDetail-btn-cc-Like' onClick={clickLike}>Like</button>
+                                        <button className='PostDetail-btn-cc-DisLike' onClick={clickDislick}>Dislike</button>
                                     </div>
                                     <div className='PostDetail-btn-right'>
                                         {body2}
@@ -538,10 +538,10 @@ const PostDetail = () => {
                                         <div>
                                             <label>Comment </label>
                                             <input type='text' value={inputComment} onChange={e => setinputComment(e.target.value)} />
-                                            <button onClick={uplaodComment}>Submit</button>
+                                            <button className='PostDetail-btn-cc-comment' onClick={uplaodComment}>Submit</button>
                                         </div>
                                         <div>
-                                            <button onClick={ClickChangeMyComment}>My Comment</button>
+                                            <button className='PostDetail-btn-cc-comment' onClick={ClickChangeMyComment}>My Comment</button>
                                         </div>
                                     </div>
                                     {listComment}

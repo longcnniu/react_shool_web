@@ -28,3 +28,15 @@
     border: 1px solid #ccc;
     box-shadow: 1px 1px 1px #999;
 }
+
+.CreatePosts__btn_UpLoad {
+    background-color: #5182d6;
+    margin-right: 20px;
+    border: none;
+    color: white;
+    padding: 10px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+}

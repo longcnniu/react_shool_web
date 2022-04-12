@@ -138,8 +138,8 @@ const Admin = () => {
                 ))
                 body = (
                     <>
-                        <button onClick={nextPageRegistration}>Add Account</button>
-                        <button onClick={clickRefrc}>Lam moi list</button>
+                        <button className='btn-edit btn-1' onClick={nextPageRegistration}>Add Account</button>
+                        <button className='btn-edit btn-2' onClick={clickRefrc}>Lam moi list</button>
                         <div className='out_table'>
                             <table>
                                 <tbody>

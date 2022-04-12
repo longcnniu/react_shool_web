@@ -173,7 +173,7 @@ const CreatePosts = () => {
                             <label className='CreatePost-title'>Accept </label>
                             <input type="checkbox" name="vehicle1" value="Bike" />
                         </div>
-                        <button onClick={uploadPost}>Confirm</button>
+                        <button className='CreatePosts__btn_UpLoad' onClick={uploadPost}>Confirm</button>
                     </div>
                 </div>
             )

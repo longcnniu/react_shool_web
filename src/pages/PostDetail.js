@@ -450,7 +450,7 @@ const PostDetail = () => {
                 <>
                     <div className='PostDetail-Main'>
                         <div className='PostDetail-Main-container'>
-                            <div>Name: {Post.name}</div>
+                            <div>Title: {Post.title}</div>
                             <div className='PostDetail-Main-infor'>
                                 <div>Category: {Post.category}</div>
                                 <div>Date: {new Date(Post.dateCreate).toLocaleString()}</div>
@@ -511,7 +511,7 @@ const PostDetail = () => {
                     <>
                         <div className='PostDetail-Main'>
                             <div className='PostDetail-Main-container'>
-                                <div>Name: {Post.name}</div>
+                            <div>Title: {Post.title}</div>
                                 <div className='PostDetail-Main-infor'>
                                     <div>Category: {Post.category}</div>
                                     <div>Date: {new Date(Post.dateCreate).toLocaleString()}</div>

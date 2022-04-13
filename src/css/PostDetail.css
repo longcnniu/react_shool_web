@@ -127,6 +127,14 @@
     display: inline-block;
     font-size: 12px;
 }
+/*Mobile: width < 740px*/
+@media only screen and (max-width: 1440px) {
+    .PostDetail_Img {
+        width: 600px;
+        display: flex;
+        justify-content: center;
+    }
+}
 
 /*Mobile: width < 740px*/
 @media only screen and (max-width: 768px) {
@@ -165,5 +173,11 @@
         box-shadow: 2px 2px 2px 3px rgba(0, 0, 0, 0.2);
         padding: 5px 5px;
         border-radius: 10px;
+    }
+
+    .PostDetail_Img {
+        width: 300px;
+        display: flex;
+        justify-content: center;
     }
 }

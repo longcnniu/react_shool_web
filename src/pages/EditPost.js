@@ -7,11 +7,13 @@ const EditPost = () => {
   const [Loading, setLoading] = useState(false)
   const [AllCategory, setAllCategory] = useState([])
   const navigate = useNavigate()
+  const [rememberUser, setRememberUser] = useState(false)
   //Input
   const [Title, setTitle] = useState('')
   const [Content, setContent] = useState('')
   const [Category, setCategory] = useState('')
   const [photo, setPhoto] = useState('');
+  const [Img, setImg] = useState('')
 
   //kiểm tra token and đẵ đăng nhập hay chưa
   useEffect(() => {
@@ -90,6 +92,7 @@ const EditPost = () => {
           setTitle(result.dataPost.title)
           setContent(result.dataPost.content)
           setCategory(result.dataPost.category)
+          setImg(result.dataPost.NameImg)
         }
       })
       .catch(error => console.log('error', error));
@@ -97,69 +100,94 @@ const EditPost = () => {
 
 
   const uploadPost = () => {
-    //đoc cookie
-    const cookieValue = document.cookie
-      .split('; ')
-      .find(row => row.startsWith('accessToken='))
-      .split('=')[1];
-    const id = (window.location.pathname).split('/')
-    var myHeaders = new Headers();
-    myHeaders.append("token", cookieValue);
-    
-    if (photo === '') {
-      var formdata = new FormData();
-      formdata.append("title", Title);
-      formdata.append("content", Content);
-      formdata.append("category", Category);
+    if (rememberUser) {
+      //đoc cookie
+      const cookieValue = document.cookie
+        .split('; ')
+        .find(row => row.startsWith('accessToken='))
+        .split('=')[1];
+      const id = (window.location.pathname).split('/')
+      var myHeaders = new Headers();
+      myHeaders.append("token", cookieValue);
 
-      var requestOptions = {
-        method: 'PUT',
-        headers: myHeaders,
-        body: formdata,
-        redirect: 'follow'
-      };
-      fetch(`${apiUrl}/post/${id[2]}`, requestOptions)
-        .then(response => response.json())
-        .then(result => {
-          if (result.success) {
-            navigate(-1)
-            alert(result.message)
-          } else {
-            alert(result.message)
-          }
+      if (photo === '') {
+        var formdata = new FormData();
+        formdata.append("title", Title);
+        formdata.append("content", Content);
+        formdata.append("category", Category);
 
-        })
-        .catch(error => console.log('error', error));
+        var requestOptions = {
+          method: 'PUT',
+          headers: myHeaders,
+          body: formdata,
+          redirect: 'follow'
+        };
+        fetch(`${apiUrl}/post/${id[2]}`, requestOptions)
+          .then(response => response.json())
+          .then(result => {
+            if (result.success) {
+              navigate(-1)
+              alert(result.message)
+            } else {
+              alert(result.message)
+            }
+
+          })
+          .catch(error => console.log('error', error));
+      } else {
+        //fun POST
+        var formdatas = new FormData();
+        formdatas.append("image", photo, photo.name);
+        formdatas.append("title", Title);
+        formdatas.append("content", Content);
+        formdatas.append("category", Category);
+
+        var requestOptionss = {
+          method: 'PUT',
+          headers: myHeaders,
+          body: formdatas,
+          redirect: 'follow'
+        };
+        fetch(`${apiUrl}/post/${id[2]}`, requestOptionss)
+          .then(response => response.json())
+          .then(result => {
+            if (result.success) {
+              navigate(-1)
+              alert(result.message)
+            } else {
+              alert(result.message)
+            }
+
+          })
+          .catch(error => console.log('error', error));
+      }
     } else {
-      //fun POST
-      var formdatas = new FormData();
-      formdatas.append("image", photo, photo.name);
-      formdatas.append("title", Title);
-      formdatas.append("content", Content);
-      formdatas.append("category", Category);
-
-      var requestOptionss = {
-        method: 'PUT',
-        headers: myHeaders,
-        body: formdatas,
-        redirect: 'follow'
-      };
-      fetch(`${apiUrl}/post/${id[2]}`, requestOptionss)
-        .then(response => response.json())
-        .then(result => {
-          if (result.success) {
-            navigate(-1)
-            alert(result.message)
-          } else {
-            alert(result.message)
-          }
-
-        })
-        .catch(error => console.log('error', error));
+      alert('Please agree on the terms')
     }
   }
 
-  console.log(Category);
+  //Chick vaof imput img xoa anh cu neu co
+  const delImgLow = () => {
+    if (Img !== 'null') {
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+      var urlencoded = new URLSearchParams();
+      urlencoded.append("nameImg", Img);
+
+      var requestOptions = {
+        method: 'DELETE',
+        headers: myHeaders,
+        body: urlencoded,
+        redirect: 'follow'
+      };
+
+      fetch(apiUrl+"/del-img", requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
+    }
+  }
 
   let body
   if (Loading) {
@@ -180,7 +208,7 @@ const EditPost = () => {
               <div className='CreatePost-title'>
                 <label>Upload file:</label>
               </div>
-              <input type="file" onChange={e => setPhoto(e.target.files[0])} />
+              <input type="file" onChange={e => setPhoto(e.target.files[0])} onClick={delImgLow} />
             </div>
             <div className='CreatePost-container-inputAll'>
               <div className='CreatePost-title'>
@@ -200,7 +228,7 @@ const EditPost = () => {
             </div>
             <div className='CreatePost-container-inputAll'>
               <label className='CreatePost-title'>Accept </label>
-              <input type="checkbox" name="vehicle1" value="Bike" />
+              <input type="checkbox" name="" value="" onChange={() => { setRememberUser(!rememberUser) }} />
             </div>
             <button className='CreatePosts__btn_UpLoad' onClick={uploadPost}>Confirm</button>
           </div>

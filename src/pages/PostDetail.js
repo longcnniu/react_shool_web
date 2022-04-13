@@ -344,7 +344,7 @@ const PostDetail = () => {
     } else {
         body4 = (
             <>
-                <img src={Img} alt={''} />
+                <img className='PostDetail_Img' src={Img} alt={''} />
             </>
         )
     }
@@ -355,7 +355,7 @@ const PostDetail = () => {
             if (UserId === PostUserId || Role === 'admin' || Role === 'qa-manager') {
                 body2 = (
                     <>
-                        <button className='PostDetail-btn-cc' onClick={clickDel}>Xoa</button>
+                        <button className='PostDetail-btn-cc' onClick={clickDel}>Delete</button>
                     </>
                 )
             }
@@ -495,7 +495,7 @@ const PostDetail = () => {
                 if (Role === 'admin' || Role === 'qa-manager') {
                     body2 = (
                         <>
-                            <button onClick={clickDel}>Xoa</button>
+                            <button onClick={clickDel}>Delete</button>
                         </>
                     )
                 }
@@ -554,7 +554,7 @@ const PostDetail = () => {
                 if (UserId === PostUserId || Role === 'admin' || Role === 'qa-manager') {
                     body2 = (
                         <>
-                            <button onClick={clickDel}>Xoa</button>
+                            <button onClick={clickDel}>Delete</button>
                         </>
                     )
                 }

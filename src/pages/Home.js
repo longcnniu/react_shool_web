@@ -277,19 +277,19 @@ const Home = () => {
             const listPost = Posts.map(data => (
                 <div className='post' key={data._id} onClick={clickPostDetail(data)}>
                     <div>
-                        <h4>Name: {data.name}</h4>
+                        {/* <h4>Name: {data.name}</h4> */}
                     </div>
                     {/* <div>
                         <h4>User</h4>
                     </div> */}
+                     <div>
+                        <h4>Title: {data.title}</h4>
+                    </div>
                     <div>
                         <p>Date Submitted: {new Date(data.dateCreate).toLocaleString()}</p>
                     </div>
                     <div>
                         <p>Category: {data.category}</p>
-                    </div>
-                    <div>
-                        <h4>Title: {data.title}</h4>
                     </div>
                     <div className='Home-bottom-card'>
                         <div className='Home-view-number1'>

@@ -13,6 +13,7 @@ const CreatePosts = () => {
     const [Category, setCategory] = useState('')
     const [AllCategory, setAllCategory] = useState([])
     const [photo, setPhoto] = useState('');
+    const [rememberUser, setRememberUser] = useState(false)
 
     //kiểm tra token and đẵ đăng nhập hay chưa
     useEffect(() => {
@@ -70,63 +71,67 @@ const CreatePosts = () => {
 
     //Danwg bai
     const uploadPost = () => {
-        //đoc cookie
-        const cookieValue = document.cookie
-            .split('; ')
-            .find(row => row.startsWith('accessToken='))
-            .split('=')[1];
-        var myHeaders = new Headers();
-        myHeaders.append("token", cookieValue);
-        if (photo === '') {
-            var formdata = new FormData();
-            formdata.append("title", Title);
-            formdata.append("content", Content);
-            formdata.append("category", Category);
+        if (rememberUser) {
+            //đoc cookie
+            const cookieValue = document.cookie
+                .split('; ')
+                .find(row => row.startsWith('accessToken='))
+                .split('=')[1];
+            var myHeaders = new Headers();
+            myHeaders.append("token", cookieValue);
+            if (photo === '') {
+                var formdata = new FormData();
+                formdata.append("title", Title);
+                formdata.append("content", Content);
+                formdata.append("category", Category);
 
-            var requestOptions = {
-                method: 'POST',
-                headers: myHeaders,
-                body: formdata,
-                redirect: 'follow'
-            };
-            fetch(`${apiUrl}/post`, requestOptions)
-                .then(response => response.json())
-                .then(result => {
-                    if (result.success) {
-                        navigate('/?page=1')
-                        alert(result.message)
-                    } else {
-                        alert(result.message)
-                    }
+                var requestOptions = {
+                    method: 'POST',
+                    headers: myHeaders,
+                    body: formdata,
+                    redirect: 'follow'
+                };
+                fetch(`${apiUrl}/post`, requestOptions)
+                    .then(response => response.json())
+                    .then(result => {
+                        if (result.success) {
+                            navigate('/?page=1')
+                            alert(result.message)
+                        } else {
+                            alert(result.message)
+                        }
 
-                })
-                .catch(error => console.log('error', error));
-        } else {
-            //fun POST
-            var formdatas = new FormData();
-            formdatas.append("image", photo, photo.name);
-            formdatas.append("title", Title);
-            formdatas.append("content", Content);
-            formdatas.append("category", Category);
+                    })
+                    .catch(error => console.log('error', error));
+            } else {
+                //fun POST
+                var formdatas = new FormData();
+                formdatas.append("image", photo, photo.name);
+                formdatas.append("title", Title);
+                formdatas.append("content", Content);
+                formdatas.append("category", Category);
 
-            var requestOptionss = {
-                method: 'POST',
-                headers: myHeaders,
-                body: formdatas,
-                redirect: 'follow'
+                var requestOptionss = {
+                    method: 'POST',
+                    headers: myHeaders,
+                    body: formdatas,
+                    redirect: 'follow'
+                }
+                fetch(`${apiUrl}/post`, requestOptionss)
+                    .then(response => response.json())
+                    .then(result => {
+                        if (result.success) {
+                            navigate('/?page=1')
+                            alert(result.message)
+                        } else {
+                            alert(result.message)
+                        }
+
+                    })
+                    .catch(error => console.log('error', error));
             }
-            fetch(`${apiUrl}/post`, requestOptionss)
-                .then(response => response.json())
-                .then(result => {
-                    if (result.success) {
-                        navigate('/?page=1')
-                        alert(result.message)
-                    } else {
-                        alert(result.message)
-                    }
-
-                })
-                .catch(error => console.log('error', error));
+        } else {
+            alert('Please agree on the terms')
         }
     }
 
@@ -171,7 +176,7 @@ const CreatePosts = () => {
                         </div>
                         <div className='CreatePost-container-inputAll'>
                             <label className='CreatePost-title'>Accept </label>
-                            <input type="checkbox" name="vehicle1" value="Bike" />
+                            <input type="checkbox" name="" value="" onChange={() => { setRememberUser(!rememberUser) }} />
                         </div>
                         <button className='CreatePosts__btn_UpLoad' onClick={uploadPost}>Confirm</button>
                     </div>

@@ -85,7 +85,13 @@ const EditPost = () => {
     const id = (window.location.pathname).split('/')
     fetch(`${apiUrl}/post/${id[2]}`, requestOptions)
       .then(response => response.json())
-      .then(result => console.log(result))
+      .then(result => {
+        if (result.success) {
+          setTitle(result.dataPost.title)
+          setContent(result.dataPost.content)
+          setCategory(result.dataPost.category)
+        }
+      })
       .catch(error => console.log('error', error));
   }, [])
 
@@ -96,8 +102,10 @@ const EditPost = () => {
       .split('; ')
       .find(row => row.startsWith('accessToken='))
       .split('=')[1];
+    const id = (window.location.pathname).split('/')
     var myHeaders = new Headers();
     myHeaders.append("token", cookieValue);
+    
     if (photo === '') {
       var formdata = new FormData();
       formdata.append("title", Title);
@@ -105,16 +113,16 @@ const EditPost = () => {
       formdata.append("category", Category);
 
       var requestOptions = {
-        method: 'POST',
+        method: 'PUT',
         headers: myHeaders,
         body: formdata,
         redirect: 'follow'
       };
-      fetch(`${apiUrl}/post`, requestOptions)
+      fetch(`${apiUrl}/post/${id[2]}`, requestOptions)
         .then(response => response.json())
         .then(result => {
           if (result.success) {
-            navigate('/?page=1')
+            navigate(-1)
             alert(result.message)
           } else {
             alert(result.message)
@@ -131,16 +139,16 @@ const EditPost = () => {
       formdatas.append("category", Category);
 
       var requestOptionss = {
-        method: 'POST',
+        method: 'PUT',
         headers: myHeaders,
         body: formdatas,
         redirect: 'follow'
-      }
-      fetch(`${apiUrl}/post`, requestOptionss)
+      };
+      fetch(`${apiUrl}/post/${id[2]}`, requestOptionss)
         .then(response => response.json())
         .then(result => {
           if (result.success) {
-            navigate('/?page=1')
+            navigate(-1)
             alert(result.message)
           } else {
             alert(result.message)
@@ -150,6 +158,8 @@ const EditPost = () => {
         .catch(error => console.log('error', error));
     }
   }
+
+  console.log(Category);
 
   let body
   if (Loading) {
@@ -164,7 +174,7 @@ const EditPost = () => {
               <div className='CreatePost-title'>
                 <label>Title</label>
               </div>
-              <input type='text' name='title' onChange={e => setTitle(e.target.value)} />
+              <input type='text' name='title' onChange={e => setTitle(e.target.value)} value={Title} />
             </div>
             <div className='CreatePost-container-inputAll'>
               <div className='CreatePost-title'>
@@ -176,14 +186,14 @@ const EditPost = () => {
               <div className='CreatePost-title'>
                 <label>Content</label>
               </div>
-              <textarea className='CreatePost-textarea' onChange={e => setContent(e.target.value)} name="w3review" rows="4" cols="50" />
+              <textarea value={Content} className='CreatePost-textarea' onChange={e => setContent(e.target.value)} name="w3review" rows="4" cols="50" />
             </div>
             <div className='CreatePost-container-inputAll'>
               <div className='CreatePost-title'>
                 <label>Category</label>
               </div>
 
-              <select onChange={e => setCategory(e.target.value)}>
+              <select onChange={e => setCategory(e.target.value)} value={Category}>
                 <option value=''></option>
                 {listCategory}
               </select>

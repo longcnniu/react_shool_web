@@ -196,6 +196,11 @@ const Home = () => {
         navigate('/export')
     }
 
+    //ClickPage Revie
+    const clickPageReview = () => {
+        navigate('/review')
+    }
+
     const ClickNextPage = () => {
         const id = (window.location.search).split('=')
         const Page = Number(id[1]) + 1
@@ -221,6 +226,7 @@ const Home = () => {
                 <button className='Home-btn-PageMa' onClick={clickPageAdmin}>Page Admin</button>
                 <button className='Home-btn-PageMa' onClick={clickPageStatistical}>Page Statistical</button>
                 <button className='Home-btn-PageMa' onClick={clickPageExport}>Page Export</button>
+                <button className='Home-btn-PageMa' onClick={clickPageReview}>Review Page</button>
             </>
 
         )
@@ -230,6 +236,7 @@ const Home = () => {
                 <button className='Home-btn-PageMa' onClick={clickPageMa}>Page QA Manager</button>
                 <button className='Home-btn-PageMa' onClick={clickPageStatistical}>Page Statistical</button>
                 <button className='Home-btn-PageMa' onClick={clickPageExport}>Page Export</button>
+                <button className='Home-btn-PageMa' onClick={clickPageReview}>Review Page</button>
             </>
         )
     }
@@ -240,14 +247,14 @@ const Home = () => {
     sort = (
         <>
             <select onChange={e => setSortNumber(e.target.value)}>
-                <option value='0'>Post mới nhất</option>
-                <option value='1'>Post cũ nhất</option>
-                <option value='2'>Post Like Nhiều Nhất</option>
-                <option value='3'>Post Like Thấp Nhất</option>
-                <option value='4'>Post Dislike Nhiều Nhất</option>
-                <option value='5'>Post Dislik Thấp Nhất</option>
-                <option value='6'>Post có View cao</option>
-                <option value='7'>Post có View Thấp</option>
+                <option value='0'>Latest Posts</option>
+                <option value='1'>Oldest post</option>
+                <option value='2'>Post Likes Most</option>
+                <option value='3'>Lowest Post Likes</option>
+                <option value='4'>Most Post Disliked</option>
+                <option value='5'>Lowest Post Dislike</option>
+                <option value='6'>Post with high views</option>
+                <option value='7'>Post with Low View</option>
             </select>
         </>
     )

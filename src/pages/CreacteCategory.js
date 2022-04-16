@@ -60,7 +60,7 @@ const CreacteCategory = () => {
     if (d.getTime() >= dd.getTime()) {
       alert('Time 1 must be less than time 2')
     } else if (d.getTime() < dayNow.getTime()+15*60*1000) {
-      alert('Time 1 must be less than now')
+      alert('Time 1 must be bigger than now')
     } else {
       const cookieValue = document.cookie
         .split('; ')

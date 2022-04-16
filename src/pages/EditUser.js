@@ -148,7 +148,7 @@ const EditUser = () => {
                                 <option value='Marketing'>Marketing</option>
                             </select>
                         </div>
-                        <button className='EditUser__btn' onClick={updateUser}>Xac Nhan</button>
+                        <button className='EditUser__btn' onClick={updateUser}>Confirm</button>
                     </div>
                 </div>
             )
@@ -170,7 +170,7 @@ const EditUser = () => {
                                 <option value='staff'>Staff</option>
                             </select>
                         </div>
-                        <button className='EditUser__btn' onClick={updateUser}>Xac Nhan</button>
+                        <button className='EditUser__btn' onClick={updateUser}>Confirm</button>
                     </div>
                 </div>
             )

@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from "react-router-dom";
 import { apiUrl } from '../contexts/constants';
+import Popup from "reactjs-popup";
 
 const Category = () => {
 
@@ -101,8 +102,11 @@ const Category = () => {
                 .then(response => response.json())
                 .then(result => {
                     if (result.success) {
-                        console.log(result.message);
-                        setchangedCategory(!changedCategory)
+                        if (result.success) {
+                            setchangedCategory(!changedCategory)
+                        } else {
+                            alert(result.message)
+                        }
                     }
                 })
                 .catch(error => console.log('error', error));
@@ -155,6 +159,9 @@ const Category = () => {
                                 </tbody>
                             </table>
                         </div>
+                        <Popup modal trigger={<button>Click Me</button>}>
+                            Modal Content
+                        </Popup>
                     </>
                 )
             } else {

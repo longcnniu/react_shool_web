@@ -63,33 +63,45 @@ const EditCategory = () => {
         //Gửi req token lên server xác thực
         //Change loc TO GM T
         //End Date time 1
+        var dayNow = new Date()
         var d = new Date(endDate)
         var EndTime = d.getUTCFullYear() + '-' + ("0" + (d.getUTCMonth() + 1)).slice(-2) + '-' + ("0" + (d.getUTCDate())).slice(-2) + 'T' + ("0" + (d.getUTCHours())).slice(-2) + ':' + ("0" + (d.getUTCMinutes())).slice(-2)
         //End DDate Time 2
         var dd = new Date(lockDate)
         var LockTime = dd.getUTCFullYear() + '-' + ("0" + (dd.getUTCMonth() + 1)).slice(-2) + '-' + ("0" + (dd.getUTCDate())).slice(-2) + 'T' + ("0" + (dd.getUTCHours())).slice(-2) + ':' + ("0" + (dd.getUTCMinutes())).slice(-2)
         //fun
-        var myHeaders = new Headers();
-        myHeaders.append("token", cookieValue);
-        myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+        if (d.getTime() >= dd.getTime()) {
+            alert('Time 1 must be less than time 2')
+        } else if (d.getTime() < dayNow.getTime() + 15 * 60 * 1000) {
+            alert('Time 1 must be less than now')
+        } else {
+            var myHeaders = new Headers();
+            myHeaders.append("token", cookieValue);
+            myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
-        var urlencoded = new URLSearchParams();
-        urlencoded.append("title", title);
-        urlencoded.append("endDate", EndTime)
-        urlencoded.append("lockDate", LockTime)
+            var urlencoded = new URLSearchParams();
+            urlencoded.append("title", title);
+            urlencoded.append("endDate", EndTime)
+            urlencoded.append("lockDate", LockTime)
 
-        var requestOptions = {
-            method: 'PUT',
-            headers: myHeaders,
-            body: urlencoded,
-            redirect: 'follow'
-        };
+            var requestOptions = {
+                method: 'PUT',
+                headers: myHeaders,
+                body: urlencoded,
+                redirect: 'follow'
+            };
 
-        fetch(`${apiUrl}` + window.location.pathname, requestOptions)
-            .then(response => response.text())
-            .then(result => console.log(result))
-            .catch(error => console.log('error', error));
-
+            fetch(`${apiUrl}` + window.location.pathname, requestOptions)
+                .then(response => response.json())
+                .then(result => {
+                    if (result.success) {
+                        navigate(-1)
+                    } else {
+                        alert(result.message)
+                    }
+                })
+                .catch(error => console.log('error', error));
+        }
     }
 
     //html

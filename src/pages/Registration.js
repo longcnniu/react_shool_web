@@ -142,7 +142,7 @@ const Registration = () => {
                                 <option value='Marketing'>Marketing</option>
                             </select>
                         </div>
-                        <button className='Registration__btn' type="submit" onClick={registration}>Dang ki</button>
+                        <button className='Registration__btn' type="submit" onClick={registration}>Confirm</button>
                     </div>
                 </div>
             )
@@ -193,7 +193,7 @@ const Registration = () => {
                                 <option value='Marketing'>Marketing</option>
                             </select>
                         </div>
-                        <button className='Registration__btn' type="submit" onClick={registration}>Dang ki</button>
+                        <button className='Registration__btn' type="submit" onClick={registration}>Confirm</button>
                     </div>
                 </div>
             )

@@ -44,10 +44,10 @@ function UpdataComment() {
     let body
     body = (
         <div>
-            <div>UpData</div>
+            <div>Edit Comment</div>
             <label>Comment</label>
             <input type='text' onChange={e => setinputComment(e.target.value)}></input>
-            <button onClick={UpdataComment} >Xac Nhat</button>
+            <button onClick={UpdataComment} >Confirm</button>
         </div>
     )
 

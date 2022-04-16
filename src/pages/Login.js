@@ -62,7 +62,6 @@ const Login = () => {
         fetch(`${apiUrl}/login`, requestOptions)
             .then(response => response.json())
             .then(data => {
-                console.log(data.message)
                 if (data.success) {
                 document.cookie = `accessToken= Bearer ${data.accessToken}`;
                      navigate("/?page=1");

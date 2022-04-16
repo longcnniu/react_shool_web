@@ -107,7 +107,7 @@ const Export = () => {
                         {listCategory}
                     </select>
                 </div>
-                <button onClick={ex}>Xuat File</button>
+                <button onClick={ex}>Export File</button>
             </>
         )
     } else {

@@ -87,9 +87,9 @@ const Statistical = () => {
                 <div>
                     <label>Sort chart:</label>
                     <select onChange={e => settyChart(e.target.value)}>
-                        <option value='0'>Ideas theo Department</option>
-                        <option value='1'>% ideas theo Department</option>
-                        <option value='2'>số người đang content theo Department</option>
+                        <option value='0'>Ideas and Department</option>
+                        <option value='1'>% ideas and Department</option>
+                        <option value='2'>content and Department</option>
                     </select>
                 </div>
                 <div className='Statistical-chart'>

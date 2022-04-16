@@ -49,39 +49,49 @@ const CreacteCategory = () => {
 
   const creacteCategory = () => {
     //Change loc TO GM T
+    var dayNow = new Date()
     var d = new Date(endDate)
     var EndTime = d.getUTCFullYear() + '-' + ("0" + (d.getUTCMonth() + 1)).slice(-2) + '-' + ("0" + (d.getUTCDate())).slice(-2) + 'T' + ("0" + (d.getUTCHours())).slice(-2) + ':' + ("0" + (d.getUTCMinutes())).slice(-2)
 
     var dd = new Date(lockDate)
     var LockTime = dd.getUTCFullYear() + '-' + ("0" + (dd.getUTCMonth() + 1)).slice(-2) + '-' + ("0" + (dd.getUTCDate())).slice(-2) + 'T' + ("0" + (dd.getUTCHours())).slice(-2) + ':' + ("0" + (dd.getUTCMinutes())).slice(-2)
 
-    const cookieValue = document.cookie
-      .split('; ')
-      .find(row => row.startsWith('accessToken='))
-      .split('=')[1];
-    //fun
-    var myHeaders = new Headers();
-    myHeaders.append("token", cookieValue);
-    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
-    var urlencoded = new URLSearchParams();
-    urlencoded.append("title", Category);
-    urlencoded.append("endDate", EndTime);
-    urlencoded.append("lockDate", LockTime);
+    if (d.getTime() >= dd.getTime()) {
+      alert('Time 1 must be less than time 2')
+    } else if (d.getTime() < dayNow.getTime()+15*60*1000) {
+      alert('Time 1 must be less than now')
+    } else {
+      const cookieValue = document.cookie
+        .split('; ')
+        .find(row => row.startsWith('accessToken='))
+        .split('=')[1];
+      //fun
+      var myHeaders = new Headers();
+      myHeaders.append("token", cookieValue);
+      myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
-    var requestOptions = {
-      method: 'POST',
-      headers: myHeaders,
-      body: urlencoded,
-      redirect: 'follow'
-    };
+      var urlencoded = new URLSearchParams();
+      urlencoded.append("title", Category);
+      urlencoded.append("endDate", EndTime);
+      urlencoded.append("lockDate", LockTime);
 
-    fetch(`${apiUrl}/category`, requestOptions)
-      .then(response => response.json())
-      .then(result => {
-        console.log(result.message);
-      })
-      .catch(error => console.log('error', error));
+      var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: urlencoded,
+        redirect: 'follow'
+      };
+
+      fetch(`${apiUrl}/category`, requestOptions)
+        .then(response => response.json())
+        .then(result => {
+          if (result.success) {
+            navigate(-1)
+          }
+        })
+        .catch(error => console.log('error', error));
+    }
   }
 
   //html

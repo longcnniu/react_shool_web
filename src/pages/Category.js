@@ -2,7 +2,10 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from "react-router-dom";
 import { apiUrl } from '../contexts/constants';
-import Popup from "reactjs-popup";
+// import Popup from "reactjs-popup";
+import 'reactjs-popup/dist/index.css';
+import Dialog from "../contexts/Dialog.js";
+
 
 const Category = () => {
 
@@ -12,6 +15,33 @@ const Category = () => {
     const [ViewCategorys, setViewCategorys] = useState([])
     const [changedCategory, setchangedCategory] = useState(false)
     const [changedListCategory, setchangedListCategory] = useState(false)
+
+    const [dialog, setDialog] = useState({
+        isLoading: false,
+        id: '',
+        title: ''
+    });
+
+    const handleDialog = (isLoading,id,title) => {
+        setDialog({
+            isLoading,
+            id,
+            title
+        });
+    };
+
+    const handleDelete = (id,title) => {
+        handleDialog(true,id,title);
+    };
+
+    const areUSureDelete = (choose) => {
+        if (choose) {
+            setchangedCategory(!changedCategory)
+            handleDialog("", false);
+        } else {
+            handleDialog("", false);
+        }
+    };
 
     //kiểm tra token and đẵ đăng nhập hay chưa vs cos phải là Admin or QA
     useEffect(() => {
@@ -80,39 +110,6 @@ const Category = () => {
         navigate('/creacte-category')
     }
 
-    function click(data) {
-        return (event) => {
-            //đoc cookie
-            const cookieValue = document.cookie
-                .split('; ')
-                .find(row => row.startsWith('accessToken='))
-                .split('=')[1];
-
-            //Gửi req token lên server xác thực
-            var myHeaders = new Headers();
-            myHeaders.append("token", cookieValue);
-            //fun req
-            var requestOptions = {
-                method: 'DELETE',
-                headers: myHeaders,
-                redirect: 'follow'
-            };
-
-            fetch(`${apiUrl}/category/` + data._id, requestOptions)
-                .then(response => response.json())
-                .then(result => {
-                    if (result.success) {
-                        if (result.success) {
-                            setchangedCategory(!changedCategory)
-                        } else {
-                            alert(result.message)
-                        }
-                    }
-                })
-                .catch(error => console.log('error', error));
-        }
-    }
-
     const clickRefrc = () => {
         setchangedListCategory(!changedListCategory)
     }
@@ -137,7 +134,7 @@ const Category = () => {
                         <td>{new Date(data.lockDate).toLocaleString()}</td>
                         <td>
                             <button className='btn-edit' onClick={clickEdit(data)}>Edit</button>
-                            <button className='btn-del' onClick={click(data)}>Delete</button>
+                            <button className='btn-del' onClick={() => handleDelete(data._id,data.title)}>Delete</button>
                         </td>
                     </tr>
                 ))
@@ -159,9 +156,14 @@ const Category = () => {
                                 </tbody>
                             </table>
                         </div>
-                        <Popup modal trigger={<button>Click Me</button>}>
-                            Modal Content
-                        </Popup>
+                        {dialog.isLoading && (
+                            <Dialog
+                                //Update
+                                onDialog={areUSureDelete}
+                                id={dialog.id}
+                                title={dialog.title}
+                            />
+                        )}
                     </>
                 )
             } else {

@@ -16,6 +16,7 @@ import Statistical from "./pages/Statistical";
 import Export from "./pages/Export";
 import UpdataComment from "./pages/UpdataComment";
 import Review from "./pages/Review";
+import PostDetailReview from "./pages/PostDetailReview";
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
       <Route path="/export" element={<Export/>}/>
 
       <Route path="/review" element={<Review/>}/>
+      <Route path="/post-review/:id" element={<PostDetailReview/>}/>
 
       <Route path='*' element={<NotFound/>}/>
     </Routes>

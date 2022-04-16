@@ -249,7 +249,7 @@ const PostDetail = () => {
             .then(result => {
                 if (result.success) {
                     console.log("thanh cong");
-                    navigate('/')
+                    navigate('/?page=1')
                 } else {
                     console.log(result);
                 }

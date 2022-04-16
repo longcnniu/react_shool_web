@@ -126,7 +126,7 @@ const EditPost = () => {
           .then(response => response.json())
           .then(result => {
             if (result.success) {
-              navigate(-1)
+              navigate('/?page=1')
               alert(result.message)
             } else {
               alert(result.message)

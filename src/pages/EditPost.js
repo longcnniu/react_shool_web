@@ -197,7 +197,7 @@ const EditPost = () => {
       body = (
         <div className='CreatePost-Main'>
           <div className='CreatePost-container'>
-            <h3>Create Post</h3>
+            <h3>Edit Post</h3>
             <div className='CreatePost-container-inputAll'>
               <div className='CreatePost-title'>
                 <label>Title</label>
@@ -227,7 +227,7 @@ const EditPost = () => {
               </select>
             </div>
             <div className='CreatePost-container-inputAll'>
-              <label className='CreatePost-title'>Accept </label>
+              <label className='CreatePost-title'>Accept with term of condition</label>
               <input type="checkbox" name="" value="" onChange={() => { setRememberUser(!rememberUser) }} />
             </div>
             <button className='CreatePosts__btn_UpLoad' onClick={uploadPost}>Confirm</button>

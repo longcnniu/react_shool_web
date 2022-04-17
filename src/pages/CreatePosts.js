@@ -175,7 +175,7 @@ const CreatePosts = () => {
                             </select>
                         </div>
                         <div className='CreatePost-container-inputAll'>
-                            <label className='CreatePost-title'>Accept </label>
+                            <label className='CreatePost-title'>Accept with term of condition</label>
                             <input type="checkbox" name="" value="" onChange={() => { setRememberUser(!rememberUser) }} />
                         </div>
                         <button className='CreatePosts__btn_UpLoad' onClick={uploadPost}>Confirm</button>

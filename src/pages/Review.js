@@ -114,7 +114,7 @@ const Home = () => {
   const ClickNextPage = () => {
     const id = (window.location.search).split('=')
     const Page = Number(id[1]) + 1
-    navigate(`/?page=${Page}`)
+    navigate(`/review/?page=${Page}`)
     setChangePage(!ChangePage)
     setPageNumber(PageNumber + 1)
   }
@@ -122,7 +122,7 @@ const Home = () => {
   const ClickBackPage = () => {
     const id = (window.location.search).split('=')
     const Page = Number(id[1]) - 1
-    navigate(`/?page=${Page}`)
+    navigate(`/review/?page=${Page}`)
     setChangePage(!ChangePage)
     setPageNumber(PageNumber - 1)
   }

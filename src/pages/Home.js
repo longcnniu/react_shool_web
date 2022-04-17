@@ -198,7 +198,7 @@ const Home = () => {
 
     //ClickPage Revie
     const clickPageReview = () => {
-        navigate('/review')
+        navigate('/review/?page=1')
     }
 
     const ClickNextPage = () => {

@@ -180,7 +180,7 @@ const PostDetailReview = () => {
 
     body2 = (
         <>
-            <button className='PostDetail-btn-cc' onClick={clickDel}>Delete</button>
+            <button className='PostDetail-btn-cc' onClick={clickDel}>Reject</button>
         </>
     )
 

@@ -226,7 +226,7 @@ const Home = () => {
                 <button className='Home-btn-PageMa' onClick={clickPageAdmin}>Page Admin</button>
                 <button className='Home-btn-PageMa' onClick={clickPageStatistical}>Page Statistical</button>
                 <button className='Home-btn-PageMa' onClick={clickPageExport}>Page Export</button>
-                <button className='Home-btn-PageMa' onClick={clickPageReview}>Review Page</button>
+                <button className='Home-btn-PageMa' onClick={clickPageReview}>Page Review</button>
             </>
 
         )
@@ -236,7 +236,7 @@ const Home = () => {
                 <button className='Home-btn-PageMa' onClick={clickPageMa}>Page QA Manager</button>
                 <button className='Home-btn-PageMa' onClick={clickPageStatistical}>Page Statistical</button>
                 <button className='Home-btn-PageMa' onClick={clickPageExport}>Page Export</button>
-                <button className='Home-btn-PageMa' onClick={clickPageReview}>Review Page</button>
+                <button className='Home-btn-PageMa' onClick={clickPageReview}>Page Review</button>
             </>
         )
     }
